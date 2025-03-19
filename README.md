@@ -4,7 +4,7 @@ Synopsis: Develop a fun and interactive application that provides students with 
 
 Key Features:
 
-Personalized study tips and advice
+\nPersonalized study tips and advice
 Motivational quotes tailored to students
 Fun predictions to keep students engaged
 Progress tracking to tailor messages
