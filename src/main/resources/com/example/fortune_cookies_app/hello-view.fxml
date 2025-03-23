@@ -12,6 +12,9 @@
         <Button text="Button 2" textFill="#ab9931" />
         <Button text="Button 3" textFill="#265fda" />
     </HBox>
+
+    <!-- Testing Git -->
+    <Label text="This is a a label wow!" />
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
