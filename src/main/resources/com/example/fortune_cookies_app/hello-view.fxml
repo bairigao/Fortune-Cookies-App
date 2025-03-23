@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<VBox alignment="CENTER" spacing="15.0" fillWidth="false">
-    <TextField text="TextField"/>
-    <Label text="Label"/>
-    <HBox spacing="15.0" alignment="CENTER">
-        <Button text="Button 1"/>
-        <Button text="Button 2"/>
-        <Button text="Button 3"/>
+<VBox alignment="CENTER" fillWidth="false" prefHeight="193.0" prefWidth="279.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <TextField alignment="CENTER" text="Primary Colours " />
+    <Label text="Label" />
+    <HBox alignment="CENTER" spacing="15.0">
+        <Button text="Button 1" textFill="#ff1f1f" />
+        <Button text="Button 2" textFill="#ab9931" />
+        <Button text="Button 3" textFill="#265fda" />
     </HBox>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
 <!--    <padding>-->
 <!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
 <!--    </padding>-->
