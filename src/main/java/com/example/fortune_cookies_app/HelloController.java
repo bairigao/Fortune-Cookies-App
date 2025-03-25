@@ -45,7 +45,7 @@ public class HelloController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to Fortune Cookie Application!");
+        welcomeText.setText("Welcome, to Fortune Cookie Application!");
     }
 
     @FXML
