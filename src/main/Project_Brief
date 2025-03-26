@@ -1,0 +1,49 @@
+rack On Cookies
+Organization GUI built for time management and personal efficiency with personalised support and encouragement delivered by integrated AI.
+Min Reqs.
+Login
+    -	Functioning GUI
+    -	Create Account
+    -	User Data storage
+    -	Access
+
+Data Storage
+
+Calendar
+    -	Functioning GUI (Third party Calendar??? ‘Jcalendar’ for example?? Make from scratch??) – Check with teaching team
+    -	Calendar inputs locked to User Data
+        o	Click a date –  Write a title ‘likely all the ai draws from’ – any additional information.
+        o	Dates of applicable importance for the AI cookier generator to draw information from. ‘If no data, just sends motivational messages??’
+Integrated AI system
+    -	Send daily Efficiency/Motivational messages
+        o	Min req probably set to once per login. ‘Eliminate ability to repeat messages/topics’
+
+
+Max Reqs.
+Login
+    -	Functioning GUI
+    -	Create Account
+    -	User Data storage
+    -	Access
+
+Data Storage
+
+Calendar
+    -	Functioning GUI (Third party Calendar??? ‘Jcalendar’ for example?? Make from scratch??) – Check with teaching team
+    -	Calendar inputs locked to User Data
+        o	Click a date –  Write a title ‘likely all the ai draws from’ – any additional information.
+        o	Dates of applicable importance for the AI cookier generator to draw information from. ‘If no data, just sends motivational messages??’
+        o	*Expansion of calendar data functionality
+            	Priority/importance of date/activity
+            	Weekly repeatable activities/study schedule
+            	Data/date inputs that the AI won’t draw information from??
+Integrated AI system
+    -	GUI for messages – pop up window?? – window integrated into the calendar??
+    -	Send daily Efficiency/Motivational messages
+        o	Sends One message per day, irrelevant of additional logins. ‘Integrate a system to request another message’?
+        o	Expansion of response structure based on the expansion of data provided in the calendar.
+            	No repeat messages to avoid pressuring the user?
+            	Allow repeat messages for upcoming dates identified as important.
+            	Message amalgamation of study/schedule and upcoming date?
+                •	‘Time to crack on with some CAB 203 study today. Don’t forget your due date on Friday 28th for MXB101’
+            	Throw in just plain old motivation messages on days of little importance??
