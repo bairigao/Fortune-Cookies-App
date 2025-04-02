@@ -11,6 +11,6 @@ assignees: ''
 As a [type of user], I want [goal] so that [reason].  
 
 **Acceptance Criteria:**  
-- [ ] Feature
-- [ ] UI
-- [ ] Backend
+- [ ] Given
+- [ ] When
+- [ ] Then
