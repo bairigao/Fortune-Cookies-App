@@ -19,7 +19,6 @@
 - Functioning GUI for calendar management.
   - Options:
     - Use a third-party library (e.g., JCalendar).
-    - Build the calendar from scratch (check with the teaching team).  
 - Calendar inputs linked to user data:
   - Clicking a date allows the user to write a title (e.g., for AI content generation).
   - Store additional information tied to specific dates.
