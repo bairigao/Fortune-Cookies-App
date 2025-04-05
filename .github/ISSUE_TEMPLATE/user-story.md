@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **User Story**  
-As a [type of user], I want [goal] so that [reason].  
+As a user, I want so that .  
 
 **Acceptance Criteria:**  
 - [ ] Given
