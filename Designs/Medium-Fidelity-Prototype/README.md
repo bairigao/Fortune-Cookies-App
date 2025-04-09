@@ -19,7 +19,8 @@ Changed the look of the Calendar home page so that it focuses on the AI aspects 
 ![CAB302_medfid2](https://github.com/user-attachments/assets/b6526db7-ab45-41a4-8e8f-6d23a55f399c)
 
 Final Medium Fidelity Prototype
-![CAB302_medfid1](https://github.com/user-attachments/assets/fe4ed4d6-eacc-475a-911e-dee2d22ce101)
+![CAB302_medfid](https://github.com/user-attachments/assets/8f8c2250-538f-4a44-a79c-dadb9c3318be)
 - Rearranged the designs to be more readable overall + added the related user stories for the specific designs
 - Added an option to choose what month is displayed
 - Added an option to mask tasks as done
+- Removed email requirement for signup as it is not needed
