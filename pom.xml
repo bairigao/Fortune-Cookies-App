@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.fortune_cookies_app/com.example.fortune_cookies_app.HelloApplication
+                                com.example.fortune_cookies_app/com.example.fortune_cookies_app.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

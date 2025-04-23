@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.ImageView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.fortune_cookies_app.controller.CalendarController"
+            prefWidth="900.0" prefHeight="600.0">
+
+    <!-- Header Area -->
+    <HBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="15">
+        <!-- Month Label with border -->
+        <StackPane>
+            <Rectangle width="160" height="50" stroke="black" fill="white"/>
+            <Label fx:id="monthLabel" text="MONTH" style="-fx-font-size: 28px; -fx-font-weight: bold;" />
+        </StackPane>
+
+        <Pane HBox.hgrow="ALWAYS"/> <!-- Spacer -->
+
+        <!-- User info -->
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Label fx:id="usernameLabel" text="USER123"/>
+            <StackPane>
+                <Rectangle width="30" height="30" arcWidth="15" arcHeight="15" fill="#CCCCCC"/>
+                <ImageView fx:id="avatarIcon" fitWidth="20" fitHeight="20"/>
+            </StackPane>
+        </HBox>
+    </HBox>
+
+    <!-- Main Content Area -->
+    <HBox spacing="20" AnchorPane.topAnchor="80" AnchorPane.leftAnchor="15" AnchorPane.rightAnchor="15" AnchorPane.bottomAnchor="60">
+        <!-- Left Side (Calendar) -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS" maxWidth="600">
+            <!-- Daily AI Message Panel -->
+            <VBox spacing="5">
+                <Label text="DAILY AI MESSAGE:"/>
+                <TextArea fx:id="dailyMessage" wrapText="true" editable="false" prefRowCount="2"/>
+            </VBox>
+
+            <!-- Calendar Container -->
+            <VBox VBox.vgrow="ALWAYS">
+                <!-- Days of Week Header -->
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="MONDAY" GridPane.columnIndex="0" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="TUESDAY" GridPane.columnIndex="1" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="WEDNESDAY" GridPane.columnIndex="2" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="THURSDAY" GridPane.columnIndex="3" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="FRIDAY" GridPane.columnIndex="4" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="SATURDAY" GridPane.columnIndex="5" alignment="CENTER" maxWidth="Infinity" />
+                        <Label text="SUNDAY" GridPane.columnIndex="6" alignment="CENTER" maxWidth="Infinity" />
+                    </children>
+                </GridPane>
+
+                <!-- Calendar Grid - will be populated dynamically -->
+                <GridPane fx:id="calendarGrid" VBox.vgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+        </VBox>
+
+        <!-- Right Side (Study Tips and Buttons) -->
+        <VBox spacing="10" prefWidth="300">
+            <!-- Study Tips Panel -->
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <Label text="STUDY TIPS OF THE DAY" alignment="CENTER" maxWidth="Infinity"/>
+                <ListView fx:id="studyTipsList" VBox.vgrow="ALWAYS"/>
+            </VBox>
+            <!-- Action Buttons -->
+            <Button fx:id="savedMessagesButton" text="SAVED MESSAGES" maxWidth="Infinity" prefHeight="40"/>
+            <Button fx:id="addEventButton" text="ADD EVENT" maxWidth="Infinity" prefHeight="40"/>
+        </VBox>
+    </HBox>
+
+    <!-- Footer -->
+    <HBox spacing="10" AnchorPane.bottomAnchor="15" AnchorPane.leftAnchor="15" AnchorPane.rightAnchor="15">
+        <!-- Logo Button -->
+        <ImageView fx:id="logoImage" fitWidth="100" fitHeight="40"/>
+
+        <!-- Trophy Status -->
+        <HBox spacing="5" alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label text="🏆"/>
+            <Label fx:id="trophyStatus" text="LOGGED IN 6 DAYS IN A ROW, NEXT TROPHY: IN 1 DAY"/>
+        </HBox>
+    </HBox>
+
+</AnchorPane>

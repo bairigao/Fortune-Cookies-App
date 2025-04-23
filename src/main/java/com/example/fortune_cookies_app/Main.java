@@ -7,13 +7,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
-    public static final String TITLE = "Address Book";
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 360;
+public class Main extends Application {
+    public static final String TITLE = "Fortune Cookies";
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 700;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Calendar.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
