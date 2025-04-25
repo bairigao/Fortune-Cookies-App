@@ -13,12 +13,12 @@
         </font></Label>
     <VBox prefHeight="135.0" prefWidth="275.0">
         <children>
-            <Label prefHeight="9.0" prefWidth="210.0" text="Username">
+            <Label prefHeight="9.0" prefWidth="210.0" text="Email">
                 <font>
                     <Font name="Lucida Sans Unicode" size="16.0" />
                 </font>
             </Label>
-            <TextField fx:id="loginUsername" prefHeight="0.0" prefWidth="275.0" promptText="Username" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+            <TextField fx:id="loginEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
                 <font>
                     <Font size="14.0" />
                 </font></TextField>

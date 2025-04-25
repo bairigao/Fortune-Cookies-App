@@ -1,8 +1,6 @@
 package com.example.fortune_cookies_app;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
@@ -32,12 +30,14 @@ public class LoginController {
     }
 
     //changes scene to login screen
+    @FXML
     protected void toLogin() throws IOException {
         Login loginScreen = new Login();
         loginScreen.changeScene("login-view.fxml");
     }
 
     //changes scene to sign up
+    @FXML
     protected void toSignUp() throws IOException {
         Login loginScreen = new Login();
         loginScreen.changeScene("signup-view.fxml");
