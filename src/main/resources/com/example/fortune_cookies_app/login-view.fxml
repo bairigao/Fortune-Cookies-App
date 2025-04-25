@@ -5,19 +5,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.LoginController">
+
     <Label alignment="CENTER" prefHeight="178.0" prefWidth="383.0" text="LOGO">
         <font>
             <Font name="Fira Code Bold" size="96.0" />
         </font></Label>
     <VBox prefHeight="135.0" prefWidth="275.0">
         <children>
-            <Label prefHeight="9.0" prefWidth="210.0" text="Username">
+            <Label prefHeight="9.0" prefWidth="210.0" text="Email">
                 <font>
                     <Font name="Lucida Sans Unicode" size="16.0" />
                 </font>
             </Label>
-            <TextField prefHeight="0.0" prefWidth="275.0" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+            <TextField fx:id="loginEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
                 <font>
                     <Font size="14.0" />
                 </font></TextField>
@@ -26,19 +27,19 @@
                     <Font name="Lucida Sans Unicode" size="16.0" />
                 </font>
             </Label>
-            <TextField accessibleRole="PASSWORD_FIELD" prefHeight="0.0" prefWidth="275.0" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+            <PasswordField fx:id="loginPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
                 <font>
                     <Font size="14.0" />
-                </font></TextField>
+                </font></PasswordField>
         </children>
     </VBox>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">
         <children>
-            <Button graphicTextGap="2.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="LOGIN" wrapText="true">
+            <Button fx:id="checkLogin" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="LOGIN" wrapText="true">
                 <font>
                     <Font name="System Bold" size="16.0" />
                 </font></Button>
-            <Button graphicTextGap="2.0" mnemonicParsing="false" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="SIGN UP" wrapText="true">
+            <Button fx:id="toSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onSignupClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="SIGN UP" wrapText="true">
                 <VBox.margin>
                     <Insets />
                 </VBox.margin>

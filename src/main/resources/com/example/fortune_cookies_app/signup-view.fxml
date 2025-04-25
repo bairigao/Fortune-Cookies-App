@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.LoginController">
+    <Label alignment="CENTER" prefHeight="157.0" prefWidth="383.0" text="LOGO">
+        <font>
+            <Font name="Fira Code Bold" size="96.0" />
+        </font></Label>
+    <VBox prefHeight="336.0" prefWidth="275.0">
+        <children>
+            <Label prefHeight="9.0" prefWidth="210.0" text="First Name">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="firstName" prefHeight="0.0" prefWidth="275.0" promptText="First Name" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+                <font>
+                    <Font size="14.0" />
+                </font></TextField>
+            <Label prefHeight="9.0" prefWidth="210.0" text="Last Name">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="lastName" prefHeight="0.0" prefWidth="275.0" promptText="Last Name" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+                <font>
+                    <Font size="14.0" />
+                </font></TextField>
+            <Label prefHeight="9.0" prefWidth="210.0" text="Email">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="newEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+                <font>
+                    <Font size="14.0" />
+                </font></TextField>
+            <Label prefHeight="0.0" prefWidth="210.0" text="Password">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <PasswordField fx:id="newPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+                <font>
+                    <Font size="14.0" />
+                </font></PasswordField>
+            <Label prefHeight="0.0" prefWidth="210.0" text="Confirm Password">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <PasswordField fx:id="confirmPassword" prefHeight="0.0" prefWidth="275.0" promptText="Confirm Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+                <font>
+                    <Font size="14.0" />
+                </font></PasswordField>
+        </children>
+    </VBox>
+    <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">
+        <children>
+            <Button fx:id="confirmSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onSignupConfirm" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="CONFIRM" wrapText="true">
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font></Button>
+            <Button fx:id="toLogin" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="BACK" wrapText="true">
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="16.0" />
+                </font></Button>
+        </children></VBox>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+    <!--    <padding>-->
+    <!--        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>-->
+    <!--    </padding>-->
+</VBox>
