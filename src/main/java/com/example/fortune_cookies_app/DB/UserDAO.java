@@ -8,7 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 
 public class UserDAO {
-    private Connection connection = null;
+    private final Connection connection;
 
     public UserDAO() {
         this.connection = SqliteConnection.getInstance();
