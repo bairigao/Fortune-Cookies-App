@@ -1,0 +1,32 @@
+### Low Fidelity Prototype Sketches
+
+First Low Fidelity Design
+![CAB302_lowfid2](https://github.com/user-attachments/assets/2cad492a-2884-4b7c-a2b8-3cc8686e17c6)
+Simple GUI design, bare minimum of the main screens layouts
+- Start up 
+- Sign up 
+- Log in 
+- AI message upon login of existing user
+- Basic calendar home screen
+- Add event to calendar 
+- Click a day to view events on that day 
+- Edit existing events of that day
+
+
+Final Low Fidelity Design
+![CAB302_lowfid1](https://github.com/user-attachments/assets/44ded187-5b90-4bde-b811-94ef03260206)
+- Coloured buttons to be more readable
+- Option to save AI message added
+- Option to view saved messages added 
+- Reward/Trophy system bar on home page as part of the main things the user should see upon landing on that screen, a streak counter bar that is subject to change
+- View trophies added
+- Added study tips on home screen with calendar 
+- Added the option to add events when clicking on a day (still available to create while on home calendar screen) 
+- User log out added
+- User change password added
+- Events on the days layout changed to accommodate multiple events on a day
+- Add new event layout a bit more fleshed out to include asking what the subject the student is inputting will be and the due date of that subject
+- Added the option to select preference of how often the AI messages appear for specific events (was between customising this during sign up or at event creation) 
+![lf4](https://github.com/user-attachments/assets/d4e20f42-55d5-424b-97ea-074ce2ee704b)
+eation) 
+
