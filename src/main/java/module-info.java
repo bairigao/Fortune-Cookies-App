@@ -1,6 +1,7 @@
 module com.example.fortune_cookies_app {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.example.fortune_cookies_app to javafx.fxml;

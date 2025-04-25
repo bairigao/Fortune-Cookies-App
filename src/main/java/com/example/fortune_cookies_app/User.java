@@ -1,25 +1,25 @@
 package com.example.fortune_cookies_app;
 
-public class Contact {
-    private int id;
+
+import com.example.fortune_cookies_app.DB.UserDAO;
+
+import java.time.LocalDate;
+
+public class User {
+
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private String password;
+    private LocalDate lastLogin;
+    private int id;
 
-    public Contact(String firstName, String lastName, String email, String phone) {
+    public User(String firstName, String lastName, String email, String password){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phone = phone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int autoIncrementedId) {
-        this.id = id;
+        this.password = password;
+        this.lastLogin = LocalDate.now();
     }
 
     public String getFirstName() {
@@ -28,6 +28,22 @@ public class Contact {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public LocalDate getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LocalDate lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getLastName() {
@@ -44,17 +60,5 @@ public class Contact {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return  phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
     }
 }
