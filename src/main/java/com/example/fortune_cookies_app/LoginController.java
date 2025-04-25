@@ -1,24 +1,12 @@
 package com.example.fortune_cookies_app;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 public class LoginController {
-
-    @FXML
-    private TextField loginUsername;
-    @FXML
-    private PasswordField loginPassword;
-    @FXML
-    private TextField newUsername;
-    @FXML
-    private PasswordField newPassword;
-    @FXML
-    private PasswordField confirmPassword;
 
     //change where the buttons will lead the user accordingly later,
     //currently only leads from login to signup and vice versa
