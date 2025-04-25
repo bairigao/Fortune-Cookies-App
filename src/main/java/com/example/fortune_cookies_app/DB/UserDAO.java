@@ -53,10 +53,14 @@ public class UserDAO {
         String query = "SELECT password FROM users WHERE email = ?";
         try{
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, String.valueOf(email));
+            statement.setString(1, email.getText());
             ResultSet result = statement.executeQuery();
             if (result.next()){
-                return password.equals(result.getString("password"));
+                String storedPassword = result.getString("password");
+                String enteredPassword = password.getText();
+
+                // Compare the entered password with the stored password
+                return enteredPassword.equals(storedPassword);
             }
         } catch (Exception e){
             e.printStackTrace();

@@ -2,9 +2,13 @@ package com.example.fortune_cookies_app;
 
 import com.example.fortune_cookies_app.DB.UserDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -50,6 +54,7 @@ public class LoginController {
         String password = newPassword.getText();
         String confirm = confirmPassword.getText();
 
+        // Ensure all fields are filled in, and passwords match
         if(!fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirm.isEmpty() && password.equals(confirm)){
             User user = new User(fname, lname, email, password);
             userDAO.createUser(user);
@@ -72,8 +77,24 @@ public class LoginController {
 
     }
 
-    protected void toCalendar(){
-        Stage calendarStage = new Stage();
+    protected void toCalendar() throws IOException {
+            FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("calendar-view.fxml"));
+            Parent calendarRoot = calendarLoader.load();
+
+            // Create a new scene with the loaded FXML
+            Scene calendarScene = new Scene(calendarRoot);
+
+            // Get the current stage (window)
+            Stage primaryStage = (Stage) loginEmail.getScene().getWindow();
+
+            // Set the new scene on the primary stage
+            primaryStage.setScene(calendarScene);
+
+            // Optionally, you can also set the window title
+            primaryStage.setTitle("Calendar");
+
+            // Show the new scene
+            primaryStage.show();
     }
 
 }
