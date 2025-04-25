@@ -8,7 +8,7 @@ public class Event {
     private String eventName;
     private String eventDescription = null;
     private int importance;
-    private int userId;
+    private final int userId;
 
     public Event(LocalDate date, String eventName, String eventDescription, int importance, int userId){
         this.date = date;
@@ -59,5 +59,13 @@ public class Event {
 
     public String getUserId() {
         return String.valueOf(userId);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -24,6 +24,14 @@ public class CalendarMainController {
     @FXML private GridPane calendarGrid;
     @FXML private VBox sidebarPane;
 
+    private User user;
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     //logic for the month header
     private YearMonth currentMonth = YearMonth.now();
     private StackPane selctedCell = null;
@@ -120,4 +128,5 @@ public class CalendarMainController {
 
 
     }
+
 }

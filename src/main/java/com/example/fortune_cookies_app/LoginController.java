@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
     public TextField loginEmail;
@@ -32,10 +33,15 @@ public class LoginController {
         toSignUp();
     }
 
-    //when Login button is clicked on Login screen
-    public void onLoginClick() throws IOException {
-        if (userDAO.login(loginEmail, loginPassword)){
-            toCalendar();
+    /** Pulls email & password from relevant fields, passing those to the login method to log the user in
+     * @throws IOException
+     * @throws SQLException
+     */
+    public void onLoginClick() throws IOException, SQLException {
+        String email = loginEmail.getText();
+        String password = loginPassword.getText();
+        if (userDAO.login(email, password)){
+            toCalendar(userDAO.getUser(email));
         }
     }
 
@@ -44,6 +50,9 @@ public class LoginController {
         toLogin();
     }
 
+    /** Pulls data from relevant fields and creates a new user object, inserting that user into the database
+     * @throws IOException
+     */
     //when Sign Up button is clicked on Signup screen
     public void onSignupConfirm() throws IOException {
         String fname = firstName.getText();
@@ -53,7 +62,12 @@ public class LoginController {
         String confirm = confirmPassword.getText();
 
         // Ensure all fields are filled in, and passwords match
-        if(!fname.isEmpty() && !lname.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirm.isEmpty() && password.equals(confirm)){
+        if (!fname.isEmpty() &&
+                !lname.isEmpty() &&
+                !email.isEmpty() &&
+                !password.isEmpty() &&
+                !confirm.isEmpty() &&
+                password.equals(confirm)) {
             User user = new User(fname, lname, email, password);
             userDAO.createUser(user);
             toLogin();
@@ -75,23 +89,27 @@ public class LoginController {
 
     }
 
-    protected void toCalendar() throws IOException {
+    /**
+     * This method transitions the user to the calendar upon successful login
+     * @param user User that is passed to the calendar controller - used to populate the calendar & create new events
+     * @throws IOException
+     */
+    protected void toCalendar(User user) throws IOException {
             FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("calendar-view.fxml"));
-            Parent calendarRoot = calendarLoader.load();
 
-            // Create a new scene with the loaded FXML
+            Parent calendarRoot = calendarLoader.load();
+            CalendarMainController calendarController = calendarLoader.getController();
+
+            calendarController.setUser(user);
+
             Scene calendarScene = new Scene(calendarRoot);
 
-            // Get the current stage (window)
             Stage primaryStage = (Stage) loginEmail.getScene().getWindow();
 
-            // Set the new scene on the primary stage
             primaryStage.setScene(calendarScene);
 
-            // Optionally, you can also set the window title
             primaryStage.setTitle("Calendar");
 
-            // Show the new scene
             primaryStage.show();
     }
 
