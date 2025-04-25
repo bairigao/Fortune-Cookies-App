@@ -24,6 +24,7 @@ public class Login extends Application {
         loginStage.show();
     }
 
+    //used to change scenes based on given fxml file name
     public void changeScene(String fxml) throws IOException {
         Parent base = FXMLLoader.load(getClass().getResource(fxml));
         setStage.getScene().setRoot(base);
@@ -32,5 +33,5 @@ public class Login extends Application {
     public static void main(String[] args) {
         launch();
     }
-    }
+}
 
