@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.fortune_cookies_app.CalendarMainController">
+
+    <!-- top header contains the month change function. will likely also hold the 'profile' function and app logo-->
+    <top>
+        <GridPane hgap="10" vgap="10" alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="33"/>
+                <ColumnConstraints percentWidth="34"/>
+                <ColumnConstraints percentWidth="33"/>
+            </columnConstraints>
+
+            <Label text="&lt;" fx:id="previousMonth" GridPane.columnIndex="0" GridPane.halignment="RIGHT"/>
+            <Label text="Month YYYY" fx:id="monthLabel" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
+            <Label text="&gt;" fx:id="nextMonth" GridPane.columnIndex="2" GridPane.halignment="LEFT"/>
+        </GridPane>
+    </top>
+
+    <!-- hbox split into three sections. left holds the calendar middle holds a small dividing line and the right holds
+     the import functionality for the sidebar-->
+    <center>
+        <HBox spacing="0">
+
+            <!-- vbob config for to hold the calendar-->
+            <VBox spacing="10" minWidth="800">
+                <HBox.hgrow>
+                    <Priority fx:constant="ALWAYS"/>
+                </HBox.hgrow>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <!-- list of days of the week held in a hbox at the top of the vbox -->
+                <HBox spacing="10" alignment="CENTER">
+                    <children>
+                        <Label text="Sun" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Mon" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Tue" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Wed" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Thu" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Fri" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                        <Label text="Sat" style="-fx-font-size: 16;" maxWidth="Infinity" alignment="CENTER">
+                            <HBox.hgrow><Priority fx:constant="ALWAYS"/></HBox.hgrow>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- some spacing config for the numbers in the calendar -->
+                <GridPane fx:id="calendarGrid" hgap="10" vgap="10" alignment="CENTER">
+                    <VBox.vgrow><Priority fx:constant="ALWAYS"/></VBox.vgrow>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                        <RowConstraints vgrow="ALWAYS"/>
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
+
+            <!-- Divider line -->
+            <Pane prefWidth="2" maxWidth="2" minWidth="2">
+                <HBox.hgrow><Priority fx:constant="NEVER"/></HBox.hgrow>
+                <style>
+                    -fx-background-color: #cccccc;
+                </style>
+            </Pane>
+
+            <!-- a hold for the sidebar. will interact with other files to control what appears in the sidebar -->
+            <VBox fx:id="sidebarPane" spacing="10" alignment="TOP_CENTER" minWidth="300">
+                <HBox.hgrow>
+                    <Priority fx:constant="ALWAYS"/>
+                </HBox.hgrow>
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
