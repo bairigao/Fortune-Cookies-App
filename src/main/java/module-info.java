@@ -6,4 +6,6 @@ module com.example.fortune_cookies_app {
 
     opens com.example.fortune_cookies_app to javafx.fxml;
     exports com.example.fortune_cookies_app;
+    exports com.example.fortune_cookies_app.DB; // For DAO classes
+
 }
