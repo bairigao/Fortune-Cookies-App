@@ -32,7 +32,7 @@ public class EventDAO {
                     + "date TEXT NOT NULL,"
                     + "eventName VARCHAR NOT NULL,"
                     + "eventDescription TEXT,"
-                    + "importance INTEGER NOT NULL,"
+                    + "importance INTEGER NOT NULL"
                     + "FOREIGN KEY(user) REFERENCES users(id) ON DELETE CASCADE"
                     + ")";
             statement.execute(query);
