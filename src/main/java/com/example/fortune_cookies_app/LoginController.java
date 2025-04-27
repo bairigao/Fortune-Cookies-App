@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class LoginController {
@@ -37,9 +38,9 @@ public class LoginController {
      * @throws IOException
      * @throws SQLException
      */
-    public void onLoginClick() throws IOException, SQLException {
+    public void onLoginClick() throws IOException, SQLException, NoSuchAlgorithmException {
         String email = loginEmail.getText();
-        String password = loginPassword.getText();
+        String password = PasswordHasher.hashPassword(loginPassword.getText());
         if (userDAO.login(email, password)){
             toCalendar(userDAO.getUser(email));
         }
@@ -54,12 +55,12 @@ public class LoginController {
      * @throws IOException
      */
     //when Sign Up button is clicked on Signup screen
-    public void onSignupConfirm() throws IOException {
+    public void onSignupConfirm() throws IOException, NoSuchAlgorithmException {
         String fname = firstName.getText();
         String lname = lastName.getText();
         String email = newEmail.getText();
-        String password = newPassword.getText();
-        String confirm = confirmPassword.getText();
+        String password = PasswordHasher.hashPassword(newPassword.getText());
+        String confirm = PasswordHasher.hashPassword(confirmPassword.getText());
 
         // Ensure all fields are filled in, and passwords match
         if (!fname.isEmpty() &&
