@@ -89,15 +89,25 @@ public class UserDAO {
      * @throws SQLException Unlikely to error due to only being executed after a successful login
      */
     public User getUser(String email) throws SQLException {
-        String query = "SELECT id, firstName, lastName, lastLogin FROM users WHERE email = ?";
+        String query = "SELECT id, firstName, lastName, lastLogin, loginStreak FROM users WHERE email = ?";
 
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setString(1, email);
         ResultSet result = statement.executeQuery();
         result.next();
         // Create & return user
-        User user = new User(result.getString("firstName"), result.getString("lastName"), email, result.getString("lastLogin"));
+        User user = new User(
+                result.getString("firstName"),
+                result.getString("lastName"),
+                email,
+                result.getString("lastLogin"),
+                result.getInt("loginStreak"));
         user.setId(result.getInt("id"));
+        if (user.getLastLogin().equals(LocalDate.now().minusDays(1))) {
+            updateStreak(user, user.getLoginStreak() + 1);
+        } else if (user.getLastLogin().isBefore(LocalDate.now().minusDays(1))){
+            updateStreak(user, 1);
+        }
         return user;
     }
 
@@ -115,6 +125,17 @@ public class UserDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, newPassword);
+            statement.setInt(2, user.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void updateStreak(User user, int streak) {
+        String query = "UPDATE users SET loginStreak = ? WHERE id = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, streak);
             statement.setInt(2, user.getId());
             statement.executeUpdate();
         } catch (Exception e) {

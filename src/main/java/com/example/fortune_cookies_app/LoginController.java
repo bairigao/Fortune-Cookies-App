@@ -69,7 +69,7 @@ public class LoginController {
                 !password.isEmpty() &&
                 !confirm.isEmpty() &&
                 password.equals(confirm)) {
-            User user = new User(fname, lname, email, password);
+            User user = new User(fname, lname, email, password, 1);
             userDAO.createUser(user);
             toLogin();
         }
