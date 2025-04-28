@@ -1,9 +1,10 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import com.example.fortune_cookies_app.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class UserTest {
+
     private static final String FIRST_NAME = "John";
     private static final String FIRST_NAME_TWO = "Jane";
     private static final String LAST_NAME = "Doe";
@@ -12,7 +13,6 @@ public class UserTest {
     private static final String EMAIL_TWO = "jane@gmail.com";
     private static final String PASSWORD = "password123";
     private static final String PASSWORD_TWO = "password1234";
-
 
     private User user;
     private User userTwo;
@@ -70,6 +70,27 @@ public class UserTest {
     public void testSetPassword() {
         user.setPassword(PASSWORD_TWO);
         assertEquals(PASSWORD_TWO, user.getPassword());
+    }
+
+    //Cath tests
+    @Test
+    public void testEmailContainsAt() {
+        assertTrue(EMAIL.contains("@"));
+    }
+
+    @Test
+    public void testEmailContainsDot() {
+        assertTrue(EMAIL.contains("."));
+    }
+
+    @Test
+    public void testPasswordNotNull() {
+        assertNotNull(PASSWORD);
+    }
+
+    @Test
+    public void testEmailNotNull() {
+        assertNotNull(EMAIL);
     }
 
 
