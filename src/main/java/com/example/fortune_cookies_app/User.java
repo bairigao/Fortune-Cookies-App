@@ -13,13 +13,15 @@ public class User {
     private String password;
     private LocalDate lastLogin;
     private int id;
+    private int loginStreak;
 
-    public User(String firstName, String lastName, String email, String password){
+    public User(String firstName, String lastName, String email, String password, int loginStreak){
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.lastLogin = LocalDate.now();
+        this.loginStreak = loginStreak;
     }
 
     public String getFirstName() {
@@ -68,5 +70,13 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLoginStreak() {
+        return loginStreak;
+    }
+
+    public void setLoginStreak(int loginStreak) {
+        this.loginStreak = loginStreak;
     }
 }
