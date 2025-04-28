@@ -14,6 +14,14 @@ public class Login extends Application {
     public static final int HEIGHT = 720;
     private static Stage setStage;
 
+    /**
+     * Creates the stage when application is run
+     * @param loginStage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws IOException
+     */
     @Override
     public void start(Stage loginStage) throws IOException {
         setStage = loginStage;
@@ -24,7 +32,12 @@ public class Login extends Application {
         loginStage.show();
     }
 
-    //used to change scenes based on given fxml file name
+    /**
+     * Grabs the scene dimensions set in start and applies it to any given fxml file
+     * to change the scene to.
+     * @param fxml fxml file name to change the scene to
+     * @throws IOException
+     */
     public void changeScene(String fxml) throws IOException {
         Parent base = FXMLLoader.load(getClass().getResource(fxml));
         setStage.getScene().setRoot(base);
