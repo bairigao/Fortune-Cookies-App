@@ -45,18 +45,23 @@ public class CalendarMainController {
             currentMonth = currentMonth.minusMonths(1);
             updateMonthLabel();
             populateCalendar();
+            //update defaultSidebar on month change
+            defaultSidebar();
         });
         nextMonth.setOnMouseClicked(e -> {
             currentMonth = currentMonth.plusMonths(1);
             updateMonthLabel();
             populateCalendar();
+            defaultSidebar();
         });
         updateMonthLabel();
-        defaultSidebar();
     }
     public void setUser(User user) {
         this.user = user;
-        populateCalendar();;
+        populateCalendar();
+        if (sidebarPane != null) {
+            defaultSidebar();
+        }
     }
 
     private void updateMonthLabel(){
@@ -68,7 +73,7 @@ public class CalendarMainController {
 
     //logic for assigning numbers to the calendar grid. and correctly offsetting them to the
     //correct days.
-    private void populateCalendar(){
+    public void populateCalendar(){
         //start fresh
         calendarGrid.getChildren().clear();
 
@@ -143,14 +148,22 @@ public class CalendarMainController {
         };
     }
     //sidebar before a date is pressed
-    private void defaultSidebar() {
-        sidebarPane.getChildren().clear();
+    public void defaultSidebar() {
+        System.out.println("Running defaultSidebar");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("default-sidebar-view.fxml"));
+            VBox sidebar = loader.load();
+            DefaultSidebarController controller = loader.getController();
+            sidebarPane.getChildren().setAll(sidebar);
+            System.out.println("DefaultSidebarController loaded successfully");
 
-        Label placeholderLabel = new Label("No date selected.\n\nPlease click a date to view or add events.");
-        placeholderLabel.setWrapText(true);
-        placeholderLabel.setStyle("-fx-font-size: 14; -fx-font-family: 'Lucida Sans Unicode';");
-
-        sidebarPane.getChildren().add(placeholderLabel);
+            javafx.application.Platform.runLater(() ->{
+                controller.setUser(user);
+                controller.setCurrentMonth(currentMonth);
+            });
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     //sidebar logic to handle the various different sidebars that will be available.
@@ -179,6 +192,7 @@ public class CalendarMainController {
                 AddEventPaneController controller = loader.getController();
                 controller.setDate(date);
                 controller.setUser(user);
+                controller.setCalendarController(this);
                 sidebarPane.getChildren().setAll(addEventPane);
             } catch (IOException e){
                 e.printStackTrace();

@@ -1,0 +1,87 @@
+package com.example.fortune_cookies_app;
+
+import com.example.fortune_cookies_app.DB.EventDAO;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
+
+public class DefaultSidebarController {
+    @FXML
+    private VBox eventsList;
+    @FXML
+    private Label loginStreakLabel;
+
+    private EventDAO eventDAO = new EventDAO();
+    private User user;
+    private YearMonth currentMonth;
+
+    public void setUser(User user) {
+        this.user = user;
+        tryLoadEvents();
+    }
+    public void setCurrentMonth(YearMonth currentMonth) {
+        this.currentMonth = currentMonth;
+        tryLoadEvents();
+    }
+
+    private void tryLoadEvents() {
+        if (user != null && currentMonth != null && eventsList != null) {
+            loadEvents();
+        }
+    }
+
+    public void loadEvents(){
+        System.out.println("Loading events into default sidebar...");
+        System.out.println("User = " + (user != null ? user.getId() : "null"));
+        System.out.println("Month = " + (currentMonth != null ? currentMonth.toString() : "null"));
+        if (user == null || currentMonth ==null)
+            return;
+        eventsList.getChildren().clear();
+
+        List<Event> events = eventDAO.fetchEvents(user);
+        for (Event event: events) {
+            LocalDate eventDate = event.getDate();
+            YearMonth eventMonth = YearMonth.from(eventDate);
+            System.out.println("Comparing eventMonth=" + eventMonth + " to currentMonth=" + currentMonth);
+
+            if (eventMonth.equals(currentMonth)) {
+                System.out.println("Matched! Adding: " + event.getEventName());
+            } else {
+                System.out.println("Skipped event: " + event.getEventName());
+            }
+            if(eventMonth.equals(currentMonth)) {
+                HBox eventItem = new HBox(8);
+                eventItem.setPrefHeight(24);
+                Region circle = new Region();
+                circle.setStyle("-fx-background-color: " + getImportanceColour(event.getImportance()) + "; -fx-background-radius: 50%;");
+                circle.setMinSize(20, 20);
+                circle.setPrefSize(20, 20);
+                circle.setMaxSize(20, 20);
+
+                Label eventTitle = new Label(event.getEventName());
+                eventTitle.setStyle("-fx-font-size: 14;");
+                eventItem.getChildren().addAll(circle, eventTitle);
+                eventsList.getChildren().add(eventItem);
+
+            }
+        }
+
+
+    }
+    private String getImportanceColour(int level) {
+        return switch (level) {
+            case 1 -> "#bbdefb";
+            case 2 -> "#c8e6c9";
+            case 3 -> "#fff9c4";
+            case 4 -> "#e1bee7";
+            case 5 -> "#ffcdd2";
+            default -> "lightgrey";
+        };
+    }
+}

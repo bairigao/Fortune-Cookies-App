@@ -23,6 +23,7 @@ public class AddEventPaneController {
     private LocalDate selectedDate;
     private final EventDAO eventDAO = new EventDAO();
     private User user;
+    private CalendarMainController calendarController;
 
     //need to pull user and dat selected data
     public void setDate(LocalDate date){
@@ -75,7 +76,9 @@ public class AddEventPaneController {
             default -> "lightgrey";
         };
     }
-
+    public void setCalendarController(CalendarMainController calendarController) {
+        this.calendarController = calendarController;
+    }
     //create event functionality tied to the create event button
     private void createEvent(){
         if (selectedDate == null || user == null){
@@ -92,7 +95,10 @@ public class AddEventPaneController {
         Event newEvent = new Event(selectedDate, title, description, importance, user.getId());
         eventDAO.createEvent(newEvent);
         System.out.println("Event Created");
+        if (calendarController !=null) {
+            calendarController.populateCalendar();
+            calendarController.defaultSidebar();
+        }
     }
 
-    // Later we will hook these buttons into the main calendar controller!
 }
