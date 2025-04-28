@@ -50,7 +50,7 @@ public class LoginController {
      * Pulls data from relevant fields and creates a new user object, inserting that user into the database
      * @throws IOException
      */
-    public void onSignupConfirm() throws IOException, NoSuchAlgorithmException {
+    public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
         String fname = firstName.getText();
         String lname = lastName.getText();
         String email = newEmail.getText();
