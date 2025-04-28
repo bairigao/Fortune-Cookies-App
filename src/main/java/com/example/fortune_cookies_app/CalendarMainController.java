@@ -1,6 +1,8 @@
 package com.example.fortune_cookies_app;
 
+import com.example.fortune_cookies_app.DB.EventDAO;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -10,11 +12,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.layout.Priority;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
-
+import com.example.fortune_cookies_app.DB.EventDAO;
+import java.util.List;
 
 public class CalendarMainController {
     //pulls from calendar-view.fxml
@@ -23,18 +28,16 @@ public class CalendarMainController {
     @FXML private Label nextMonth;
     @FXML private GridPane calendarGrid;
     @FXML private VBox sidebarPane;
+    private final EventDAO eventDAO = new EventDAO();
 
     private User user;
     public User getUser() {
         return user;
     }
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     //logic for the month header
     private YearMonth currentMonth = YearMonth.now();
-    private StackPane selctedCell = null;
+    private StackPane selectedCell = null;
     private LocalDate selectedDate = null;
 
     public void initialize() {
@@ -49,8 +52,11 @@ public class CalendarMainController {
             populateCalendar();
         });
         updateMonthLabel();
-        populateCalendar();
         defaultSidebar();
+    }
+    public void setUser(User user) {
+        this.user = user;
+        populateCalendar();;
     }
 
     private void updateMonthLabel(){
@@ -76,6 +82,7 @@ public class CalendarMainController {
             int cellIndex = day + offset - 1;
             int column = cellIndex % 7;
             int row = cellIndex / 7;
+            LocalDate currentDate = currentMonth.atDay(day);
 
             //position the number correctly in the center of the grid position
             Label dayLabel = new Label(String.valueOf(day));
@@ -91,8 +98,27 @@ public class CalendarMainController {
             highlight.setMaxSize(46, 46);
             highlight.setVisible(false);
 
+            Region eventHighlight = new Region();
+            eventHighlight.setMinSize(46, 46);
+            eventHighlight.setPrefSize(46, 46);
+            eventHighlight.setMaxSize(46, 46);
+            eventHighlight.setVisible(false);
 
-            StackPane cell = new StackPane(highlight, dayLabel);
+            //check dates for events
+            if (user != null) {
+                List<Event> eventsForDay = eventDAO.fetchEventsDay(user, currentDate);
+                if (!eventsForDay.isEmpty()) {
+                    int highestImportance = eventsForDay.stream()
+                            .mapToInt(Event::getImportance)
+                            .max()
+                            .orElse(1);
+                    System.out.println("Events found for: " + currentDate + " Highest importance: " + highestImportance);
+                    eventHighlight.setVisible(true);
+                    eventHighlight.setStyle("-fx-background-color:" + getImportanceColour(highestImportance) + "; -fx-background-radius: 50%;");
+                }
+            }
+
+            StackPane cell = new StackPane(eventHighlight, highlight, dayLabel);
             cell.setAlignment(Pos.CENTER);
             cell.setPrefSize(80, 60);
             cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -104,12 +130,23 @@ public class CalendarMainController {
             calendarGrid.add(cell, column, row);
         }
     }
+
+    //get importance colours
+    private String getImportanceColour(int level){
+        return switch (level){
+            case 1 -> "#bbdefb"; // pastel blue
+            case 2 -> "#c8e6c9"; // pastel green
+            case 3 -> "#fff9c4"; // soft yellow
+            case 4 -> "#e1bee7"; // soft purple
+            case 5 -> "#ffcdd2"; // soft red
+            default -> "lightgrey";
+        };
+    }
     //sidebar before a date is pressed
-    private void defaultSidebar(){
+    private void defaultSidebar() {
         sidebarPane.getChildren().clear();
 
-        //placeholder logic for the future
-        Label placeholderLabel = new Label("No date selected.\n\nYou can select a date to view or add events.");
+        Label placeholderLabel = new Label("No date selected.\n\nPlease click a date to view or add events.");
         placeholderLabel.setWrapText(true);
         placeholderLabel.setStyle("-fx-font-size: 14; -fx-font-family: 'Lucida Sans Unicode';");
 
@@ -119,14 +156,40 @@ public class CalendarMainController {
     //sidebar logic to handle the various different sidebars that will be available.
     private void onDateClicked(StackPane cell, LocalDate date){
         //turns off a previously selected cell
-        if (selctedCell != null){
-            selctedCell.getChildren().get(0).setVisible(false);
+        if (selectedCell == cell){
+            selectedCell.getChildren().get(1).setVisible(false);
+            selectedCell = null;
+            selectedDate = null;
+            defaultSidebar();
+            return;
         }
-        selctedCell = cell;
+        if (selectedCell != null){
+            selectedCell.getChildren().get(1).setVisible(false);
+        }
+        selectedCell = cell;
         selectedDate = date;
-        cell.getChildren().get(0).setVisible(true);
+        cell.getChildren().get(1).setVisible(true);
 
+        sidebarPane.getChildren().clear();
+        List<Event> eventsForDate = eventDAO.fetchEventsDay(user, date);
+        if (eventsForDate.isEmpty()){
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("add-event-view.fxml"));
+                VBox addEventPane = loader.load();
+                AddEventPaneController controller = loader.getController();
+                controller.setDate(date);
+                controller.setUser(user);
+                sidebarPane.getChildren().setAll(addEventPane);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        } else {
+            Label placeholderLabel = new Label("Placeholder, date selected with an existing event");
+            placeholderLabel.setWrapText(true);
+            placeholderLabel.setStyle("-fx-font-size: 14; -fx-font-family: 'Lucida Sans Unicode';");
 
+            sidebarPane.getChildren().add(placeholderLabel);
+        }
     }
 
 }
