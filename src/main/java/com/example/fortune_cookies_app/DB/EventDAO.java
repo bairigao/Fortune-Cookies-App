@@ -124,4 +124,28 @@ public class EventDAO {
         }
     return events;
     }
+
+    public List<Event> fetchEventsDay(User user, LocalDate date){
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT * FROM events WHERE user = ? AND date = ?";
+        try{
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, user.getId());
+            statement.setString(2, date.toString());
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                Event event = new Event(
+                        LocalDate.parse(result.getString("date")),
+                        result.getString("eventName"),
+                        result.getString("eventDescription"),
+                        result.getInt("importance"),
+                        result.getInt("user"));
+                event.setId(result.getInt("id"));
+                events.add(event);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
 }

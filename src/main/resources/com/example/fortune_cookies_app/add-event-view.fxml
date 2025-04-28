@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.fortune_cookies_app.AddEventPaneController"
+      spacing="10" alignment="TOP_LEFT">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+
+    <!-- Title -->
+    <Label text="Add Event" style="-fx-font-size: 18;"/>
+
+    <!-- Importance selection -->
+    <Label text="Importance (1-5):" />
+    <HBox spacing="10" alignment="CENTER_LEFT" fx:id="importanceCircles"/>
+
+    <!-- Title Field -->
+    <Label text="Event Title:"/>
+    <TextField fx:id="titleField"/>
+
+    <!-- Description Field -->
+    <Label text="Description:"/>
+    <TextArea fx:id="descriptionArea" prefRowCount="4"/>
+
+    <!-- Create button -->
+    <HBox alignment="CENTER_LEFT">
+        <Button fx:id="createEventButton" text="Create Event" />
+    </HBox>
+
+</VBox>
