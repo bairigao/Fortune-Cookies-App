@@ -1,4 +1,4 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 import java.security.*;
 import java.util.HexFormat;
 

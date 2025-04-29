@@ -1,6 +1,7 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.DB.UserDAO;
+import com.example.fortune_cookies_app.Login;
+import com.example.fortune_cookies_app.model.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -102,7 +103,8 @@ public class LoginController {
      * @throws IOException
      */
     protected void toCalendar(User user) throws IOException {
-            FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("calendar-view.fxml"));
+
+        FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/calendar-view.fxml"));
 
             Parent calendarRoot = calendarLoader.load();
             CalendarMainController calendarController = calendarLoader.getController();

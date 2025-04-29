@@ -1,4 +1,4 @@
-package com.example.fortune_cookies_app.DB;
+package com.example.fortune_cookies_app.model;
 import java.sql.*;
 
 public class SqliteConnection {

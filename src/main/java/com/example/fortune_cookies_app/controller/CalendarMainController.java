@@ -1,6 +1,6 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.DB.EventDAO;
+import com.example.fortune_cookies_app.model.EventDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -8,7 +8,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
-import javafx.scene.input.MouseEvent;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.layout.Priority;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
-import com.example.fortune_cookies_app.DB.EventDAO;
 import java.util.List;
 
 public class CalendarMainController {
@@ -153,7 +151,7 @@ public class CalendarMainController {
     public void defaultSidebar() {
         System.out.println("Running defaultSidebar");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("default-sidebar-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/default-sidebar-view.fxml"));
             VBox sidebar = loader.load();
             DefaultSidebarController controller = loader.getController();
             sidebarPane.getChildren().setAll(sidebar);
@@ -189,7 +187,7 @@ public class CalendarMainController {
         List<Event> eventsForDate = eventDAO.fetchEventsDay(user, date);
         if (eventsForDate.isEmpty()){
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("add-event-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/add-event-view.fxml"));
                 VBox addEventPane = loader.load();
                 AddEventPaneController controller = loader.getController();
                 controller.setDate(date);

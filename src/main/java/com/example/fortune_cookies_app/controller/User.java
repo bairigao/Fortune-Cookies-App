@@ -1,7 +1,5 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 
-
-import com.example.fortune_cookies_app.DB.UserDAO;
 
 import java.time.LocalDate;
 

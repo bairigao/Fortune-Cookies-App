@@ -1,6 +1,6 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.DB.EventDAO;
+import com.example.fortune_cookies_app.model.EventDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;

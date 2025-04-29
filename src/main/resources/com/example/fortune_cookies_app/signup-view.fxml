@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.LoginController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.LoginController">
     <Label alignment="CENTER" prefHeight="157.0" prefWidth="383.0" text="LOGO">
         <font>
             <Font name="Fira Code Bold" size="96.0" />
