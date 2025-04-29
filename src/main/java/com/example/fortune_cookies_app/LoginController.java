@@ -110,8 +110,10 @@ public class LoginController {
             primaryStage.setScene(calendarScene);
 
             primaryStage.setTitle("Calendar");
-
+            primaryStage.setMinWidth(1280);
+            primaryStage.setMinHeight(720);
             primaryStage.show();
+
     }
 
 }

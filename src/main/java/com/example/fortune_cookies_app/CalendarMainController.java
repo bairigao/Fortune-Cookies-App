@@ -54,7 +54,9 @@ public class CalendarMainController {
             populateCalendar();
             defaultSidebar();
         });
+
         updateMonthLabel();
+
     }
     public void setUser(User user) {
         this.user = user;
