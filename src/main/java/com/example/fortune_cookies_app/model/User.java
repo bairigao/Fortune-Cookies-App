@@ -77,4 +77,14 @@ public class User {
     public void setLoginStreak(int loginStreak) {
         this.loginStreak = loginStreak;
     }
+
+    public void trackLogin() {
+        LocalDate today = LocalDate.now();
+        if (lastLogin.equals(today.minusDays(1))) {
+            loginStreak++;
+        } else if (lastLogin.isBefore(today.minusDays(1))) {
+            loginStreak = 1;
+        }
+        lastLogin = today;
+    }
 }

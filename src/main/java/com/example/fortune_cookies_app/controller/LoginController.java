@@ -37,8 +37,14 @@ public class LoginController {
     public void onLoginClick() throws IOException, SQLException, NoSuchAlgorithmException {
         String email = loginEmail.getText();
         String password = PasswordHasher.hashPassword(loginPassword.getText());
-        if (userDAO.login(email, password)){
-            toCalendar(userDAO.getUser(email));
+
+        User user = userDAO.login(email, password);
+        if (user != null){
+            user.trackLogin(); //update streak and lastLogin
+            userDAO.updateStreak(user);  // save changes to db
+            toCalendar(user);
+        } else {
+            System.out.println("Invalid email or password");
         }
     }
 

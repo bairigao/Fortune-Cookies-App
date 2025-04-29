@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import com.example.fortune_cookies_app.Event;
+import com.example.fortune_cookies_app.model.Event;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
