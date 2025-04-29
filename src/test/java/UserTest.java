@@ -1,5 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
-import com.example.fortune_cookies_app.User;
+import com.example.fortune_cookies_app.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -135,6 +135,8 @@ public class UserTest {
     public void testEmailIsNotNull() {
         assertNotNull(EMAIL);
     }
+
+
 
 
 }

@@ -1,10 +1,15 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.DB.UserDAO;
+import com.example.fortune_cookies_app.Login;
+import com.example.fortune_cookies_app.model.PasswordHasher;
+import com.example.fortune_cookies_app.model.User;
+import com.example.fortune_cookies_app.model.UserDAO;
+import com.example.fortune_cookies_app.model.AuthValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,14 +19,27 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class LoginController {
+    @FXML
     public TextField loginEmail;
+    @FXML
     public PasswordField loginPassword;
+    @FXML
+    public Label loginError;
     private final UserDAO userDAO;
+    @FXML
     public TextField firstName;
+    @FXML
     public TextField lastName;
+    @FXML
     public TextField newEmail;
+    @FXML
     public PasswordField newPassword;
+    @FXML
     public PasswordField confirmPassword;
+    @FXML
+    private Label signupError;
+
+
 
     public LoginController(){
         userDAO = new UserDAO();
@@ -32,10 +50,25 @@ public class LoginController {
      * @throws SQLException
      */
     public void onLoginClick() throws IOException, SQLException, NoSuchAlgorithmException {
+        loginError.setVisible(false);
         String email = loginEmail.getText();
         String password = PasswordHasher.hashPassword(loginPassword.getText());
-        if (userDAO.login(email, password)){
-            toCalendar(userDAO.getUser(email));
+
+        //
+        if (!AuthValidator.areLoginFieldsValid(email, loginPassword.getText())) {
+            loginError.setText("Email and password must not be empty.");
+            loginError.setVisible(true);
+            return;
+        }
+
+        User user = userDAO.login(email, password);
+        if (user != null){
+            user.trackLogin(); //update streak and lastLogin
+            userDAO.updateStreak(user);  // save changes to db
+            toCalendar(user);
+        } else {
+            loginError.setText("Invalid email or password");
+            loginError.setVisible(true);
         }
     }
 
@@ -51,24 +84,42 @@ public class LoginController {
      * @throws IOException
      */
     public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
-        String fname = firstName.getText();
-        String lname = lastName.getText();
-        String email = newEmail.getText();
-        String password = PasswordHasher.hashPassword(newPassword.getText());
-        String confirm = PasswordHasher.hashPassword(confirmPassword.getText());
+        signupError.setVisible(false);
 
-        // Ensure all fields are filled in, and passwords match
-        if (!fname.isEmpty() &&
-                !lname.isEmpty() &&
-                !email.isEmpty() &&
-                !password.isEmpty() &&
-                !confirm.isEmpty() &&
-                password.equals(confirm)) {
-            User user = new User(fname, lname, email, password, 1);
-            userDAO.createUser(user);
-            toLogin();
+        String fName = firstName.getText();
+        String lName = lastName.getText();
+        String email = newEmail.getText();
+        String rawPassword = newPassword.getText();
+        String confirm = confirmPassword.getText();
+
+        // Validate fields BEFORE hashing
+        if (!AuthValidator.areSignupFieldsValid(fName, lName, email, rawPassword, confirm)) {
+            signupError.setText("All fields must be filled.");
+            signupError.setVisible(true);
+            return;
         }
+
+        if (!AuthValidator.isPasswordConfirmed(rawPassword, confirm)) {
+            signupError.setText("Passwords do not match.");
+            signupError.setVisible(true);
+            return;
+        }
+
+        // Hash only after passing validation
+        String hashedPassword = PasswordHasher.hashPassword(rawPassword);
+
+        //  check if email already exists
+        if (userDAO.checkEmail(email)) {
+            signupError.setText("An account with this email already exists.");
+            signupError.setVisible(true);
+            return;
+        }
+
+        User user = new User(fName, lName, email, hashedPassword, 1);
+        userDAO.createUser(user);
+        toLogin();
     }
+
 
     /** When the back button is clicked on the signup scene, scene changes to login scene
      * @throws IOException
@@ -102,7 +153,8 @@ public class LoginController {
      * @throws IOException
      */
     protected void toCalendar(User user) throws IOException {
-            FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("calendar-view.fxml"));
+
+        FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/calendar-view.fxml"));
 
             Parent calendarRoot = calendarLoader.load();
             CalendarMainController calendarController = calendarLoader.getController();

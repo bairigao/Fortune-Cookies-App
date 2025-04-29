@@ -1,7 +1,5 @@
-package com.example.fortune_cookies_app;
+package com.example.fortune_cookies_app.model;
 
-
-import com.example.fortune_cookies_app.DB.UserDAO;
 
 import java.time.LocalDate;
 
@@ -78,5 +76,15 @@ public class User {
 
     public void setLoginStreak(int loginStreak) {
         this.loginStreak = loginStreak;
+    }
+
+    public void trackLogin() {
+        LocalDate today = LocalDate.now();
+        if (lastLogin.equals(today.minusDays(1))) {
+            loginStreak++;
+        } else if (lastLogin.isBefore(today.minusDays(1))) {
+            loginStreak = 1;
+        }
+        lastLogin = today;
     }
 }
