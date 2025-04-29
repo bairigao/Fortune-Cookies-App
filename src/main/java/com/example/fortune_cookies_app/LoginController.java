@@ -26,13 +26,6 @@ public class LoginController {
     public LoginController(){
         userDAO = new UserDAO();
     }
-    //change where the buttons will lead the user accordingly later,
-    //currently only leads from login to signup and vice versa
-
-    //when Sign Up button is clicked on Login screen
-    public void onSignupClick() throws IOException {
-        toSignUp();
-    }
 
     /** Pulls email & password from relevant fields, passing those to the login method to log the user in
      * @throws IOException
@@ -46,16 +39,18 @@ public class LoginController {
         }
     }
 
-    //when Back button is clicked on Signup screen
-    public void onBackClick() throws IOException {
-        toLogin();
-    }
-
-    /** Pulls data from relevant fields and creates a new user object, inserting that user into the database
+    /** When signup button is clicked on login scene, scene changes to signup scene
      * @throws IOException
      */
-    //when Sign Up button is clicked on Signup screen
-    public void onSignupConfirm() throws IOException, NoSuchAlgorithmException {
+    public void onSignupClick() throws IOException {
+        toSignUp();
+    }
+
+    /** When the confirm button on the signup scene is clicked,
+     * Pulls data from relevant fields and creates a new user object, inserting that user into the database
+     * @throws IOException
+     */
+    public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
         String fname = firstName.getText();
         String lname = lastName.getText();
         String email = newEmail.getText();
@@ -75,18 +70,29 @@ public class LoginController {
         }
     }
 
-    //changes scene to login screen
-    @FXML
-    protected void toLogin() throws IOException {
-        Login loginScreen = new Login();
-        loginScreen.changeScene("login-view.fxml");
+    /** When the back button is clicked on the signup scene, scene changes to login scene
+     * @throws IOException
+     */
+    public void onBackClick() throws IOException {
+        toLogin();
     }
 
-    //changes scene to sign up
+    /** Method to change the scene to the login scene using the login scene fxml file name
+     * @throws IOException
+     */
+    @FXML
+    protected void toLogin() throws IOException {
+        Login loginScene = new Login();
+        loginScene.changeScene("login-view.fxml");
+    }
+
+    /** Method to change the scene to the signup scene using the signup scene fxml file name
+     * @throws IOException
+     */
     @FXML
     protected void toSignUp() throws IOException {
-        Login loginScreen = new Login();
-        loginScreen.changeScene("signup-view.fxml");
+        Login loginScene = new Login();
+        loginScene.changeScene("signup-view.fxml");
 
     }
 

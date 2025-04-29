@@ -61,7 +61,7 @@
     </VBox>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">
         <children>
-            <Button fx:id="confirmSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onSignupConfirm" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="CONFIRM" wrapText="true">
+            <Button fx:id="confirmSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="CONFIRM" wrapText="true">
                 <font>
                     <Font name="System Bold" size="16.0" />
                 </font></Button>
