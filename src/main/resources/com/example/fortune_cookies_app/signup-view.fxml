@@ -57,6 +57,7 @@
                 <font>
                     <Font size="14.0" />
                 </font></PasswordField>
+            <Label fx:id="signupError" textFill="red" visible="false" wrapText="true" />
         </children>
     </VBox>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">

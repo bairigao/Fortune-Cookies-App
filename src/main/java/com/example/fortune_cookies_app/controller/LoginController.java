@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -17,14 +18,27 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class LoginController {
+    @FXML
     public TextField loginEmail;
+    @FXML
     public PasswordField loginPassword;
+    @FXML
+    public Label loginError;
     private final UserDAO userDAO;
+    @FXML
     public TextField firstName;
+    @FXML
     public TextField lastName;
+    @FXML
     public TextField newEmail;
+    @FXML
     public PasswordField newPassword;
+    @FXML
     public PasswordField confirmPassword;
+    @FXML
+    private Label signupError;
+
+
 
     public LoginController(){
         userDAO = new UserDAO();
@@ -35,8 +49,16 @@ public class LoginController {
      * @throws SQLException
      */
     public void onLoginClick() throws IOException, SQLException, NoSuchAlgorithmException {
+        loginError.setVisible(false);
         String email = loginEmail.getText();
         String password = PasswordHasher.hashPassword(loginPassword.getText());
+
+        //
+        if (email.isEmpty() || password.isEmpty()) {
+            loginError.setText("Email and password must not be empty.");
+            loginError.setVisible(true);
+            return;
+        }
 
         User user = userDAO.login(email, password);
         if (user != null){
@@ -44,7 +66,8 @@ public class LoginController {
             userDAO.updateStreak(user);  // save changes to db
             toCalendar(user);
         } else {
-            System.out.println("Invalid email or password");
+            loginError.setText("Invalid email or password");
+            loginError.setVisible(true);
         }
     }
 
@@ -60,23 +83,28 @@ public class LoginController {
      * @throws IOException
      */
     public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
-        String fname = firstName.getText();
-        String lname = lastName.getText();
+        signupError.setVisible(false);
+        String fName = firstName.getText();
+        String lName = lastName.getText();
         String email = newEmail.getText();
         String password = PasswordHasher.hashPassword(newPassword.getText());
         String confirm = PasswordHasher.hashPassword(confirmPassword.getText());
 
-        // Ensure all fields are filled in, and passwords match
-        if (!fname.isEmpty() &&
-                !lname.isEmpty() &&
-                !email.isEmpty() &&
-                !password.isEmpty() &&
-                !confirm.isEmpty() &&
-                password.equals(confirm)) {
-            User user = new User(fname, lname, email, password, 1);
-            userDAO.createUser(user);
-            toLogin();
+        if (fName.isEmpty() || lName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+            signupError.setText("All fields must be filled.");
+            signupError.setVisible(true);
+            return;
         }
+
+        if (!password.equals(confirm)) {
+            signupError.setText("Passwords do not match.");
+            signupError.setVisible(true);
+            return;
+        }
+        User user = new User(fName, lName, email, password, 1);
+        userDAO.createUser(user);
+        toLogin();
+
     }
 
     /** When the back button is clicked on the signup scene, scene changes to login scene
