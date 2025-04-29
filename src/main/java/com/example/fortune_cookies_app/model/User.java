@@ -1,4 +1,4 @@
-package com.example.fortune_cookies_app.controller;
+package com.example.fortune_cookies_app.model;
 
 
 import java.time.LocalDate;

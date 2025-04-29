@@ -1,5 +1,5 @@
 import com.example.fortune_cookies_app.model.EventDAO;
-import com.example.fortune_cookies_app.controller.User;
+import com.example.fortune_cookies_app.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

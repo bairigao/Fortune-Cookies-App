@@ -1,6 +1,8 @@
 package com.example.fortune_cookies_app.controller;
 
+import com.example.fortune_cookies_app.model.Event;
 import com.example.fortune_cookies_app.model.EventDAO;
+import com.example.fortune_cookies_app.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;

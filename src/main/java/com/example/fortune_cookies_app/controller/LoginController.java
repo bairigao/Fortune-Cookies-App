@@ -1,6 +1,8 @@
 package com.example.fortune_cookies_app.controller;
 
 import com.example.fortune_cookies_app.Login;
+import com.example.fortune_cookies_app.model.PasswordHasher;
+import com.example.fortune_cookies_app.model.User;
 import com.example.fortune_cookies_app.model.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

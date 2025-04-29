@@ -1,8 +1,5 @@
 package com.example.fortune_cookies_app.model;
 
-import com.example.fortune_cookies_app.controller.Event;
-import com.example.fortune_cookies_app.controller.User;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

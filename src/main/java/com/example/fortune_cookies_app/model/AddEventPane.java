@@ -1,4 +1,4 @@
-package com.example.fortune_cookies_app.controller;
+package com.example.fortune_cookies_app.model;
 
 import javafx.application.Application;
 import javafx.scene.control.Button;

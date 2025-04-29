@@ -1,7 +1,5 @@
 package com.example.fortune_cookies_app.model;
 
-import com.example.fortune_cookies_app.controller.User;
-
 public interface IUserDAO {
     public void createUser(User user);
 
