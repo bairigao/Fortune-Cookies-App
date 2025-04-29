@@ -44,7 +44,7 @@ public class EventTest{
 
     @Test
     public void testFetchEvents(){
-        User user = new User("John", "Doe", "johndoes@example.com", "password123");
+        User user = new User("John", "Doe", "johndoes@example.com", "password123", '3');
         user.setId(2);
         matches = eventDAO.fetchEvents(user);
 

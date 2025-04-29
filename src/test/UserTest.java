@@ -13,14 +13,16 @@ public class UserTest {
     private static final String EMAIL_TWO = "jane@gmail.com";
     private static final String PASSWORD = "password123";
     private static final String PASSWORD_TWO = "password1234";
+    private static final int LOGINSTREAK = '3';
+    private static final int LOGINSTREAK_TWO = '4';
 
     private User user;
     private User userTwo;
 
     @BeforeEach
     public void setUp() {
-        user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD);
-        userTwo = new User(FIRST_NAME_TWO, LAST_NAME_TWO, EMAIL_TWO, PASSWORD_TWO);
+        user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, LOGINSTREAK);
+        userTwo = new User(FIRST_NAME_TWO, LAST_NAME_TWO, EMAIL_TWO, PASSWORD_TWO, LOGINSTREAK_TWO);
     }
     @Test
     public void testSetId() {
@@ -72,24 +74,27 @@ public class UserTest {
         assertEquals(PASSWORD_TWO, user.getPassword());
     }
 
-    //Cath tests
+    // test if the email contains an @ symbol
     @Test
     public void testEmailContainsAt() {
         assertTrue(EMAIL.contains("@"));
     }
 
+    // test if the email contains a . symbol
     @Test
     public void testEmailContainsDot() {
         assertTrue(EMAIL.contains("."));
     }
 
+    // test if the password is not null
     @Test
-    public void testPasswordNotNull() {
+    public void testPasswordIsNotNull() {
         assertNotNull(PASSWORD);
     }
 
+    // test if the email is not null
     @Test
-    public void testEmailNotNull() {
+    public void testEmailIsNotNull() {
         assertNotNull(EMAIL);
     }
 

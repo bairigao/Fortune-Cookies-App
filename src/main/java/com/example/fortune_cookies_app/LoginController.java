@@ -39,7 +39,7 @@ public class LoginController {
         }
     }
 
-    /** Upon clicking the signup button on the login scene, transitions user to the signup
+    /** Upon clicking the signup button on the login scene, transitions user to the signup scene
      * @throws IOException
      */
     public void onSignupClick() throws IOException {
@@ -70,7 +70,7 @@ public class LoginController {
         }
     }
 
-    /** Upon clicking the back button on the signup scene, transitions user to the login
+    /** Upon clicking the back button on the signup scene, transitions user to the login scene
      * @throws IOException
      */
     public void onBackClick() throws IOException {
