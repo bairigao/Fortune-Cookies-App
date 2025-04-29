@@ -5,7 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.fortune_cookies_app.DefaultSidebarController"
+      fx:controller="com.example.fortune_cookies_app.controller.DefaultSidebarController"
       spacing="15" alignment="TOP_LEFT">
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>

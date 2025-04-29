@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.fortune_cookies_app.CalendarMainController">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.fortune_cookies_app.controller.CalendarMainController">
 
     <!-- top header contains the month change function. will likely also hold the 'profile' function and app logo-->
     <top>
