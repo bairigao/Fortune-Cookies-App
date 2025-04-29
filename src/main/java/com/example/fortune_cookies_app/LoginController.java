@@ -39,14 +39,14 @@ public class LoginController {
         }
     }
 
-    /** Upon clicking the signup button on the login scene, transitions user to the signup scene
+    /** When signup button is clicked on login scene, scene changes to signup scene
      * @throws IOException
      */
     public void onSignupClick() throws IOException {
         toSignUp();
     }
 
-    /** Upon clicking the confirm button on the signup scene,
+    /** When the confirm button on the signup scene is clicked,
      * Pulls data from relevant fields and creates a new user object, inserting that user into the database
      * @throws IOException
      */
@@ -70,14 +70,14 @@ public class LoginController {
         }
     }
 
-    /** Upon clicking the back button on the signup scene, transitions user to the login scene
+    /** When the back button is clicked on the signup scene, scene changes to login scene
      * @throws IOException
      */
     public void onBackClick() throws IOException {
         toLogin();
     }
 
-    /** Method to change the scene to the login scene
+    /** Method to change the scene to the login scene using the login scene fxml file name
      * @throws IOException
      */
     @FXML
@@ -86,7 +86,7 @@ public class LoginController {
         loginScene.changeScene("login-view.fxml");
     }
 
-    /** Method to change the scene to the signup scene
+    /** Method to change the scene to the signup scene using the signup scene fxml file name
      * @throws IOException
      */
     @FXML
