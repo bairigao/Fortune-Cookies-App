@@ -10,7 +10,5 @@ module com.example.fortune_cookies_app {
     exports com.example.fortune_cookies_app.controller;
     opens com.example.fortune_cookies_app.controller to javafx.fxml;
     opens com.example.fortune_cookies_app.model to javafx.fxml;
-    // exports com.example.fortune_cookies_app.controller;
-    // opens com.example.fortune_cookies_app.controller to javafx.fxml;
 
 }

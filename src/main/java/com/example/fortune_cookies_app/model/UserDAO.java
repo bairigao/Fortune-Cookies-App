@@ -86,7 +86,6 @@ public class UserDAO implements IUserDAO{
         return null;
     }
 
-
     /**
      * This method is used to pass the user object to the calendar upon login
      * @param email Email used to fetch user information from database
@@ -117,8 +116,6 @@ public class UserDAO implements IUserDAO{
         return null;
     }
 
-
-
     /**
      * Updates the user's password
      * @param user The user whose password is being updated
@@ -140,7 +137,6 @@ public class UserDAO implements IUserDAO{
         }
     }
 
-
     @Override
     public void updateStreak(User user) {
         String query = "UPDATE users SET loginStreak = ?, lastLogin = ? WHERE id = ?";
@@ -153,5 +149,20 @@ public class UserDAO implements IUserDAO{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public  boolean checkEmail(String email) {
+        String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -12,4 +12,5 @@ public interface IUserDAO {
     public void updateStreak(User user);
 
 
+    boolean checkEmail(String email);
 }

@@ -4,6 +4,7 @@ import com.example.fortune_cookies_app.Login;
 import com.example.fortune_cookies_app.model.PasswordHasher;
 import com.example.fortune_cookies_app.model.User;
 import com.example.fortune_cookies_app.model.UserDAO;
+import com.example.fortune_cookies_app.model.AuthValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,7 +55,7 @@ public class LoginController {
         String password = PasswordHasher.hashPassword(loginPassword.getText());
 
         //
-        if (email.isEmpty() || password.isEmpty()) {
+        if (!AuthValidator.areLoginFieldsValid(email, loginPassword.getText())) {
             loginError.setText("Email and password must not be empty.");
             loginError.setVisible(true);
             return;
@@ -84,28 +85,41 @@ public class LoginController {
      */
     public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
         signupError.setVisible(false);
+
         String fName = firstName.getText();
         String lName = lastName.getText();
         String email = newEmail.getText();
-        String password = PasswordHasher.hashPassword(newPassword.getText());
-        String confirm = PasswordHasher.hashPassword(confirmPassword.getText());
+        String rawPassword = newPassword.getText();
+        String confirm = confirmPassword.getText();
 
-        if (fName.isEmpty() || lName.isEmpty() || email.isEmpty() || password.isEmpty() || confirm.isEmpty()) {
+        // Validate fields BEFORE hashing
+        if (!AuthValidator.areSignupFieldsValid(fName, lName, email, rawPassword, confirm)) {
             signupError.setText("All fields must be filled.");
             signupError.setVisible(true);
             return;
         }
 
-        if (!password.equals(confirm)) {
+        if (!AuthValidator.isPasswordConfirmed(rawPassword, confirm)) {
             signupError.setText("Passwords do not match.");
             signupError.setVisible(true);
             return;
         }
-        User user = new User(fName, lName, email, password, 1);
+
+        // Hash only after passing validation
+        String hashedPassword = PasswordHasher.hashPassword(rawPassword);
+
+        //  check if email already exists
+        if (userDAO.checkEmail(email)) {
+            signupError.setText("An account with this email already exists.");
+            signupError.setVisible(true);
+            return;
+        }
+
+        User user = new User(fName, lName, email, hashedPassword, 1);
         userDAO.createUser(user);
         toLogin();
-
     }
+
 
     /** When the back button is clicked on the signup scene, scene changes to login scene
      * @throws IOException
