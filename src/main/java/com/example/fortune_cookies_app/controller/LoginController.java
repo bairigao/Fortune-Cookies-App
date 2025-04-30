@@ -101,6 +101,13 @@ public class LoginController {
             return;
         }
 
+        // Validate email format
+        if (!AuthValidator.isValidEmail(email)) {
+            signupError.setText("Invalid email format.");
+            signupError.setVisible(true);
+            return;
+        }
+
         if (!AuthValidator.isPasswordConfirmed(rawPassword, confirm)) {
             signupError.setText("Passwords do not match.");
             signupError.setVisible(true);
