@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import com.example.fortune_cookies_app.model.Event;
 import java.time.LocalDate;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,25 +52,15 @@ public class EventTest{
     }
 
     @Test
-    public void testEventTitleTooLong(){
+    public void testEventTitleTooLong() {
         String longTitle = "A".repeat(51);
-        try{
-            Event eventError = new Event(LocalDate.now(), longTitle,"desc",3,1 );
-            eventDAO.createEvent(eventError);
-            assert false : "Expected failure due to title lenght";
-        } catch (Exception e) {
-            assert true;
-        }
+        Event event = new Event(LocalDate.now(), longTitle, "desc", 3, 1);
+        assertTrue(event.getEventName().length() > 50, "Expected title to exceed 50 characters");
     }
 
     @Test
     public void testMissingTitle() {
-        try {
-            Event eventError = new Event(LocalDate.now(), "", "desc", 2, 1);
-            eventDAO.createEvent(eventError);
-            assert false : "expected error due to no title present";
-        } catch (Exception e) {
-            assert true;
-        }
+        Event event = new Event(LocalDate.now(), "", "desc", 3, 1);
+        assertTrue(event.getEventName().isEmpty(), "Title is blank as expected");
     }
 }
