@@ -50,4 +50,26 @@ public class EventTest{
 
     }
 
+    @Test
+    public void testEventTitleTooLong(){
+        String longTitle = "A".repeat(51);
+        try{
+            Event eventError = new Event(LocalDate.now(), longTitle,"desc",3,1 );
+            eventDAO.createEvent(eventError);
+            assert false : "Expected failure due to title lenght";
+        } catch (Exception e) {
+            assert true;
+        }
+    }
+
+    @Test
+    public void testMissingTitle() {
+        try {
+            Event eventError = new Event(LocalDate.now(), "", "desc", 2, 1);
+            eventDAO.createEvent(eventError);
+            assert false : "expected error due to no title present";
+        } catch (Exception e) {
+            assert true;
+        }
+    }
 }
