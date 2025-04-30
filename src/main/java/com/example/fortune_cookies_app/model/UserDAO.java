@@ -72,13 +72,19 @@ public class UserDAO implements IUserDAO{
             stmt.setString(2, password);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                return new User(
+                User user = new User(
                         resultSet.getString("firstName"),
                         resultSet.getString("lastName"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
                         resultSet.getInt("loginStreak")
                 );
+                user.setId(resultSet.getInt("id")); // Fix 1
+                String lastLoginStr = resultSet.getString("lastLogin");
+                if (lastLoginStr != null && !lastLoginStr.isEmpty()) {
+                    user.setLastLogin(LocalDate.parse(lastLoginStr)); // Fix 2
+                }
+                return user;
             }
         } catch (SQLException e) {
             e.printStackTrace();
