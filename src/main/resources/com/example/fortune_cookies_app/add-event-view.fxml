@@ -35,5 +35,4 @@
         <Button fx:id="createEventButton" text="Create Event" />
     </HBox>
 
-
 </VBox>
