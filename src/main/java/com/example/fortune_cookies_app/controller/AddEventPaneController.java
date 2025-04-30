@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 
@@ -34,6 +35,9 @@ public class AddEventPaneController {
     public void setUser(User user){
         this.user = user;
     }
+    @FXML private Label titleErrorLabel;
+    @FXML private Label descriptionErrorLabel;
+
     @FXML
     public void initialize() {
         // Setup importance circles (1 to 5)
@@ -52,6 +56,26 @@ public class AddEventPaneController {
 
             importanceCircles.getChildren().add(circle);
         }
+
+        titleErrorLabel.setVisible(false);
+        titleField.textProperty().addListener((obs, previousType, newText) ->{
+            if (newText.length() > 50){
+                titleField.setText(previousType);
+                titleErrorLabel.setVisible(true);
+            } else {
+                titleErrorLabel.setVisible(false);
+            }
+        });
+
+        descriptionErrorLabel.setVisible(false);
+        descriptionArea.textProperty().addListener((obs, previousType, newText) ->{
+            if (newText.length() > 255){
+                descriptionArea.setText(previousType);
+                descriptionErrorLabel.setVisible(true);
+            } else {
+                descriptionErrorLabel.setVisible(false);
+            }
+        });
 
         updateImportanceHighlight();
         createEventButton.setOnAction(e -> createEvent());

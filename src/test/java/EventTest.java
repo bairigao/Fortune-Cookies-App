@@ -107,4 +107,17 @@ public class EventTest{
 
         setUp();
     }
+
+    @Test
+    public void testEventTitleTooLong() {
+        String longTitle = "A".repeat(51);
+        Event event = new Event(LocalDate.now(), longTitle, "desc", 3, 1);
+        assertTrue(event.getEventName().length() > 50, "Expected title to exceed 50 characters");
+    }
+
+    @Test
+    public void testMissingTitle() {
+        Event event = new Event(LocalDate.now(), "", "desc", 3, 1);
+        assertTrue(event.getEventName().isEmpty(), "Title is blank as expected");
+    }
 }
