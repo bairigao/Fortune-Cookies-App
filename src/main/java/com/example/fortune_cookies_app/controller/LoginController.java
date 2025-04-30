@@ -64,6 +64,8 @@ public class LoginController {
         User user = userDAO.login(email, password);
         if (user != null){
             user.trackLogin(); //update streak and lastLogin
+            System.out.println("Updating streak: " + user.getLoginStreak());
+            System.out.println("Updating lastLogin: " + user.getLastLogin());
             userDAO.updateStreak(user);  // save changes to db
             toCalendar(user);
         } else {

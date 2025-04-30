@@ -80,11 +80,16 @@ public class User {
 
     public void trackLogin() {
         LocalDate today = LocalDate.now();
-        if (lastLogin.equals(today.minusDays(1))) {
-            loginStreak++;
-        } else if (lastLogin.isBefore(today.minusDays(1))) {
+        if (lastLogin != null) {
+            if (lastLogin.plusDays(1).equals(today)) {
+                loginStreak += 1;
+            } else if (!lastLogin.equals(today)) {
+                loginStreak = 1;
+            }
+        } else {
             loginStreak = 1;
         }
         lastLogin = today;
     }
+
 }
