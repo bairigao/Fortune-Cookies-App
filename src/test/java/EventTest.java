@@ -1,10 +1,10 @@
+import static org.junit.jupiter.api.Assertions.*;
 import com.example.fortune_cookies_app.model.EventDAO;
 import com.example.fortune_cookies_app.model.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import com.example.fortune_cookies_app.model.Event;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -13,8 +13,8 @@ import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EventTest{
-    private EventDAO eventDAO;
-    private Event event;
+    private EventDAO eventDAO;;
+    private User user;
     private static final String EMPTY_STRING = "";
     private static final String NULL_STRING = null;
     private static final Event[] events = {
@@ -31,6 +31,9 @@ public class EventTest{
     @BeforeAll
     public void setUp(){
         eventDAO = new EventDAO();
+        user = new User("John", "Doe", "johndoes@example.com", "password123", '3');
+        user.setId(100);
+        events[0] = new Event(LocalDate.now(), "TestEvent", "EventDescription", 3, user.getId());
         matches = new ArrayList<>();
         for (Event event : events) {
             eventDAO.createEvent(event);
@@ -40,14 +43,65 @@ public class EventTest{
     @AfterEach
     public void tearDown() {
         matches.clear();
+        eventDAO.clearEvents(user.getId());
+    }
+    @AfterAll
+    public void tearDown2(){
+        for (int i = 1; i < 6; i++){
+            eventDAO.clearEvents(i);
+        }
     }
 
     @Test
     public void testFetchEvents(){
-        User user = new User("John", "Doe", "johndoes@example.com", "password123", '3');
         user.setId(2);
         matches = eventDAO.fetchEvents(user);
 
     }
 
+    @Test
+    public void testFetchSingleEvent() throws SQLException {
+        Event newEvent = eventDAO.fetchSingleEvent(events[0].getId());
+    }
+
+    @Test
+    public void testCreateEvent(){
+        assertTrue(events[0].getId() > 0);
+    }
+
+
+    @Test
+    public void testUpdateEvent() throws SQLException {
+        Event event = new Event(LocalDate.now(), "TestEvent", "TestDescription", 1, user.getId());
+        String originalName = event.getEventName();
+        event.setEventName("NewEventName");
+        eventDAO.updateEvent(event);
+
+        Event newEvent = eventDAO.fetchSingleEvent(event.getId());
+        assertNotEquals(originalName, newEvent.getEventName());
+    }
+
+    @Test
+    public void testFetchEventsDay(){
+        Event event1 = new Event(LocalDate.now(), "Test1", "TestDescription", 3, user.getId());
+        Event event2 = new Event(LocalDate.now(), "Test1", "TestDescription", 3, user.getId());
+        Event event3 = new Event(LocalDate.now(), "Test1", "TestDescription", 3, user.getId());
+        Event event4 = new Event(LocalDate.now().minusDays(1), "Test1", "TestDescription", 3, user.getId());
+
+        List<Event> testEvents = eventDAO.fetchEventsDay(user, LocalDate.now());
+
+        for (Event testEvent : testEvents) {
+            assertEquals(LocalDate.now(), testEvent.getDate());
+        }
+    }
+    @Test
+    public void testDeleteEvent(){
+        for (Event event : events) {
+            eventDAO.deleteEvent(event);
+        }
+        List<Event> currentEvents = eventDAO.fetchEvents(user);
+        assertTrue(currentEvents.isEmpty());
+
+        setUp();
+    }
 }
