@@ -100,6 +100,18 @@ public class LoginController {
             signupError.setVisible(true);
             return;
         }
+        // valid first name
+        if (!AuthValidator.isValidName(fName)) {
+            signupError.setText("Invalid first name");
+            signupError.setVisible(true);
+            return;
+        }
+        // valid last name
+        if (!AuthValidator.isValidName(lName)) {
+            signupError.setText("Invalid last name");
+            signupError.setVisible(true);
+            return;
+        }
 
         // Validate email format
         if (!AuthValidator.isValidEmail(email)) {
@@ -107,9 +119,15 @@ public class LoginController {
             signupError.setVisible(true);
             return;
         }
-
+        // valid if two password is the same
         if (!AuthValidator.isPasswordConfirmed(rawPassword, confirm)) {
             signupError.setText("Passwords do not match.");
+            signupError.setVisible(true);
+            return;
+        }
+
+        if (!AuthValidator.isStrongPassword(rawPassword)) {
+            signupError.setText("Password must be at least 8 characters with uppercase, lowercase, digit, and special character.");
             signupError.setVisible(true);
             return;
         }
