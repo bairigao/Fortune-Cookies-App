@@ -57,4 +57,16 @@ public class AuthValidatorTest {
     public void emailAndPasswordProvided() {
         assertTrue(validator.areLoginFieldsValid("user@example.com", "password123"));
     }
+
+    @Test
+    public void emailFormat() {
+        String emailAddress = "user@example.com";
+        assertTrue(validator.isValidEmail(emailAddress));
+    }
+
+    @Test
+    public void passwordFormat() {
+        String password = "Password@123";
+        assertTrue(validator.isStrongPassword(password));
+    }
 }
