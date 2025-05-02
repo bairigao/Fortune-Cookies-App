@@ -2,71 +2,71 @@ import com.example.fortune_cookies_app.model.AuthValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AuthValidatorTest {
 
-    private AuthValidator validator;
 
     @BeforeEach
     public void setUp() {
-        validator = new AuthValidator();
+        new AuthValidator();
     }
 
     // --- Signup Tests ---
 
     @Test
     public void passwordsDoNotMatch() {
-        assertFalse(validator.isPasswordConfirmed("abc123", "xyz456"));
+        assertFalse(AuthValidator.isPasswordConfirmed("abc123", "xyz456"));
     }
 
     @Test
     public void passwordsMatch() {
-        assertTrue(validator.isPasswordConfirmed("abc123", "abc123"));
+        assertTrue(AuthValidator.isPasswordConfirmed("abc123", "abc123"));
     }
 
     @Test
     public void requiredFieldIsEmpty() {
-        assertFalse(validator.areSignupFieldsValid("John", "", "john@example.com", "abc123", "abc123"));
+        assertFalse(AuthValidator.areSignupFieldsValid("John", "", "john@example.com", "abc123", "abc123"));
     }
 
     @Test
     public void allFieldsAreValid() {
-        assertTrue(validator.areSignupFieldsValid("John", "Doe", "john@example.com", "abc123", "abc123"));
+        assertTrue(AuthValidator.areSignupFieldsValid("John", "Doe", "john@example.com", "abc123", "abc123"));
     }
 
     @Test
     public void emailIsInvalid() {
-        assertFalse(validator.isValidEmail("john@invalid@com"));
+        assertFalse(AuthValidator.isValidEmail("john@invalid@com"));
     }
 
     @Test
     public void emailIsValid() {
-        assertTrue(validator.isValidEmail("john.doe@example.com"));
+        assertTrue(AuthValidator.isValidEmail("john.doe@example.com"));
     }
 
     // --- Login Tests ---
 
     @Test
     public void emailOrPasswordIsEmpty() {
-        assertFalse(validator.areLoginFieldsValid("", "password"));
-        assertFalse(validator.areLoginFieldsValid("email@example.com", ""));
+        assertFalse(AuthValidator.areLoginFieldsValid("", "password"));
+        assertFalse(AuthValidator.areLoginFieldsValid("email@example.com", ""));
     }
 
     @Test
     public void emailAndPasswordProvided() {
-        assertTrue(validator.areLoginFieldsValid("user@example.com", "password123"));
+        assertTrue(AuthValidator.areLoginFieldsValid("user@example.com", "password123"));
     }
 
     @Test
     public void emailFormat() {
         String emailAddress = "user@example.com";
-        assertTrue(validator.isValidEmail(emailAddress));
+        assertTrue(AuthValidator.isValidEmail(emailAddress));
     }
 
     @Test
     public void passwordFormat() {
         String password = "Password@123";
-        assertTrue(validator.isStrongPassword(password));
+        assertTrue(AuthValidator.isStrongPassword(password));
     }
 }
