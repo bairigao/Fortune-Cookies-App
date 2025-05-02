@@ -1,10 +1,10 @@
 package com.example.fortune_cookies_app.controller;
 
 import com.example.fortune_cookies_app.Login;
+import com.example.fortune_cookies_app.model.AuthValidator;
 import com.example.fortune_cookies_app.model.PasswordHasher;
 import com.example.fortune_cookies_app.model.User;
 import com.example.fortune_cookies_app.model.UserDAO;
-import com.example.fortune_cookies_app.model.AuthValidator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 public class LoginController {
     @FXML
@@ -40,21 +39,25 @@ public class LoginController {
     private Label signupError;
 
 
-
-    public LoginController(){
+    public LoginController() {
         userDAO = new UserDAO();
     }
 
-    /** Pulls email & password from relevant fields, passing those to the login method to log the user in
-     * @throws IOException
-     * @throws SQLException
+    /**
+     * Handles the login button click.
+     * Validates user input, hashes the password, checks login credentials,
+     * and transitions to the calendar view if successful.
+     *
+     * @throws IOException              if loading the next scene fails
+     * @throws NoSuchAlgorithmException if the hashing algorithm is unavailable
      */
-    public void onLoginClick() throws IOException, SQLException, NoSuchAlgorithmException {
+    @FXML
+    public void onLoginClick() throws NoSuchAlgorithmException, IOException {
         loginError.setVisible(false);
         String email = loginEmail.getText();
         String password = PasswordHasher.hashPassword(loginPassword.getText());
 
-        //
+
         if (!AuthValidator.areLoginFieldsValid(email, loginPassword.getText())) {
             loginError.setText("Email and password must not be empty.");
             loginError.setVisible(true);
@@ -62,7 +65,7 @@ public class LoginController {
         }
 
         User user = userDAO.login(email, password);
-        if (user != null){
+        if (user != null) {
             user.trackLogin(); //update streak and lastLogin
             System.out.println("Updating streak: " + user.getLoginStreak());
             System.out.println("Updating lastLogin: " + user.getLastLogin());
@@ -74,17 +77,25 @@ public class LoginController {
         }
     }
 
-    /** When signup button is clicked on login scene, scene changes to signup scene
-     * @throws IOException
+    /**
+     * Handles the sign-up button click from the login screen and transitions to the sign-up scene.
+     *
+     * @throws IOException if loading the signup scene fails
      */
+    @FXML
     public void onSignupClick() throws IOException {
         toSignUp();
     }
 
-    /** When the confirm button on the signup scene is clicked,
-     * Pulls data from relevant fields and creates a new user object, inserting that user into the database
-     * @throws IOException
+    /**
+     * Handles the confirm button click on the sign-up screen.
+     * Validates input, checks for existing account, hashes the password,
+     * and creates a new user account in the database.
+     *
+     * @throws IOException              if returning to login scene fails
+     * @throws NoSuchAlgorithmException if password hashing algorithm is unavailable
      */
+    @FXML
     public void onConfirmClick() throws IOException, NoSuchAlgorithmException {
         signupError.setVisible(false);
 
@@ -94,32 +105,31 @@ public class LoginController {
         String rawPassword = newPassword.getText();
         String confirm = confirmPassword.getText();
 
-        // Validate fields BEFORE hashing
+
         if (!AuthValidator.areSignupFieldsValid(fName, lName, email, rawPassword, confirm)) {
             signupError.setText("All fields must be filled.");
             signupError.setVisible(true);
             return;
         }
-        // valid first name
+
         if (!AuthValidator.isValidName(fName)) {
             signupError.setText("Invalid first name");
             signupError.setVisible(true);
             return;
         }
-        // valid last name
+
         if (!AuthValidator.isValidName(lName)) {
             signupError.setText("Invalid last name");
             signupError.setVisible(true);
             return;
         }
 
-        // Validate email format
         if (!AuthValidator.isValidEmail(email)) {
             signupError.setText("Invalid email format.");
             signupError.setVisible(true);
             return;
         }
-        // valid if two password is the same
+
         if (!AuthValidator.isPasswordConfirmed(rawPassword, confirm)) {
             signupError.setText("Passwords do not match.");
             signupError.setVisible(true);
@@ -132,10 +142,8 @@ public class LoginController {
             return;
         }
 
-        // Hash only after passing validation
         String hashedPassword = PasswordHasher.hashPassword(rawPassword);
 
-        //  check if email already exists
         if (userDAO.checkEmail(email)) {
             signupError.setText("An account with this email already exists.");
             signupError.setVisible(true);
@@ -148,15 +156,20 @@ public class LoginController {
     }
 
 
-    /** When the back button is clicked on the signup scene, scene changes to login scene
-     * @throws IOException
+    /**
+     * Handles the back button click on the sign-up screen and returns to the login scene.
+     *
+     * @throws IOException if loading the login scene fails
      */
+    @FXML
     public void onBackClick() throws IOException {
         toLogin();
     }
 
-    /** Method to change the scene to the login scene using the login scene fxml file name
-     * @throws IOException
+    /**
+     * Changes the current scene to the login view.
+     *
+     * @throws IOException if the FXML file cannot be loaded
      */
     @FXML
     protected void toLogin() throws IOException {
@@ -164,8 +177,10 @@ public class LoginController {
         loginScene.changeScene("login-view.fxml");
     }
 
-    /** Method to change the scene to the signup scene using the signup scene fxml file name
-     * @throws IOException
+    /**
+     * Method to change the scene to the signup scene using the signup scene fxml file name
+     *
+     * @throws IOException if the FXML file cannot be loaded
      */
     @FXML
     protected void toSignUp() throws IOException {
@@ -176,28 +191,30 @@ public class LoginController {
 
     /**
      * This method transitions the user to the calendar upon successful login
+     *
      * @param user User that is passed to the calendar controller - used to populate the calendar & create new events
-     * @throws IOException
+     * @throws IOException if the FXML file cannot be loaded
      */
+    @FXML
     protected void toCalendar(User user) throws IOException {
 
         FXMLLoader calendarLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/calendar-view.fxml"));
 
-            Parent calendarRoot = calendarLoader.load();
-            CalendarMainController calendarController = calendarLoader.getController();
+        Parent calendarRoot = calendarLoader.load();
+        CalendarMainController calendarController = calendarLoader.getController();
 
-            calendarController.setUser(user);
+        calendarController.setUser(user);
 
-            Scene calendarScene = new Scene(calendarRoot);
+        Scene calendarScene = new Scene(calendarRoot);
 
-            Stage primaryStage = (Stage) loginEmail.getScene().getWindow();
+        Stage primaryStage = (Stage) loginEmail.getScene().getWindow();
 
-            primaryStage.setScene(calendarScene);
+        primaryStage.setScene(calendarScene);
 
-            primaryStage.setTitle("Calendar");
-            primaryStage.setMinWidth(1280);
-            primaryStage.setMinHeight(720);
-            primaryStage.show();
+        primaryStage.setTitle("Calendar");
+        primaryStage.setMinWidth(1280);
+        primaryStage.setMinHeight(720);
+        primaryStage.show();
 
     }
 

@@ -1,7 +1,8 @@
-import static org.junit.jupiter.api.Assertions.*;
 import com.example.fortune_cookies_app.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for the {@link User} class.
@@ -135,8 +136,6 @@ public class UserTest {
     public void testEmailIsNotNull() {
         assertNotNull(EMAIL);
     }
-
-
 
 
 }

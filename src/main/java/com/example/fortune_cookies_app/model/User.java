@@ -13,7 +13,7 @@ public class User {
     private int id;
     private int loginStreak;
 
-    public User(String firstName, String lastName, String email, String password, int loginStreak){
+    public User(String firstName, String lastName, String email, String password, int loginStreak) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -74,10 +74,10 @@ public class User {
         return loginStreak;
     }
 
-    public void setLoginStreak(int loginStreak) {
-        this.loginStreak = loginStreak;
-    }
 
+    /**
+     *
+     */
     public void trackLogin() {
         LocalDate today = LocalDate.now();
         if (lastLogin != null) {

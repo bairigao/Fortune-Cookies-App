@@ -3,8 +3,8 @@ package com.example.fortune_cookies_app.model;
 import java.sql.*;
 import java.time.LocalDate;
 
-public class UserDAO implements IUserDAO{
-    private Connection connection;
+public class UserDAO implements IUserDAO {
+    private final Connection connection;
 
     public UserDAO() {
         this.connection = SqliteConnection.getInstance();
@@ -33,8 +33,11 @@ public class UserDAO implements IUserDAO{
     }
 
     /**
-     * Adds a user to the database
-     * @param user User to be added to the database
+     * Creates a new user record in the database.
+     * Sets the user's ID based on the generated database ID.
+     *
+     * @param user User object containing all required user information to be stored
+     * @throws SQLException if there's an error executing the SQL statement
      */
     @Override
     public void createUser(User user) {
@@ -59,10 +62,12 @@ public class UserDAO implements IUserDAO{
     }
 
     /**
-     * Logs the user in if email and password match the database
-     * @param email Email to used to look up user
-     * @param password Password crosschecked with database to check validity
-     * @return True if passwords match, false otherwise
+     * Authenticates a user based on email and password.
+     * If authentication is successful, returns a User object with user information.
+     *
+     * @param email    Email address used to identify the user
+     * @param password Password to verify user's identity
+     * @return User object if authentication is successful, null otherwise
      */
     @Override
     public User login(String email, String password) {
@@ -79,10 +84,10 @@ public class UserDAO implements IUserDAO{
                         resultSet.getString("password"),
                         resultSet.getInt("loginStreak")
                 );
-                user.setId(resultSet.getInt("id")); // Fix 1
+                user.setId(resultSet.getInt("id"));
                 String lastLoginStr = resultSet.getString("lastLogin");
                 if (lastLoginStr != null && !lastLoginStr.isEmpty()) {
-                    user.setLastLogin(LocalDate.parse(lastLoginStr)); // Fix 2
+                    user.setLastLogin(LocalDate.parse(lastLoginStr));
                 }
                 return user;
             }
@@ -92,47 +97,21 @@ public class UserDAO implements IUserDAO{
         return null;
     }
 
-    /**
-     * This method is used to pass the user object to the calendar upon login
-     * @param email Email used to fetch user information from database
-     * @return User object - passed to other methods to populate calendar & create events
-     * @throws SQLException Unlikely to error due to only being executed after a successful login
-     */
-    @Override
-    public User getUserByEmail(String email) {
-        String query = "SELECT * FROM users WHERE email = ?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, email);
-            ResultSet result = statement.executeQuery();
-
-            if (result.next()) {
-                User user = new User(
-                        result.getString("firstName"),
-                        result.getString("lastName"),
-                        email,
-                        result.getString("lastLogin"),
-                        result.getInt("loginStreak"));
-                user.setId(result.getInt("id"));
-                return user;
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
 
     /**
      * Updates the user's password
-     * @param user The user whose password is being updated
+     *
+     * @param user            The user whose password is being updated
      * @param currentPassword User's current password - must match password in database
-     * @param newPassword The user's new password
+     * @param newPassword     The user's new password
      */
     @Override
     public void updatePassword(User user, String currentPassword, String newPassword) {
         String query = "UPDATE users SET password = ? WHERE id = ?";
-        if (currentPassword.equals(newPassword)) throw new IllegalArgumentException("Your new password cannot be the same as your current password.");
-        if (login(user.getEmail(), currentPassword) == null) throw new IllegalArgumentException("Current password incorrect. Please try again.");
+        if (currentPassword.equals(newPassword))
+            throw new IllegalArgumentException("Your new password cannot be the same as your current password.");
+        if (login(user.getEmail(), currentPassword) == null)
+            throw new IllegalArgumentException("Current password incorrect. Please try again.");
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, newPassword);
@@ -143,6 +122,13 @@ public class UserDAO implements IUserDAO{
         }
     }
 
+    /**
+     * Updates the user's login streak and last login date in the database.
+     * This method should be called after a successful login to maintain
+     * the user's consecutive login records.
+     *
+     * @param user The user whose login streak and last login date need to be updated
+     */
     @Override
     public void updateStreak(User user) {
         String query = "UPDATE users SET loginStreak = ?, lastLogin = ? WHERE id = ?";
@@ -157,8 +143,15 @@ public class UserDAO implements IUserDAO{
         }
     }
 
+    /**
+     * Checks if an email address already exists in the database.
+     * Useful for preventing duplicate user registrations.
+     *
+     * @param email The email address to check
+     * @return true if the email already exists in the database, false otherwise
+     */
     @Override
-    public  boolean checkEmail(String email) {
+    public boolean checkEmail(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
