@@ -2,15 +2,19 @@ package com.example.fortune_cookies_app.controller;
 
 import com.example.fortune_cookies_app.model.Event;
 import com.example.fortune_cookies_app.model.EventDAO;
+import com.example.fortune_cookies_app.model.OllamaClient;
 import com.example.fortune_cookies_app.model.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Comparator;
 import java.util.List;
 
 public class DefaultSidebarController {
@@ -18,6 +22,9 @@ public class DefaultSidebarController {
     private VBox eventsList;
     @FXML
     private Label loginStreakLabel;
+    @FXML
+    private TextArea aiDailyMessage;
+
 
     private EventDAO eventDAO = new EventDAO();
     private User user;
@@ -35,6 +42,7 @@ public class DefaultSidebarController {
     private void tryLoadEvents() {
         if (user != null && currentMonth != null && eventsList != null) {
             loadEvents();
+            loadAIDailyMessage();
         }
     }
 
@@ -75,6 +83,29 @@ public class DefaultSidebarController {
         }
 
 
+    }
+
+    private void loadAIDailyMessage(){
+        System.out.println("AI loading…");
+        LocalDate today = LocalDate.now();
+        eventDAO.fetchEvents(user).stream()
+                .filter(e -> !e.getDate().isBefore(today))
+                .min(Comparator.comparing(Event::getDate))
+                .ifPresent(next -> {
+                    aiDailyMessage.setText("Thinking about ‘" + next.getEventName() + "’…");
+                    new Thread(() -> {
+                        try {
+                            String prompt = String.format(
+                                    "Give me a short, uplifting daily message for my next event ‘%s’ on %s. dont ask questions just give me a motivational message and never multiple options.",
+                                    next.getEventName(), next.getDate()
+                            );
+                            String aiText = OllamaClient.ask(prompt);
+                            Platform.runLater(() -> aiDailyMessage.setText(aiText));
+                        } catch (Exception ex) {
+                            Platform.runLater(() -> aiDailyMessage.setText("AI error: " + ex.getMessage()));
+                        }
+                    }, "ai-daily-thread").start();
+                });
     }
     private String getImportanceColour(int level) {
         return switch (level) {
