@@ -13,7 +13,7 @@
     <Pane VBox.vgrow="ALWAYS" />
 
     <Label fx:id="loginStreakLabel" style="-fx-font-size: 14; -fx-text-fill: #555;" />
-
+    <!-- AI Daily Message TextArea -->
     <TextArea fx:id="aiDailyMessage" editable="false" prefHeight="120.0" prefRowCount="6" promptText="Your daily event message will appear here." wrapText="true" VBox.vgrow="ALWAYS" />
 
 </VBox>
