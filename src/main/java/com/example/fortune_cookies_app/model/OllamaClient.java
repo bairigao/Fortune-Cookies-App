@@ -4,8 +4,24 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-
+/**
+ * {@code OllamaClient} simple HTTP client for interacting with an
+ * Ollama AI model. It sends user prompts to the Ollama /api/generate endpoint
+ * and extracts the AI-generated response from the JSON payload.
+ * Usage example:
+ * <pre>
+ * String reply = OllamaClient.ask("Hello, Ollama!");
+ * System.out.println(reply);
+ * </pre>
+ */
 public class OllamaClient {
+    /**
+     * Sends a prompt to the Ollama server and returns the AI-generated content.
+     *
+     * @param prompt the user-provided prompt to send to the AI model
+     * @return the textual response extracted from the Ollama JSON reply
+     * @throws Exception if an I/O error occurs or the HTTP request fails
+     */
     public static String ask(String prompt) throws Exception {
         String json = """
         {
@@ -27,6 +43,14 @@ public class OllamaClient {
         return extractResponse(response.body());
     }
 
+    /**
+     * Parses the raw JSON string returned by the Ollama server and extracts
+     * the value of the "response" field, along with handling simple markdown complications.
+     *
+     * @param json the raw JSON response from the Ollama server
+     * @return the unescaped textual content of the "response" field,
+     *         or a fallback message if the field is not found
+     */
     private static String extractResponse(String json) {
         int start = json.indexOf("\"response\":\"");
         if (start == -1) return "No response field found.";
