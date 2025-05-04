@@ -3,6 +3,9 @@ package com.example.fortune_cookies_app.model;
 
 import java.time.LocalDate;
 
+/**
+ * A class to represent a user
+ */
 public class User {
 
     private String firstName;

@@ -3,9 +3,15 @@ package com.example.fortune_cookies_app.model;
 import java.sql.*;
 import java.time.LocalDate;
 
+/**
+ * A class for interacting with the User table in the database
+ */
 public class UserDAO implements IUserDAO {
     private final Connection connection;
 
+    /**
+     * Creates a connection with the database and initialises the users table if it does not exist
+     */
     public UserDAO() {
         this.connection = SqliteConnection.getInstance();
         createTable();
@@ -37,7 +43,6 @@ public class UserDAO implements IUserDAO {
      * Sets the user's ID based on the generated database ID.
      *
      * @param user User object containing all required user information to be stored
-     * @throws SQLException if there's an error executing the SQL statement
      */
     @Override
     public void createUser(User user) {

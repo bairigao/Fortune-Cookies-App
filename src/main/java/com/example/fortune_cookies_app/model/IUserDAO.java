@@ -1,5 +1,8 @@
 package com.example.fortune_cookies_app.model;
 
+/**
+ * Interface to define the user class
+ */
 public interface IUserDAO {
     void createUser(User user);
 

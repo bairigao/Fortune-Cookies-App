@@ -2,6 +2,9 @@ package com.example.fortune_cookies_app.model;
 
 import java.time.LocalDate;
 
+/**
+ * A class representing an event
+ */
 public class Event {
     private int id;
     private LocalDate date;
@@ -10,6 +13,13 @@ public class Event {
     private int importance;
     private final int userId;
 
+    /**
+     * @param date Date on which the event takes place
+     * @param eventName Name of the event
+     * @param eventDescription Description of the event
+     * @param importance The importance of the event
+     * @param userId The userID for the user
+     */
     public Event(LocalDate date, String eventName, String eventDescription, int importance, int userId){
         this.date = date;
         this.eventName = eventName;
@@ -17,6 +27,13 @@ public class Event {
         this.importance = importance;
         this.userId = userId;
     }
+
+    /**
+     * @param date Date on which the event takes place
+     * @param eventName Name of the event
+     * @param importance The importance of the event
+     * @param userId The userID for the user
+     */
     public Event(LocalDate date, String eventName, int importance, int userId){
         this.date = date;
         this.eventName = eventName;
