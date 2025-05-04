@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.fortune_cookies_app.controller.DefaultSidebarController"
-      spacing="15" alignment="TOP_LEFT">
+<VBox alignment="TOP_LEFT" prefHeight="326.0" prefWidth="86.0" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.DefaultSidebarController">
         <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
+            <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
-    <VBox fx:id="eventsList" spacing="10" alignment="CENTER"/>
+    <VBox fx:id="eventsList" alignment="CENTER" spacing="10" />
 
-    <Pane VBox.vgrow="ALWAYS"/>
+    <Pane VBox.vgrow="ALWAYS" />
 
-    <Label fx:id="loginStreakLabel" style="-fx-font-size: 14; -fx-text-fill: #555;"/>
+    <Label fx:id="loginStreakLabel" style="-fx-font-size: 14; -fx-text-fill: #555;" />
+
+    <TextArea fx:id="aiDailyMessage" editable="false" prefHeight="120.0" prefRowCount="6" promptText="Your daily event message will appear here." wrapText="true" VBox.vgrow="ALWAYS" />
 
 </VBox>
-
