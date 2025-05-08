@@ -8,22 +8,24 @@
         <padding>
             <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
-    <VBox fx:id="eventsList" alignment="CENTER" prefHeight="0.0" prefWidth="290.0" spacing="10" />
 
-    <Pane prefHeight="365.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
+    <Pane prefHeight="377.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
       <children>
-          <!-- AI Daily Message TextArea -->
-          <Label layoutX="102.0" layoutY="14.0" text="DAILY MESSAGE" />
-          <TextArea fx:id="aiDailyMessage" editable="false" layoutY="31.0" prefHeight="69.0" prefRowCount="6" prefWidth="290.0" promptText="Your daily event message will appear here." wrapText="true" />
-      
-          <!-- Buttons -->
-          <Button layoutX="264.0" layoutY="100.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="25.0" text="SAVE MESSAGE" />
-         <Button layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="290.0" text="SAVED MESSAGES" />
-         <Label layoutX="114.0" layoutY="154.0" text="STUDY TIPS" />
-
-          <!-- Study Tips TextArea -->
-         <TextArea editable="false" layoutY="178.0" prefHeight="83.0" prefWidth="290.0" promptText="Your study tips will appear here." wrapText="true" />
-         <Button layoutY="305.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="290.0" text="TROPHIES" />
+         <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="6.0" layoutY="321.0" pannable="true" prefHeight="179.0" prefWidth="277.0" VBox.vgrow="ALWAYS">
+           <content>
+                      <VBox fx:id="eventsList" prefHeight="183.0" prefWidth="275.0" spacing="10" style="-fx-border-color: clear;" />
+           </content>
+         </ScrollPane>
+         <Pane prefHeight="297.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
+            <children>
+               <Label layoutX="102.0" layoutY="2.0" text="DAILY MESSAGE" />
+               <TextArea fx:id="aiDailyMessage1" editable="false" layoutX="6.0" layoutY="31.0" prefHeight="83.0" prefRowCount="6" prefWidth="277.0" promptText="Your daily event message will appear here." wrapText="true" />
+               <Button layoutX="258.0" layoutY="114.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="25.0" text="SAVE MESSAGE" />
+               <Label layoutX="114.0" layoutY="139.0" text="STUDY TIPS" />
+               <TextArea editable="false" layoutX="5.0" layoutY="163.0" prefHeight="128.0" prefWidth="278.0" promptText="Your study tips will appear here." wrapText="true" />
+            </children>
+         </Pane>
+         <Separator layoutX="45.0" layoutY="305.0" prefWidth="200.0" />
       </children></Pane>
 
 </VBox>
