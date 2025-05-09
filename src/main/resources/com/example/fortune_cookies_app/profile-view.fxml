@@ -4,11 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<Pane prefHeight="300.0" prefWidth="400.0" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="profilePane" prefHeight="300.0" prefWidth="400.0" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.ProfileController">
    <children>
-      <Button layoutX="112.0" layoutY="220.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="177.0" text="LOG OUT" />
-      <Button layoutX="112.0" layoutY="181.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="CHANGE PASSWORD" />
+      <Button fx:id="LogOut" layoutX="112.0" layoutY="220.0" mnemonicParsing="false" onAction="#onLogOutClick" prefHeight="27.0" prefWidth="177.0" text="LOG OUT" />
+      <Button fx:id="profileChangePass" layoutX="112.0" layoutY="181.0" mnemonicParsing="false" onAction="#onProfileChangePassClick" prefHeight="25.0" prefWidth="177.0" text="CHANGE PASSWORD" />
       <Ellipse fill="GREY" layoutX="200.0" layoutY="109.0" radiusX="55.0" radiusY="55.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="330.0" layoutY="14.0" mnemonicParsing="false" text="CLOSE" />
    </children>
 </Pane>

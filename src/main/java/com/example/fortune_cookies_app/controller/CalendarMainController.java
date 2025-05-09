@@ -5,6 +5,10 @@ import com.example.fortune_cookies_app.model.EventDAO;
 import com.example.fortune_cookies_app.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +17,8 @@ import javafx.scene.layout.Region;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.layout.Priority;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -29,7 +35,6 @@ public class CalendarMainController {
     @FXML private GridPane calendarGrid;
     @FXML private VBox sidebarPane;
     private final EventDAO eventDAO = new EventDAO();
-
     private User user;
     public User getUser() {
         return user;
@@ -206,6 +211,51 @@ public class CalendarMainController {
 
             sidebarPane.getChildren().add(placeholderLabel);
         }
+
+
     }
+
+    /**
+     * Handles the profile button click.
+     * @throws IOException if loading profile popup fails
+     */
+    @FXML
+    public void onProfileClick() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        stage.setTitle("Profile");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Handles the trophy button click.
+     * @throws IOException if loading trophy popup fails
+     */
+    @FXML
+    public void onTrophyClick() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/trophy-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 647, 472);
+        stage.setTitle("Trophies");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Handles the saved messages button click.
+     * @throws IOException if loading saved messages popup fails
+     */
+    @FXML
+    public void onSavedMsgsClick() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/savedmessages-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 647, 472);
+        stage.setTitle("Saved Messages");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }

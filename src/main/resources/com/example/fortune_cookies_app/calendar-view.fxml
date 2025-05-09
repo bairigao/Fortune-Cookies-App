@@ -24,10 +24,10 @@
             <Label fx:id="monthLabel" text="Month YYYY" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label fx:id="nextMonth" text="&gt;" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
          <Pane prefHeight="200.0" prefWidth="222.0" GridPane.columnIndex="4">
-            <children>
-               <Button layoutX="211.0" layoutY="-9.0" stylesheets="@GUI.css" mnemonicParsing="false" prefHeight="36.0" prefWidth="43.0" text="Profile" />
-                <Button layoutX="127.0" layoutY="-3.0" stylesheets="@GUI.css" mnemonicParsing="false" prefHeight="20.0" prefWidth="76.0" text="Trophies" />
-                <Button layoutX="35.0" layoutY="-3.0" stylesheets="@GUI.css" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Saved Msgs" />
+            <children >
+               <Button fx:id="profileView" layoutX="211.0" layoutY="-9.0" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="36.0" prefWidth="43.0" stylesheets="@GUI.css" text="Profile" />
+                <Button fx:id="trophyView" layoutX="127.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onTrophyClick" prefHeight="20.0" prefWidth="76.0" stylesheets="@GUI.css" text="Trophies" />
+                <Button fx:id="savedMsgs" layoutX="35.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onSavedMsgsClick" prefHeight="25.0" prefWidth="86.0" stylesheets="@GUI.css" text="Saved Msgs" />
             </children>
          </Pane>
          <Label text="logo" />
