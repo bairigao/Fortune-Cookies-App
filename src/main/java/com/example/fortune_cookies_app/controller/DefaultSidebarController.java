@@ -125,4 +125,6 @@ public class DefaultSidebarController {
             default -> "lightgrey";
         };
     }
+
+
 }

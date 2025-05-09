@@ -84,7 +84,18 @@ public class LoginController {
      */
     @FXML
     public void onSignupClick() throws IOException {
-        toSignUp();
+        Login loginScene = new Login();
+        loginScene.changeScene("signup-view.fxml");
+    }
+
+    /**
+     * Handles the Change Password button on the login screen.
+     * @throws IOException if changing to change password scene fails
+     */
+    @FXML
+    public void onChangePasswordClick() throws IOException {
+        Login loginScene = new Login();
+        loginScene.changeScene("login-passwordchange-view.fxml");
     }
 
     /**
@@ -175,18 +186,6 @@ public class LoginController {
     protected void toLogin() throws IOException {
         Login loginScene = new Login();
         loginScene.changeScene("login-view.fxml");
-    }
-
-    /**
-     * Method to change the scene to the signup scene using the signup scene fxml file name
-     *
-     * @throws IOException if the FXML file cannot be loaded
-     */
-    @FXML
-    protected void toSignUp() throws IOException {
-        Login loginScene = new Login();
-        loginScene.changeScene("signup-view.fxml");
-
     }
 
     /**

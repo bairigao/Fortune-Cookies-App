@@ -47,6 +47,7 @@
                 <font>
                     <Font name="System Bold" size="16.0" />
                 </font></Button>
+         <Button fx:id="toLoginChangePassword" mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="97.0" prefWidth="167.0" text="CHANGE PASSWORD" wrapText="true" />
         </children></VBox>
     <opaqueInsets>
         <Insets />

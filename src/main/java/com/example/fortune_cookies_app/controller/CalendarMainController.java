@@ -67,7 +67,7 @@ public class CalendarMainController {
     }
 
     private void updateMonthLabel(){
-        // updates the Month Label in th formate "'month' ####"
+        // updates the Month Label in the format "'month' ####"
         String monthName = currentMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         int year = currentMonth.getYear();
         monthLabel.setText(monthName + " " + year);
