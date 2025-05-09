@@ -18,10 +18,14 @@ public class ProfileController {
     private Pane profilePane;
     @FXML
     private Button profileChangePass;
+    @FXML
+    private Button confirmChangePassword;
+    @FXML
+    private Button profileBackButton;
 
     /**
      * Handles the logout button click.
-     * @throws IOException if loading saved messages popup fails
+     * @throws IOException if logging out fails
      */
     @FXML
     public void onLogOutClick() throws IOException {
@@ -34,7 +38,7 @@ public class ProfileController {
 
     /**
      * Handles the change password button click in profile.
-     * @throws IOException if loading saved messages popup fails
+     * @throws IOException if loading password change scene fails
      */
     @FXML
     public void onProfileChangePassClick() throws IOException {
@@ -46,12 +50,25 @@ public class ProfileController {
     }
 
     /**
-     * Handles the change password button click in profile.
+     * Handles the confirm password button click in profile.
      * @throws IOException if loading saved messages popup fails
      */
     @FXML
     public void profileConfirmPassClick() throws IOException {
-        Stage stage = (Stage) profileChangePass.getScene().getWindow();
+        Stage stage = (Stage) confirmChangePassword.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        stage.setScene(scene);
+
+    }
+
+    /**
+     * Handles the change password button click in profile.
+     * @throws IOException if loading saved messages popup fails
+     */
+    @FXML
+    public void onBackButtonClick() throws IOException {
+        Stage stage = (Stage) profileBackButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 300);
         stage.setScene(scene);

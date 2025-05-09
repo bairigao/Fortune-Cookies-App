@@ -24,7 +24,6 @@
                      <Font name="Lucida Sans Unicode" size="12.0" />
                   </font></Label>
                <TextArea fx:id="aiDailyMessage1" editable="false" layoutX="6.0" layoutY="31.0" prefHeight="83.0" prefRowCount="6" prefWidth="277.0" promptText="Your daily event message will appear here." wrapText="true" />
-               <Button layoutX="254.0" layoutY="114.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="25.0" text="SAVE MESSAGE" />
                <Label layoutX="114.0" layoutY="139.0" text="STUDY TIPS">
                   <font>
                      <Font name="Lucida Sans Unicode" size="12.0" />
