@@ -3,7 +3,6 @@ package com.example.fortune_cookies_app.controller;
 import com.example.fortune_cookies_app.Login;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -50,8 +49,8 @@ public class ProfileController {
     }
 
     /**
-     * Handles the confirm password button click in profile.
-     * @throws IOException if loading saved messages popup fails
+     * Handles the confirm password button click in profile password change.
+     * @throws IOException if going back to profile scene after password confirms fails
      */
     @FXML
     public void profileConfirmPassClick() throws IOException {
@@ -63,8 +62,8 @@ public class ProfileController {
     }
 
     /**
-     * Handles the change password button click in profile.
-     * @throws IOException if loading saved messages popup fails
+     * Handles the back button click in profile password change scene.
+     * @throws IOException if loading profile scene fails
      */
     @FXML
     public void onBackButtonClick() throws IOException {
