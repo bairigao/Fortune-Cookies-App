@@ -6,12 +6,18 @@ import com.example.fortune_cookies_app.model.OllamaClient;
 import com.example.fortune_cookies_app.model.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Comparator;
@@ -125,4 +131,7 @@ public class DefaultSidebarController {
             default -> "lightgrey";
         };
     }
+
+
+
 }

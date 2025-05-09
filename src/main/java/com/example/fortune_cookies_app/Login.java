@@ -8,6 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+/**
+ * Prepares the start of the Program
+ */
 public class Login extends Application {
     public static final String TITLE = "Fortune Cookie App";
     public static final int WIDTH = 1280;

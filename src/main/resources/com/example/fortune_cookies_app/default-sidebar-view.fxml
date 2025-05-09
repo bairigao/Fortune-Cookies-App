@@ -3,17 +3,35 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_LEFT" prefHeight="326.0" prefWidth="86.0" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.DefaultSidebarController">
+<VBox alignment="TOP_LEFT" prefHeight="543.0" prefWidth="330.0" spacing="15" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.DefaultSidebarController">
         <padding>
             <Insets bottom="20" left="20" right="20" top="20" />
         </padding>
-    <VBox fx:id="eventsList" alignment="CENTER" spacing="10" />
 
-    <Pane VBox.vgrow="ALWAYS" />
-
-    <Label fx:id="loginStreakLabel" style="-fx-font-size: 14; -fx-text-fill: #555;" />
-    <!-- AI Daily Message TextArea -->
-    <TextArea fx:id="aiDailyMessage" editable="false" prefHeight="120.0" prefRowCount="6" promptText="Your daily event message will appear here." wrapText="true" VBox.vgrow="ALWAYS" />
+    <Pane prefHeight="377.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
+      <children>
+         <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="6.0" layoutY="321.0" pannable="true" prefHeight="179.0" prefWidth="277.0" VBox.vgrow="ALWAYS">
+           <content>
+                      <VBox fx:id="eventsList" prefHeight="183.0" prefWidth="275.0" spacing="10" />
+           </content>
+         </ScrollPane>
+         <Pane prefHeight="297.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
+            <children>
+               <Label layoutX="101.0" layoutY="5.0" text="DAILY MESSAGE">
+                  <font>
+                     <Font name="Lucida Sans Unicode" size="12.0" />
+                  </font></Label>
+               <TextArea fx:id="aiDailyMessage1" editable="false" layoutX="6.0" layoutY="31.0" prefHeight="83.0" prefRowCount="6" prefWidth="277.0" promptText="Your daily event message will appear here." wrapText="true" />
+               <Label layoutX="114.0" layoutY="139.0" text="STUDY TIPS">
+                  <font>
+                     <Font name="Lucida Sans Unicode" size="12.0" />
+                  </font></Label>
+               <TextArea editable="false" layoutX="5.0" layoutY="163.0" prefHeight="128.0" prefWidth="278.0" promptText="Your study tips will appear here." wrapText="true" />
+            </children>
+         </Pane>
+         <Separator layoutX="45.0" layoutY="305.0" prefWidth="200.0" />
+      </children></Pane>
 
 </VBox>

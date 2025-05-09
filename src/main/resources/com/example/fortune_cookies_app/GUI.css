@@ -1,0 +1,17 @@
+
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+.text-area {
+    -fx-background-color: transparent;
+    -fx-border-radius: 10px;
+}
+.button {
+    -fx-background-color: #DDDDDD;
+    -fx-border-color: grey;
+    -fx-font-family: "System Bold";
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+}
+
