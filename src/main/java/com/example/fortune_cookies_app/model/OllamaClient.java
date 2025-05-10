@@ -10,7 +10,7 @@ import com.example.fortune_cookies_app.model.ResponseListener;
  */
 public class OllamaClient {
     private static final String API_URL = "http://localhost:11434/api/generate";
-    private static final String DEFAULT_MODEL = "gemma3:4b";
+    private static final String DEFAULT_MODEL = new OllamaResponseFetcher("http://localhost:11434/api/generate").getDefaultInstalledModel();
     private static final OllamaResponseFetcher fetcher = new OllamaResponseFetcher(API_URL);
 
     /**

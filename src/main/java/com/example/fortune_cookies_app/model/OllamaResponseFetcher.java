@@ -37,6 +37,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class OllamaResponseFetcher {
 
@@ -152,7 +155,29 @@ public class OllamaResponseFetcher {
 
         return sb.toString();
     }
+    public String getDefaultInstalledModel() {
+        try {
+            URL url = new URL("http://localhost:11434/api/tags");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("User-Agent", USERAGENT);
 
+            int code = conn.getResponseCode();
+            if (code == 200) {
+                String json = readConnInput(conn);
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+                JsonArray models = jsonObject.getAsJsonArray("models");
+                if (models != null && models.size() > 0) {
+                    return models.get(0).getAsJsonObject().get("name").getAsString();
+                }
+            }
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error fetching installed models", e);
+        }
+
+        return "llama3:8b"; // fallback default
+    }
 
 }
 
