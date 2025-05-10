@@ -107,18 +107,16 @@ public class DefaultSidebarController {
                 .min(Comparator.comparing(Event::getDate))
                 .ifPresent(next -> {
                     aiDailyMessage.setText("Thinking about ‘" + next.getEventName() + "’…");
-                    new Thread(() -> {
-                        try {
-                            String prompt = String.format(
-                                    "Give me a short, uplifting daily message for my next event ‘%s’ on %s. dont ask questions just give me a motivational message and never multiple options.",
-                                    next.getEventName(), next.getDate()
-                            );
-                            String aiText = OllamaClient.ask(prompt);
-                            Platform.runLater(() -> aiDailyMessage.setText(aiText));
-                        } catch (Exception ex) {
-                            Platform.runLater(() -> aiDailyMessage.setText("AI error: " + ex.getMessage()));
-                        }
-                    }, "ai-daily-thread").start();
+                    String prompt = String.format(
+                            "Give me a short, uplifting daily message for my next event ‘%s’ on %s. dont ask questions just give me a motivational message and never multiple options.",
+                            next.getEventName(), next.getDate()
+                    );
+                    OllamaClient.askAsync(prompt, response -> {
+                        String reply = (response != null && response.getResponse() != null)
+                                ? response.getResponse()
+                                : "AI returned no message.";
+                        Platform.runLater(() -> aiDailyMessage.setText(reply));
+                    });
                 });
     }
     private String getImportanceColour(int level) {
