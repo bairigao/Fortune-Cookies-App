@@ -3,6 +3,7 @@ module com.example.fortune_cookies_app {
     requires javafx.fxml;
     requires java.sql;
     requires java.net.http;
+    requires com.google.gson;
 
 
     opens com.example.fortune_cookies_app to javafx.fxml;
