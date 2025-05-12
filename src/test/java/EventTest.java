@@ -25,7 +25,7 @@ public class EventTest{
 
     List<Event> matches;
 
-    @BeforeAll
+    @BeforeEach
     public void setUp(){
         eventDAO = new EventDAO();
         user = new User("John", "Doe", "johndoes@example.com", "password123", "What is your pet's name?", "niuyou", 1);
