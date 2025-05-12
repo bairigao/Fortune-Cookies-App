@@ -31,7 +31,7 @@ public class EventTest{
     @BeforeAll
     public void setUp(){
         eventDAO = new EventDAO();
-        user = new User("John", "Doe", "johndoes@example.com", "password123", '3');
+        user = new User("John", "Doe", "johndoes@example.com", "password123", "What is your pet's name?", "niuyou", 1);
         user.setId(100);
         events[0] = new Event(LocalDate.now(), "TestEvent", "EventDescription", 3, user.getId());
         matches = new ArrayList<>();
