@@ -35,11 +35,19 @@ public class DefaultSidebarController {
     private EventDAO eventDAO = new EventDAO();
     private User user;
     private YearMonth currentMonth;
-
+    /**
+     * Sets the current user and populate/refreshes the calendar
+     * @param user - user
+     */
     public void setUser(User user) {
         this.user = user;
         tryLoadEvents();
     }
+
+    /**
+     * Sets the current month of the sidebar data so correct events can be pulled
+     * @param currentMonth
+     */
     public void setCurrentMonth(YearMonth currentMonth) {
         this.currentMonth = currentMonth;
         tryLoadEvents();
@@ -52,6 +60,10 @@ public class DefaultSidebarController {
         }
     }
 
+    /**
+     * loads all the user events into the sidebar and includes the title
+     * as additional information including the importance colour.
+     */
     public void loadEvents(){
         System.out.println("Loading events into default sidebar...");
         System.out.println("User = " + (user != null ? user.getId() : "null"));

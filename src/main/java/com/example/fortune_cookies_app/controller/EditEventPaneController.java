@@ -1,8 +1,6 @@
 package com.example.fortune_cookies_app.controller;
-
 import com.example.fortune_cookies_app.model.Event;
 import com.example.fortune_cookies_app.model.EventDAO;
-import com.example.fortune_cookies_app.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -12,92 +10,89 @@ import javafx.scene.layout.Region;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 
-import java.time.LocalDate;
-
 /**
- * Controller for adding an event to the calendar
+ * Controller for editing an existing event. mimics the addeventpane
+ * but with data pre imported into the inputs.
  */
-public class AddEventPaneController {
-
-    @FXML private Button createEventButton;
+public class EditEventPaneController{
+    @FXML private Button saveEditButton;
     @FXML private TextField titleField;
     @FXML private TextArea descriptionArea;
     @FXML private HBox importanceCircles;
-
-    private int selectedImportance = 3; // default importance level
-    //needed to set the date for an event addition (will pull the seleceted date from the calendarMain)
-    private LocalDate selectedDate;
-    private final EventDAO eventDAO = new EventDAO();
-    private User user;
-    private CalendarMainController calendarController;
-
-    /**
-     * Sets the date based on the selected date
-     *
-     * @param date - LocalDate
-     */
-    public void setDate(LocalDate date){
-        this.selectedDate = date;
-    }
-    /**
-     * sets the current user for the side pane logic
-     *
-     * @param user - current user
-     */
-    public void setUser(User user){
-        this.user = user;
-    }
+    @FXML private Button deleteButton;
     @FXML private Label titleErrorLabel;
     @FXML private Label descriptionErrorLabel;
 
+    private Event event;
+    private final EventDAO eventDAO = new EventDAO();
+    private CalendarMainController calendarController;
+    private int selectedImportance = 3;
+
     /**
-     * sets up the sidebar ui and handles the importance circles, errors
-     * and the create event button
+     * Fills the 'addevent' interface with the preexisting database information
+     *
+     * @param event - event data to be edited
+     */
+    public void setEvent(Event event){
+        this.event = event;
+        selectedImportance = event.getImportance();
+        titleField.setText(event.getEventName());
+        descriptionArea.setText(event.getEventDescription());
+        updateImportanceHighlight();
+    }
+
+    /**
+     * allows access to the calendarMainController function
+     * @param calendarMainController - sidepain main controller
+     */
+    public void setCalendarController(CalendarMainController calendarMainController){
+        this.calendarController = calendarMainController;
+    }
+
+    /**
+     * Initializes the edit event pane window which is a carbon copy
+     * of the add event pane. fills out the relevant information from
+     * the database ready for editing.
      */
     @FXML
-    public void initialize() {
-        // Setup importance circles (1 to 5)
+    public void initialize(){
         for (int i = 1; i <= 5; i++) {
             Region circle = new Region();
             circle.setMinSize(20, 20);
             circle.setPrefSize(24, 24);
             circle.setMaxSize(24, 24);
             circle.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%; -fx-cursor: hand;");
-
             final int level = i;
             circle.setOnMouseClicked((MouseEvent e) -> {
                 selectedImportance = level;
                 updateImportanceHighlight();
             });
-
             importanceCircles.getChildren().add(circle);
         }
-
         titleErrorLabel.setVisible(false);
-        titleField.textProperty().addListener((obs, previousType, newText) ->{
-            if (newText.length() > 50){
-                titleField.setText(previousType);
+        titleField.textProperty().addListener((obs, previous, current) -> {
+            if (current.length() > 50) {
+                titleField.setText(previous);
                 titleErrorLabel.setVisible(true);
             } else {
                 titleErrorLabel.setVisible(false);
             }
         });
-
         descriptionErrorLabel.setVisible(false);
-        descriptionArea.textProperty().addListener((obs, previousType, newText) ->{
-            if (newText.length() > 255){
-                descriptionArea.setText(previousType);
+        descriptionArea.textProperty().addListener((obs, previous, current) -> {
+            if (current.length() > 255) {
+                descriptionArea.setText(previous);
                 descriptionErrorLabel.setVisible(true);
             } else {
                 descriptionErrorLabel.setVisible(false);
             }
         });
-
         updateImportanceHighlight();
-        createEventButton.setOnAction(e -> createEvent());
+        saveEditButton.setOnAction(e -> updateEvent());
+        deleteButton.setOnAction(e -> deleteEvent());
     }
 
-    private void updateImportanceHighlight() {
+    private void updateImportanceHighlight(){
         for (int i = 0; i < importanceCircles.getChildren().size(); i++) {
             Region circle = (Region) importanceCircles.getChildren().get(i);
             if (i == selectedImportance - 1) {
@@ -119,33 +114,41 @@ public class AddEventPaneController {
         };
     }
 
-    /**
-     * allows control of the sidebar from MainController
-     * @param calendarController
-     */
-    public void setCalendarController(CalendarMainController calendarController) {
-        this.calendarController = calendarController;
-    }
-    //create event functionality tied to the create event button
-    private void createEvent(){
-        if (selectedDate == null || user == null){
-            System.out.println("Error-Date/User");
+    private void updateEvent(){
+        if (event == null) {
             return;
         }
         String title = titleField.getText();
         String description = descriptionArea.getText();
-        int importance = selectedImportance;
+
         if (title.isEmpty()){
-            System.out.println("Title Required");
             return;
         }
-        Event newEvent = new Event(selectedDate, title, description, importance, user.getId());
-        eventDAO.createEvent(newEvent);
-        System.out.println("Event Created");
-        if (calendarController !=null) {
+
+        event.setEventName(title);
+        event.setEventDescription(description);
+        event.setImportance(selectedImportance);
+        eventDAO.updateEvent(event);
+        System.out.println("Event Updated");
+
+        if (calendarController != null) {
             calendarController.populateCalendar();
             calendarController.defaultSidebar();
         }
     }
+
+    private void deleteEvent(){
+        if (event == null) {
+            return;
+        }
+        eventDAO.deleteEvent(event);
+        System.out.println("Event deleted");
+
+        if (calendarController != null) {
+            calendarController.populateCalendar();
+            calendarController.defaultSidebar();
+        }
+    }
+
 
 }
