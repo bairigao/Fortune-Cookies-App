@@ -76,11 +76,9 @@ public class EventTest{
         eventDAO.createEvent(event);
         String originalName = event.getEventName();
         event.setEventName("NewEventName");
-        System.out.println(event.getEventName());
         eventDAO.updateEvent(event);
 
         Event newEvent = eventDAO.fetchSingleEvent(event.getId());
-        System.out.println(newEvent.getEventName());
         assertNotEquals(originalName, newEvent.getEventName());
     }
 
