@@ -57,6 +57,19 @@
                 <font>
                     <Font size="14.0" />
                 </font></PasswordField>
+            <Label prefHeight="9.0" prefWidth="210.0" text="Security Question">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <ComboBox fx:id="secureQuestionCombo" prefWidth="275.0" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;" />
+            <Label prefHeight="9.0" prefWidth="210.0" text="Answer">
+                <font>
+                    <Font name="Lucida Sans Unicode" size="16.0" />
+                </font>
+            </Label>
+            <TextField fx:id="secureAnswer" promptText="Answer" prefWidth="275.0" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;" />
+
             <Label fx:id="signupError" textFill="red" visible="false" wrapText="true" />
         </children>
     </VBox>

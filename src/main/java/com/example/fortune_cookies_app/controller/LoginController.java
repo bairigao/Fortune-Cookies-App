@@ -7,17 +7,21 @@ import com.example.fortune_cookies_app.model.User;
 import com.example.fortune_cookies_app.model.UserDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     @FXML
     public TextField loginEmail;
     @FXML
@@ -37,11 +41,18 @@ public class LoginController {
     public PasswordField confirmPassword;
     @FXML
     private Label signupError;
+    @FXML
+    private ComboBox<String> secureQuestionCombo;
+    @FXML
+    private TextField secureAnswer;
+
 
 
     public LoginController() {
         userDAO = new UserDAO();
     }
+
+
 
     /**
      * Handles the login button click.
@@ -115,6 +126,8 @@ public class LoginController {
         String email = newEmail.getText();
         String rawPassword = newPassword.getText();
         String confirm = confirmPassword.getText();
+        String selectedQuestion = secureQuestionCombo.getValue();
+        String answer = secureAnswer.getText();
 
 
         if (!AuthValidator.areSignupFieldsValid(fName, lName, email, rawPassword, confirm)) {
@@ -161,7 +174,20 @@ public class LoginController {
             return;
         }
 
-        User user = new User(fName, lName, email, hashedPassword, 1);
+        if (selectedQuestion == null || selectedQuestion.isEmpty()) {
+            signupError.setText("Please select a security question.");
+            signupError.setVisible(true);
+            return;
+        }
+
+        if (answer == null || answer.isBlank()) {
+            signupError.setText("Please provide an answer to the security question.");
+            signupError.setVisible(true);
+            return;
+        }
+
+
+        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer, 1);
         userDAO.createUser(user);
         toLogin();
     }
@@ -217,4 +243,15 @@ public class LoginController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (secureQuestionCombo != null) {
+            secureQuestionCombo.getItems().addAll(
+                    "What is your pet's name?",
+                    "What is your favorite food?",
+                    "What is your mother's maiden name?",
+                    "What city were you born in?"
+            );
+        }
+    }
 }

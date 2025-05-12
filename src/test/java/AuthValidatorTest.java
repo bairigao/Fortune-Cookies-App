@@ -69,4 +69,29 @@ public class AuthValidatorTest {
         String password = "Password@123";
         assertTrue(AuthValidator.isStrongPassword(password));
     }
+
+//    @Test
+//    public void testUpdatePassword_InAppChange_Success() {
+//        boolean result = updatePassword("user@example.com", "oldPwd123", "newPwd123", null);
+//        assertTrue(result);
+//    }
+//
+//    @Test
+//    public void testUpdatePassword_Recovery_Success() {
+//        boolean result = userDAO.updatePassword("user@example.com", null, "newPwd123", "myPetName");
+//        assertTrue(result);
+//    }
+//
+//    @Test
+//    public void testUpdatePassword_InAppChange_WrongPassword() {
+//        boolean result = userDAO.updatePassword("user@example.com", "wrongOldPwd", "newPwd123", null);
+//        assertFalse(result);
+//    }
+//
+//    @Test
+//    public void testUpdatePassword_Recovery_WrongAnswer() {
+//        boolean result = userDAO.updatePassword("user@example.com", null, "newPwd123", "wrongAnswer");
+//        assertFalse(result);
+//    }
+
 }

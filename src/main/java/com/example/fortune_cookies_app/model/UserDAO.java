@@ -30,7 +30,9 @@ public class UserDAO implements IUserDAO {
                     + "email VARCHAR NOT NULL UNIQUE,"
                     + "password VARCHAR NOT NULL,"
                     + "lastLogin DATE NOT NULL,"
-                    + "loginStreak INTEGER NOT NULL DEFAULT 1"
+                    + "loginStreak INTEGER NOT NULL DEFAULT 1,"
+                    + "secureQuestion TEXT NOT NULL,"
+                    + "secureAnswer TEXT NOT NULL"
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
@@ -46,7 +48,7 @@ public class UserDAO implements IUserDAO {
      */
     @Override
     public void createUser(User user) {
-        String query = "INSERT INTO users (firstName, lastName, email, password, lastLogin, loginStreak) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (firstName, lastName, email, password, lastLogin, loginStreak, secureQuestion, secureAnswer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, user.getFirstName());
@@ -55,6 +57,8 @@ public class UserDAO implements IUserDAO {
             statement.setString(4, user.getPassword());
             statement.setString(5, LocalDate.now().toString());
             statement.setInt(6, 1);
+            statement.setString(7, user.getSecurityQuestion());
+            statement.setString(8, user.getSecurityAnswer());
             statement.executeUpdate();
             // set the id for new user
             ResultSet result = statement.getGeneratedKeys();
@@ -87,6 +91,8 @@ public class UserDAO implements IUserDAO {
                         resultSet.getString("lastName"),
                         resultSet.getString("email"),
                         resultSet.getString("password"),
+                        resultSet.getString("secureQuestion"),
+                        resultSet.getString("secureAnswer"),
                         resultSet.getInt("loginStreak")
                 );
                 user.setId(resultSet.getInt("id"));
@@ -169,4 +175,19 @@ public class UserDAO implements IUserDAO {
         }
         return false;
     }
+
+    public boolean resetPasswordBySecurityAnswer(String email, String answer, String newPassword) {
+        String query = "UPDATE users SET password = ? WHERE email = ? AND secureAnswer = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setString(1, newPassword);
+            stmt.setString(2, email);
+            stmt.setString(3, answer);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
