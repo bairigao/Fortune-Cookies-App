@@ -4,7 +4,6 @@ import com.example.fortune_cookies_app.model.User;
 import org.junit.jupiter.api.*;
 import com.example.fortune_cookies_app.model.Event;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
@@ -13,10 +12,8 @@ import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EventTest{
-    private EventDAO eventDAO;;
+    private EventDAO eventDAO;
     private User user;
-    private static final String EMPTY_STRING = "";
-    private static final String NULL_STRING = null;
     private static final Event[] events = {
             new Event(LocalDate.of(2023, 10, 1), "Birthday", "My birthday party", 5, 1),
             new Event(LocalDate.of(2023, 10, 2), "Meeting", "Project meeting", 3, 2),
@@ -60,8 +57,9 @@ public class EventTest{
     }
 
     @Test
-    public void testFetchSingleEvent() throws SQLException {
+    public void testFetchSingleEvent() {
         Event newEvent = eventDAO.fetchSingleEvent(events[0].getId());
+        assertTrue(newEvent.getId() > 0);
     }
 
     @Test
@@ -71,7 +69,7 @@ public class EventTest{
 
 
     @Test
-    public void testUpdateEvent() throws SQLException {
+    public void testUpdateEvent() {
         Event event = new Event(LocalDate.now(), "TestEvent", "TestDescription", 1, user.getId());
         eventDAO.createEvent(event);
         String originalName = event.getEventName();
@@ -88,6 +86,10 @@ public class EventTest{
         Event event2 = new Event(LocalDate.now(), "Test1", "TestDescription", 3, user.getId());
         Event event3 = new Event(LocalDate.now(), "Test1", "TestDescription", 3, user.getId());
         Event event4 = new Event(LocalDate.now().minusDays(1), "Test1", "TestDescription", 3, user.getId());
+        eventDAO.createEvent(event1);
+        eventDAO.createEvent(event2);
+        eventDAO.createEvent(event3);
+        eventDAO.createEvent(event4);
 
         List<Event> testEvents = eventDAO.fetchEventsDay(user, LocalDate.now());
 
@@ -95,6 +97,7 @@ public class EventTest{
             assertEquals(LocalDate.now(), testEvent.getDate());
         }
     }
+
     @Test
     public void testDeleteEvent(){
         for (Event event : events) {
