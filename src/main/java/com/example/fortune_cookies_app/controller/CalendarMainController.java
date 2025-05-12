@@ -27,6 +27,12 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.List;
 
+/**
+ * Controls and builds the main functionality of the program,
+ * Builds the calandar using a grid system and laysout the top bar and sidepane.
+ * Controls the sidebar import logic.
+ * Controls all calendar navigation and populates it with important information.
+ */
 public class CalendarMainController {
     //pulls from calendar-view.fxml
     @FXML private Label monthLabel;
@@ -36,6 +42,11 @@ public class CalendarMainController {
     @FXML private VBox sidebarPane;
     private final EventDAO eventDAO = new EventDAO();
     private User user;
+
+    /**
+     * initializes the current user after login
+     * @return
+     */
     public User getUser() {
         return user;
     }
@@ -45,6 +56,9 @@ public class CalendarMainController {
     private StackPane selectedCell = null;
     private LocalDate selectedDate = null;
 
+    /**
+     * Sets up the Calendar and deals with navigation
+     */
     public void initialize() {
         previousMonth.setOnMouseClicked(e -> {
             currentMonth = currentMonth.minusMonths(1);
@@ -63,6 +77,11 @@ public class CalendarMainController {
         updateMonthLabel();
 
     }
+
+    /**
+     * Sets the current user and populate/refreshes the calendar
+     * @param user - user
+     */
     public void setUser(User user) {
         this.user = user;
         populateCalendar();
@@ -78,8 +97,11 @@ public class CalendarMainController {
         monthLabel.setText(monthName + " " + year);
     }
 
-    //logic for assigning numbers to the calendar grid. and correctly offsetting them to the
-    //correct days.
+
+    /**
+     * Fills the calendar with the relevant information. Dates, key dates,
+     * importance colours, selected highlights ect.
+     */
     public void populateCalendar(){
         //start fresh
         calendarGrid.getChildren().clear();
@@ -103,8 +125,24 @@ public class CalendarMainController {
             dayLabel.setAlignment(Pos.CENTER);
 
             //style setup for calendar date highlight on click
+            String highlightColor = "#bbbbbb";
+            if (user != null) {
+                List<Event> eventsForDay = eventDAO.fetchEventsDay(user, currentDate);
+                if (!eventsForDay.isEmpty()) {
+                    int importance = eventsForDay.stream().mapToInt(Event::getImportance).max().orElse(1);
+                    highlightColor = switch (importance) {
+                        case 1 -> "#90caf9"; // darker blue
+                        case 2 -> "#81c784"; // darker green
+                        case 3 -> "#fff176"; // darker yellow
+                        case 4 -> "#ba68c8"; // darker purple
+                        case 5 -> "#ef9a9a"; // darker red
+                        default -> "#bbbbbb";
+                    };
+                }
+            }
+
             Region highlight = new Region();
-            highlight.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%;");
+            highlight.setStyle("-fx-background-color: " + highlightColor + "; -fx-background-radius: 50%;");
             highlight.setMinSize(46, 46);
             highlight.setPrefSize(46, 46);
             highlight.setMaxSize(46, 46);
@@ -154,7 +192,11 @@ public class CalendarMainController {
             default -> "lightgrey";
         };
     }
-    //sidebar before a date is pressed
+
+    /**
+     * Loads the default sidebarcontroller on calendar launch and as
+     * a fallback for most other sidebarpanes.
+     */
     public void defaultSidebar() {
         System.out.println("Running defaultSidebar");
         try {
@@ -197,19 +239,25 @@ public class CalendarMainController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/add-event-view.fxml"));
                 VBox addEventPane = loader.load();
                 AddEventPaneController controller = loader.getController();
-                controller.setDate(date);
                 controller.setUser(user);
+                controller.setDate(date);
                 controller.setCalendarController(this);
                 sidebarPane.getChildren().setAll(addEventPane);
             } catch (IOException e){
                 e.printStackTrace();
             }
         } else {
-            Label placeholderLabel = new Label("Placeholder, date selected with an existing event");
-            placeholderLabel.setWrapText(true);
-            placeholderLabel.setStyle("-fx-font-size: 14; -fx-font-family: 'Lucida Sans Unicode';");
-
-            sidebarPane.getChildren().add(placeholderLabel);
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/date-with-events-view.fxml"));
+                VBox dateEventsPane = loader.load();
+                DateWithEventsController controller = loader.getController();
+                controller.setUser(user);
+                controller.setDate(date);
+                controller.setCalendarController(this);
+                sidebarPane.getChildren().setAll(dateEventsPane);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
 
 
@@ -257,5 +305,13 @@ public class CalendarMainController {
         stage.show();
     }
 
+    /**
+     * the date with events controller does its own internal sidepane manipulation
+     * and needa a method to do it.
+     * @param pane
+     */
+    public void sidebarAccess(VBox pane) {
+        sidebarPane.getChildren().setAll(pane);
+    }
 
 }
