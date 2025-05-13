@@ -17,6 +17,7 @@ public class UserDAO implements IUserDAO {
         createTable();
     }
 
+
     /**
      * Initialises table within the database - only called within constructor.
      */
@@ -176,18 +177,28 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
-    public boolean resetPasswordBySecurityAnswer(String email, String answer, String newPassword) {
-        String query = "UPDATE users SET password = ? WHERE email = ? AND secureAnswer = ?";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, newPassword);
-            stmt.setString(2, email);
-            stmt.setString(3, answer);
-            return stmt.executeUpdate() > 0;
+    @Override
+    public User findByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new User(
+                            resultSet.getString("firstName"),
+                            resultSet.getString("lastName"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password"),
+                            resultSet.getString("secureQuestion"),
+                            resultSet.getString("secureAnswer"),
+                            resultSet.getInt("loginStreak")
+                    );
+                }
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Use logger in real apps
         }
-        return false;
+        return null;
     }
 
 }
