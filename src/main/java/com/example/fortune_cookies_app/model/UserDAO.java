@@ -17,6 +17,7 @@ public class UserDAO implements IUserDAO {
         createTable();
     }
 
+
     /**
      * Initialises table within the database - only called within constructor.
      */
@@ -176,6 +177,7 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
+
     /**
      * @param email Email of the user
      * @param answer Answer to the user's security question
@@ -192,8 +194,30 @@ public class UserDAO implements IUserDAO {
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             System.err.println("Unexpected error occurred updating password: " + e.getMessage()); // Should never happen with current implementation
+
+          
+    @Override
+    public User findByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new User(
+                            resultSet.getString("firstName"),
+                            resultSet.getString("lastName"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password"),
+                            resultSet.getString("secureQuestion"),
+                            resultSet.getString("secureAnswer"),
+                            resultSet.getInt("loginStreak")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Use logger in real apps
         }
-        return false;
+        return null;
     }
 
 }
