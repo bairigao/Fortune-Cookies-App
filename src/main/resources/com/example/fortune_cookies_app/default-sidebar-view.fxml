@@ -28,7 +28,7 @@
                   <font>
                      <Font name="Lucida Sans Unicode" size="12.0" />
                   </font></Label>
-               <TextArea editable="false" layoutX="5.0" layoutY="163.0" prefHeight="128.0" prefWidth="278.0" promptText="Your study tips will appear here." wrapText="true" />
+               <TextArea fx:id="aiStudyTips" editable="false" layoutX="5.0" layoutY="163.0" prefHeight="128.0" prefWidth="278.0" promptText="Your study tips will appear here." wrapText="true" />
             </children>
          </Pane>
          <Separator layoutX="45.0" layoutY="305.0" prefWidth="200.0" />
