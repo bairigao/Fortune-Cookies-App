@@ -17,6 +17,7 @@ public class UserDAO implements IUserDAO {
         createTable();
     }
 
+
     /**
      * Initialises table within the database - only called within constructor.
      */

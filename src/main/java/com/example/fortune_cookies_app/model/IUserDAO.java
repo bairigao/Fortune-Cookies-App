@@ -14,6 +14,6 @@ public interface IUserDAO {
 
     boolean checkEmail(String email);
 
-    boolean resetPasswordBySecurityAnswer(String email, String answer, String newPassword);
+    User findByEmail(String email);
 
 }
