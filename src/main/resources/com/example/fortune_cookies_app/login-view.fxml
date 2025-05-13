@@ -32,6 +32,10 @@
                     <Font size="14.0" />
                 </font></PasswordField>
             <Label fx:id="loginError" maxWidth="300" textFill="red" visible="false" wrapText="true" />
+            <HBox alignment="BOTTOM_RIGHT" prefWidth="275.0">
+                <Hyperlink fx:id="toLoginChangePassword" onAction="#onChangePasswordClick" text="Forgot your password?" wrapText="true" style="-fx-underline: true; -fx-text-fill: blue;" />
+            </HBox>
+
         </children>
     </VBox>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">
@@ -47,7 +51,7 @@
                 <font>
                     <Font name="System Bold" size="16.0" />
                 </font></Button>
-         <Button fx:id="toLoginChangePassword" mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="97.0" prefWidth="167.0" text="CHANGE PASSWORD" wrapText="true" />
+<!--         <Button fx:id="toLoginChangePassword" mnemonicParsing="false" onAction="#onChangePasswordClick" prefHeight="97.0" prefWidth="167.0" text="CHANGE PASSWORD" wrapText="true" />-->
         </children></VBox>
     <opaqueInsets>
         <Insets />
