@@ -1,14 +1,10 @@
 package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.model.Event;
-import com.example.fortune_cookies_app.model.EventDAO;
-import com.example.fortune_cookies_app.model.User;
+import com.example.fortune_cookies_app.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,13 +13,13 @@ import javafx.scene.layout.Region;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.layout.Priority;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.List;
 
@@ -45,7 +41,7 @@ public class CalendarMainController {
 
     /**
      * initializes the current user after login
-     * @return
+     * @return The user object that is logged in
      */
     public User getUser() {
         return user;
@@ -269,11 +265,18 @@ public class CalendarMainController {
      */
     @FXML
     public void onProfileClick() throws IOException {
+
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
+        Parent profileRoot = profileLoader.load();
+        ProfileController profileController = profileLoader.getController();
+
+        profileController.setUser(this.user);
+
+        Scene profileScene = new Scene(profileRoot, 400, 300);
+
         stage.setTitle("Profile");
-        stage.setScene(scene);
+        stage.setScene(profileScene);
         stage.show();
     }
 
@@ -298,10 +301,17 @@ public class CalendarMainController {
     @FXML
     public void onSavedMsgsClick() throws IOException {
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/savedmessages-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 647, 472);
+        FXMLLoader savedMessagesLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/savedmessages-view.fxml"));
+        Parent savedMessagesRoot = savedMessagesLoader.load();
+        SavedMessagesController messageController = savedMessagesLoader.getController();
+
+        messageController.setUser(this.user);
+        messageController.showMessages();
+
+        Scene savedMessagesScene = new Scene(savedMessagesRoot, 647, 472);
+
         stage.setTitle("Saved Messages");
-        stage.setScene(scene);
+        stage.setScene(savedMessagesScene);
         stage.show();
     }
 

@@ -1,6 +1,9 @@
 package com.example.fortune_cookies_app.model;
 import com.google.gson.Gson;
 
+/**
+ * Class to define the response from the Ollama API
+ */
 public class OllamaResponse {
 
     public String model;

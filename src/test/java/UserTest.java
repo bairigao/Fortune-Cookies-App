@@ -18,6 +18,7 @@ public class UserTest {
     private static final String EMAIL_TWO = "jane@gmail.com";
     private static final String PASSWORD = "password123";
     private static final String PASSWORD_TWO = "password1234";
+
     private static final int LOGINSTREAK = '3';
     private static final int LOGINSTREAK_TWO = '4';
     private static final String SecureQuestion = "What is your pet's name?";
@@ -28,14 +29,22 @@ public class UserTest {
     private User user;
     private User userTwo;
 
+    private static final String SECURITY_QUESTION = "What is your pet's name?";
+    private static final String SECURITY_ANSWER = "Mittens";
+
+    private User user;
+
 
     /**
      * Sets up fresh User instances before each test is run.
      */
     @BeforeEach
     public void setUp() {
+
         user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, SecureQuestion, SecureAnswer, LOGINSTREAK);
         userTwo = new User(FIRST_NAME_TWO, LAST_NAME_TWO, EMAIL_TWO, PASSWORD_TWO, SecureQuestion_TWO, SecureAnswer, LOGINSTREAK_TWO);
+
+        user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, SECURITY_QUESTION, SECURITY_ANSWER);
     }
 
 
@@ -62,7 +71,10 @@ public class UserTest {
     @Test
     public void testSetFirstName() {
         user.setFirstName(FIRST_NAME_TWO);
+
         assertEquals(FIRST_NAME_TWO, userTwo.getFirstName());
+
+        assertEquals(FIRST_NAME_TWO, user.getFirstName());
     }
 
     /**
@@ -71,6 +83,7 @@ public class UserTest {
     @Test
     public void testGetLastName() {
         assertEquals(LAST_NAME, user.getLastName());
+
     }
 
     /**
@@ -120,6 +133,8 @@ public class UserTest {
     // test if the email contains an @ symbol
     @Test
     public void testEmailContainsAt() {
+
+        String notAnEmail = "emailaddress";
         assertTrue(EMAIL.contains("@"));
     }
 

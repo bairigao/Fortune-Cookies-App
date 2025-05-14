@@ -74,9 +74,7 @@ public class Event {
         this.importance = importance;
     }
 
-    public String getUserId() {
-        return String.valueOf(userId);
-    }
+    public int getUserId() { return this.userId; }
 
     public void setId(int id) {
         this.id = id;
