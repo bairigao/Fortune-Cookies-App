@@ -15,7 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -187,7 +188,7 @@ public class LoginController implements Initializable {
         }
 
 
-        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer, 1);
+        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer);
         userDAO.createUser(user);
         toLogin();
     }
@@ -252,6 +253,19 @@ public class LoginController implements Initializable {
                     "What is your mother's maiden name?",
                     "What city were you born in?"
             );
+        }
+
+        loginEmail.setOnKeyPressed(this::handleEnter);
+        loginPassword.setOnKeyPressed(this::handleEnter);
+    }
+
+    private void handleEnter(KeyEvent keyPress){
+        if (keyPress.getCode() == KeyCode.ENTER){
+            try {
+                onLoginClick();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

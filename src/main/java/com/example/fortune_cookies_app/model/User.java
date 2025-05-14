@@ -19,7 +19,7 @@ public class User {
     private int loginStreak;
 
     public User(String firstName, String lastName, String email, String password,
-                String securityQuestion, String securityAnswer, int loginStreak) {
+                String securityQuestion, String securityAnswer) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -27,7 +27,6 @@ public class User {
         this.securityQuestion = securityQuestion;
         this.securityAnswer = securityAnswer;
         this.lastLogin = LocalDate.now();
-        this.loginStreak = loginStreak;
     }
 
 
@@ -73,11 +72,7 @@ public class User {
 
     public String getSecurityQuestion() { return securityQuestion; }
 
-    public void setSecurityQuestion(String securityQuestion) { this.securityQuestion = securityQuestion; }
-
     public String getSecurityAnswer() { return securityAnswer; }
-
-    public void setSecurityAnswer(String securityAnswer) { this.securityAnswer = securityAnswer; }
 
     public int getId() {
         return id;

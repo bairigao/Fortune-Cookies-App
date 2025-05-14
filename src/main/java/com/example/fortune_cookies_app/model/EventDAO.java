@@ -35,8 +35,8 @@ public class EventDAO {
                     + "FOREIGN KEY(user) REFERENCES users(id) ON DELETE CASCADE"
                     + ")";
             statement.execute(query);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred creating table: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 
@@ -49,7 +49,7 @@ public class EventDAO {
         String query = "INSERT INTO events (user, date, eventName, eventDescription, importance) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, event.getUserId());
+            statement.setInt(1, event.getUserId());
             statement.setString(2, event.getDate().toString());
             statement.setString(3, event.getEventName());
             statement.setString(4, event.getEventDescription());
@@ -59,8 +59,8 @@ public class EventDAO {
             result.next();
             int id = result.getInt(1);
             event.setId(id);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred creating event: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 
@@ -75,8 +75,8 @@ public class EventDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, event.getId());
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred deleting event: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 
@@ -94,8 +94,8 @@ public class EventDAO {
             statement.setString(3, event.getEventDescription());
             statement.setInt(4, event.getId());
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred updating event: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 
@@ -121,8 +121,8 @@ public class EventDAO {
                 event.setId(result.getInt("id"));
                 events.add(event);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred fetching events: " + e.getMessage()); // Should never happen with current implementation
         }
         return events;
     }
@@ -148,8 +148,8 @@ public class EventDAO {
                 event.setId(result.getInt("id"));
                 return event;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred fetching event: " + e.getMessage()); // Should never happen with current implementation
         }
         return null;
     }
@@ -177,8 +177,8 @@ public class EventDAO {
                 event.setId(result.getInt("id"));
                 events.add(event);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred fetching events: " + e.getMessage()); // Should never happen with current implementation
         }
         return events;
     }
@@ -193,8 +193,8 @@ public class EventDAO {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, userID);
             statement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Unexpected error occurred clearing events: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 }
