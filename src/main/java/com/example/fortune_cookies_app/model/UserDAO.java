@@ -114,25 +114,26 @@ public class UserDAO implements IUserDAO {
      * Updates the user's password
      *
      * @param user            The user whose password is being updated
-     * @param currentPassword User's current password - must match password in database
      * @param newPassword     The user's new password
      */
     @Override
-    public void updatePassword(User user, String currentPassword, String newPassword) {
-        String query = "UPDATE users SET password = ? WHERE id = ?";
-        if (currentPassword.equals(newPassword))
+    public void updatePassword(User user, String newPassword) {
+        if (user.getPassword().equals(newPassword)) {
             throw new IllegalArgumentException("Your new password cannot be the same as your current password.");
-        if (login(user.getEmail(), currentPassword) == null)
-            throw new IllegalArgumentException("Current password incorrect. Please try again.");
+        }
+
+        String query = "UPDATE users SET password = ? WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, newPassword);
+            String hashedPwd = PasswordHasher.hashPassword(newPassword);
+            statement.setString(1, hashedPwd);
             statement.setInt(2, user.getId());
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Updates the user's login streak and last login date in the database.

@@ -8,7 +8,7 @@ public interface IUserDAO {
 
     User login(String userName, String password);
 
-    void updatePassword(User user, String currentPassword, String newPassword);
+    void updatePassword(User user, String newPassword);
 
     void updateStreak(User user);
 
