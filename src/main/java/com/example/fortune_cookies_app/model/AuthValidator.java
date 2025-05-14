@@ -92,6 +92,10 @@ public class AuthValidator {
         return password != null && password.equals(confirmPassword);
     }
 
+    public static boolean isPasswordChanged(String password, String newPassword) {
+        return !password.equals(newPassword);
+    }
+
     private static boolean isNotEmptyString(String value) {
         return value != null && !value.trim().isEmpty();
     }

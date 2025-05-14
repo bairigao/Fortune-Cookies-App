@@ -1,5 +1,7 @@
 package com.example.fortune_cookies_app.model;
 
+import com.example.fortune_cookies_app.controller.PasswordController;
+
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -37,7 +39,7 @@ public class UserDAO implements IUserDAO {
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred creating table: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred creating table: " + e.getMessage());
         }
     }
 
@@ -67,7 +69,7 @@ public class UserDAO implements IUserDAO {
                 user.setId(result.getInt(1));
             }
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred creating user: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred creating user: " + e.getMessage());
         }
     }
 
@@ -103,7 +105,7 @@ public class UserDAO implements IUserDAO {
                 return user;
             }
         } catch (SQLException e) {
-            System.err.println("Unexpected error occurred logging in: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred logging in: " + e.getMessage());
         }
         return null;
     }
@@ -129,7 +131,7 @@ public class UserDAO implements IUserDAO {
             statement.setInt(2, user.getId());
             statement.executeUpdate();
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred in password update: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred in password update: " + e.getMessage());
         }
     }
 
@@ -150,7 +152,21 @@ public class UserDAO implements IUserDAO {
             statement.setInt(3, user.getId());
             statement.executeUpdate();
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred updating login streak: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred updating login streak: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void resetPassword(User user, String newPassword) {
+        String query = "UPDATE users SET password = ? WHERE email = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            String hashedPwd = PasswordHasher.hashPassword(newPassword);
+            statement.setString(1, hashedPwd);
+            statement.setString(2, user.getEmail());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -171,27 +187,7 @@ public class UserDAO implements IUserDAO {
             resultSet.next();
             return resultSet.getInt(1) > 0;
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred checking for existing email: " + e.getMessage()); // Should never happen with current implementation
-        }
-        return false;
-    }
-
-    /**
-     * @param email Email of the user
-     * @param answer Answer to the user's security question
-     * @param newPassword The new password of the user
-     * @return True if successful, false otherwise
-     */
-    public boolean resetPasswordBySecurityAnswer(String email, String answer, String newPassword) {
-        String query = "UPDATE users SET password = ? WHERE email = ? AND secureAnswer = ?";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, newPassword);
-            stmt.setString(2, email);
-            stmt.setString(3, answer);
-            return stmt.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.err.println("Unexpected error occurred updating password: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred checking for existing email: " + e.getMessage());
         }
         return false;
     }
@@ -214,7 +210,7 @@ public class UserDAO implements IUserDAO {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred finding user: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred finding user: " + e.getMessage());
         }
         return null;
     }

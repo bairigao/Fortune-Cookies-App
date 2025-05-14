@@ -72,6 +72,9 @@ public class User {
 
     public String getSecurityQuestion() { return securityQuestion; }
 
+    public void setSecurityQuestion(String securityQuestion) { this.securityQuestion = securityQuestion; }
+
+    public void setSecurityAnswer(String securityAnswer) { this.securityAnswer = securityAnswer; }
     public String getSecurityAnswer() { return securityAnswer; }
 
     public int getId() {
@@ -103,5 +106,6 @@ public class User {
         }
         lastLogin = today;
     }
+
 
 }
