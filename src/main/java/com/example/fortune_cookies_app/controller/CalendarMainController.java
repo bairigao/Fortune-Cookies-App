@@ -265,11 +265,18 @@ public class CalendarMainController {
      */
     @FXML
     public void onProfileClick() throws IOException {
+
         Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
+        Parent profileRoot = profileLoader.load();
+        ProfileController profileController = profileLoader.getController();
+
+        profileController.setUser(this.user);
+
+        Scene profileScene = new Scene(profileRoot, 400, 300);
+
         stage.setTitle("Profile");
-        stage.setScene(scene);
+        stage.setScene(profileScene);
         stage.show();
     }
 
