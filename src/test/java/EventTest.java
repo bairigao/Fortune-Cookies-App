@@ -28,7 +28,7 @@ public class EventTest{
     @BeforeEach
     public void setUp(){
         eventDAO = new EventDAO();
-        user = new User("John", "Doe", "johndoes@example.com", "password123", "What is your pet's name?", "niuyou", 1);
+        user = new User("John", "Doe", "johndoes@example.com", "password123", "What is your pet's name?", "niuyou");
         user.setId(100);
         events[0] = new Event(LocalDate.now(), "TestEvent", "EventDescription", 3, user.getId());
         matches = new ArrayList<>();
@@ -41,12 +41,6 @@ public class EventTest{
     public void tearDown() {
         matches.clear();
         eventDAO.clearEvents(user.getId());
-    }
-    @AfterAll
-    public void tearDown2(){
-        for (int i = 1; i < 6; i++){
-            eventDAO.clearEvents(i);
-        }
     }
 
     @Test
@@ -105,8 +99,6 @@ public class EventTest{
         }
         List<Event> currentEvents = eventDAO.fetchEvents(user);
         assertTrue(currentEvents.isEmpty());
-
-        setUp();
     }
 
     @Test

@@ -93,8 +93,7 @@ public class UserDAO implements IUserDAO {
                         resultSet.getString("email"),
                         resultSet.getString("password"),
                         resultSet.getString("secureQuestion"),
-                        resultSet.getString("secureAnswer"),
-                        resultSet.getInt("loginStreak")
+                        resultSet.getString("secureAnswer")
                 );
                 user.setId(resultSet.getInt("id"));
                 String lastLoginStr = resultSet.getString("lastLogin");
@@ -146,7 +145,7 @@ public class UserDAO implements IUserDAO {
         String query = "UPDATE users SET loginStreak = ?, lastLogin = ? WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, user.getLoginStreak());
+            statement.setInt(1, user.getLoginStreak() + 1);
             statement.setString(2, user.getLastLogin().toString());
             statement.setInt(3, user.getId());
             statement.executeUpdate();
@@ -191,10 +190,33 @@ public class UserDAO implements IUserDAO {
             stmt.setString(2, email);
             stmt.setString(3, answer);
             return stmt.executeUpdate() > 0;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Unexpected error occurred updating password: " + e.getMessage()); // Should never happen with current implementation
         }
         return false;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        String query = "SELECT * FROM users WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return new User(
+                            resultSet.getString("firstName"),
+                            resultSet.getString("lastName"),
+                            resultSet.getString("email"),
+                            resultSet.getString("password"),
+                            resultSet.getString("secureQuestion"),
+                            resultSet.getString("secureAnswer")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Unexpected error occurred finding user: " + e.getMessage()); // Should never happen with current implementation
+        }
+        return null;
     }
 
 }

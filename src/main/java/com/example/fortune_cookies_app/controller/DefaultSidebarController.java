@@ -1,29 +1,22 @@
 package com.example.fortune_cookies_app.controller;
 
-import com.example.fortune_cookies_app.model.Event;
-import com.example.fortune_cookies_app.model.EventDAO;
-import com.example.fortune_cookies_app.model.OllamaClient;
-import com.example.fortune_cookies_app.model.User;
+import com.example.fortune_cookies_app.model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Comparator;
 import java.util.List;
 
 public class DefaultSidebarController {
+    public Button saveMessage;
     @FXML
     private VBox eventsList;
     @FXML
@@ -32,7 +25,9 @@ public class DefaultSidebarController {
     private TextArea aiDailyMessage;
 
 
-    private EventDAO eventDAO = new EventDAO();
+    private final EventDAO eventDAO = new EventDAO();
+    private final AIMessageDAO MessageDAO = new AIMessageDAO();
+    private String currentMessage;
     private User user;
     private YearMonth currentMonth;
     /**
@@ -46,7 +41,7 @@ public class DefaultSidebarController {
 
     /**
      * Sets the current month of the sidebar data so correct events can be pulled
-     * @param currentMonth
+     * @param currentMonth The current month
      */
     public void setCurrentMonth(YearMonth currentMonth) {
         this.currentMonth = currentMonth;
@@ -128,6 +123,7 @@ public class DefaultSidebarController {
                                 ? response.getResponse()
                                 : "AI returned no message.";
                         Platform.runLater(() -> aiDailyMessage.setText(reply));
+                        currentMessage = reply;
                     });
                 });
     }
@@ -143,5 +139,8 @@ public class DefaultSidebarController {
     }
 
 
-
+    public void onSaveMessageClick() {
+        AIMessage newMessage = new AIMessage(user.getId(), currentMessage);
+        MessageDAO.saveMessage(newMessage);
+    }
 }

@@ -23,13 +23,17 @@
             <Label fx:id="previousMonth" text="&lt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
             <Label fx:id="monthLabel" text="Month YYYY" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label fx:id="nextMonth" text="&gt;" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
-         <Pane prefHeight="200.0" prefWidth="222.0" GridPane.columnIndex="4">
-            <children >
-               <Button fx:id="profileView" layoutX="211.0" layoutY="-9.0" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="36.0" prefWidth="43.0" stylesheets="@GUI.css" text="Profile" />
-                <Button fx:id="trophyView" layoutX="127.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onTrophyClick" prefHeight="20.0" prefWidth="76.0" stylesheets="@GUI.css" text="Trophies" />
-                <Button fx:id="savedMsgs" layoutX="35.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onSavedMsgsClick" prefHeight="25.0" prefWidth="86.0" stylesheets="@GUI.css" text="Saved Msgs" />
-            </children>
-         </Pane>
+            <Pane prefHeight="200.0" prefWidth="222.0" GridPane.columnIndex="4">
+                <Button fx:id="profileView" layoutX="211.0" layoutY="-3.0" mnemonicParsing="false"
+                        onAction="#onProfileClick" prefHeight="25.0" prefWidth="60.0" stylesheets="@GUI.css"
+                        text="Profile"/>
+                <Button fx:id="trophyView" layoutX="127.0" layoutY="-3.0" mnemonicParsing="false"
+                        onAction="#onTrophyClick" prefHeight="20.0" prefWidth="76.0" stylesheets="@GUI.css"
+                        text="Trophies"/>
+                <Button fx:id="savedMsgs" layoutX="20.0" layoutY="-3.0" mnemonicParsing="false"
+                        onAction="#onSavedMsgsClick" prefHeight="25.0" prefWidth="100.0" stylesheets="@GUI.css"
+                        text="Saved Msgs"/>
+            </Pane>
          <Label text="logo" />
          <rowConstraints>
             <RowConstraints />
