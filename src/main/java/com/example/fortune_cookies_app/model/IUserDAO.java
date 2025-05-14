@@ -12,6 +12,7 @@ public interface IUserDAO {
 
     void updateStreak(User user);
 
+    void resetPassword(User user, String newPassword);
     boolean checkEmail(String email);
 
     User findByEmail(String email);
