@@ -255,8 +255,10 @@ public class LoginController implements Initializable {
             );
         }
 
+        if (loginEmail != null){
         loginEmail.setOnKeyPressed(this::handleEnter);
         loginPassword.setOnKeyPressed(this::handleEnter);
+        }
     }
 
     private void handleEnter(KeyEvent keyPress){
