@@ -42,5 +42,4 @@
             <Separator layoutX="56.0" layoutY="339.0" prefWidth="200.0"/>
         </Pane>
     </Pane>
-
 </VBox>

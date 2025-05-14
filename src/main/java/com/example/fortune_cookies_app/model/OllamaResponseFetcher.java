@@ -41,6 +41,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+/**
+ * Class is used to fetch responses from the Ollama API.
+ */
 public class OllamaResponseFetcher {
 
     private static final String USERAGENT = "OLLAMA FETCHER";
@@ -50,7 +53,10 @@ public class OllamaResponseFetcher {
     public OllamaResponseFetcher(String apiURL) {
         this.apiURL = apiURL;
     }
-
+    /**
+     * Returns a connection to the Ollama API.
+     * @return HttpURLConnection
+     */
     protected HttpURLConnection getConnection() {
         HttpURLConnection conn = null;
 
@@ -64,6 +70,11 @@ public class OllamaResponseFetcher {
         return conn;
     }
 
+    /**
+     * Fetches a response from the Ollama API using a JSON object.
+     * @param simpleJsonObj JSON object to send to the API
+     * @return OllamaResponse
+     */
     private OllamaResponse fetchOllamaResponse(String simpleJsonObj) {
         HttpURLConnection conn = null;
         String output = null;
@@ -104,6 +115,12 @@ public class OllamaResponseFetcher {
         return response;
     }
 
+    /**
+     * Fetches a response from the Ollama API using a model and prompt.
+     * @param model Model to use for the request
+     * @param prompt Prompt to send to the API
+     * @return OllamaResponse
+     */
     public OllamaResponse fetchOllamaResponse(String model, String prompt) {
 
         // tested with model llama v3.2 -for documentation on how to format the JSON request https://github.com/ollama/ollama/blob/main/docs/api.md
@@ -117,6 +134,12 @@ public class OllamaResponseFetcher {
         return fetchOllamaResponse(simpleJsonObj);
     }
 
+    /**
+     * Fetches a response from the Ollama API asynchronously.
+     * @param model Model to use for the request
+     * @param prompt Prompt to send to the API
+     * @param responseListener Listener to handle the response
+     */
     public void fetchAsynchronousOllamaResponse(String model, String prompt, ResponseListener responseListener) {
         Thread thread = new Thread(){
             public void run(){
@@ -127,6 +150,11 @@ public class OllamaResponseFetcher {
         thread.start();
     }
 
+    /**
+     * Reads the input stream from the connection and returns it as a string.
+     * @param conn Connection to read from
+     * @return String response from the connection
+     */
     protected String readConnInput(HttpURLConnection conn) {
         InputStream is = null;
         InputStreamReader isr = null;
@@ -155,6 +183,10 @@ public class OllamaResponseFetcher {
 
         return sb.toString();
     }
+    /**
+     * Fetches the default installed model from the users machine.
+     * @return String name of the default installed model
+     */
     public String getDefaultInstalledModel() {
         try {
             URL url = new URL("http://localhost:11434/api/tags");
