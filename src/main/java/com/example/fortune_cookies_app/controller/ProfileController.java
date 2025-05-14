@@ -89,11 +89,19 @@ public class ProfileController {
      */
     @FXML
     public void onBackButtonClick() throws IOException {
-        Stage stage = (Stage) profileLogoutButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
-        stage.setScene(scene);
 
+        Stage stage = (Stage) profileBackButton.getScene().getWindow();
+        FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/profile-view.fxml"));
+        Parent profileRoot = profileLoader.load();
+        ProfileController profileController = profileLoader.getController();
+
+        profileController.setUser(this.user);
+
+        Scene profileScene = new Scene(profileRoot, 400, 300);
+
+        stage.setTitle("Profile");
+        stage.setScene(profileScene);
+        stage.show();
     }
 
     public User getUser() {
