@@ -6,7 +6,7 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.fortune_cookies_app.controller.DateWithEventsController"
-      spacing="10" alignment="TOP_LEFT">
+      spacing="10" alignment="TOP_LEFT" stylesheets="@GUI.css">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>

@@ -6,6 +6,11 @@
     -fx-background-color: transparent;
     -fx-border-radius: 10px;
 }
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-radius: 10px;
+}
+
 .button {
     -fx-background-color: #DDDDDD;
     -fx-border-color: grey;
@@ -14,4 +19,9 @@
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
 }
+
+.button:hover {
+    -fx-background-color: lightgrey;
+    -fx-cursor: hand;
+    }
 

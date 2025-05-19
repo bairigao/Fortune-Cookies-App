@@ -1,94 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.LoginController">
-    <Label alignment="CENTER" prefHeight="157.0" prefWidth="383.0" text="LOGO">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" stylesheets="@LOGIN_GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.LoginController">
+    <Label alignment="CENTER" prefHeight="157.0" prefWidth="383.0" text="SIGN UP">
         <font>
-            <Font name="Fira Code Bold" size="96.0" />
-        </font></Label>
-    <VBox prefWidth="275.0" spacing="5" >
-        <Label prefHeight="9.0" prefWidth="210.0" text="First Name">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <TextField fx:id="firstName" prefHeight="0.0" prefWidth="275.0" promptText="First Name"
-                   style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </TextField>
-        <Label prefHeight="9.0" prefWidth="210.0" text="Last Name">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <TextField fx:id="lastName" prefHeight="0.0" prefWidth="275.0" promptText="Last Name"
-                   style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </TextField>
-        <Label prefHeight="9.0" prefWidth="210.0" text="Email">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <TextField fx:id="newEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email"
-                   style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </TextField>
-        <Label prefHeight="0.0" prefWidth="210.0" text="Password">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <PasswordField fx:id="newPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password"
-                       style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </PasswordField>
-        <Label prefHeight="0.0" prefWidth="210.0" text="Confirm Password">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <PasswordField fx:id="confirmPassword" prefHeight="0.0" prefWidth="275.0" promptText="Confirm Password"
-                       style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
-            <font>
-                <Font size="14.0"/>
-            </font>
-        </PasswordField>
-        <Label prefHeight="9.0" prefWidth="210.0" text="Security Question">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <ComboBox fx:id="secureQuestionCombo" prefWidth="275.0"
-                  style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;"/>
-        <Label prefHeight="9.0" prefWidth="210.0" text="Answer">
-            <font>
-                <Font name="Lucida Sans Unicode" size="16.0"/>
-            </font>
-        </Label>
-        <TextField fx:id="secureAnswer" promptText="Answer" prefWidth="275.0"
-                   style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;"/>
-        <Label fx:id="signupError" textFill="red" visible="false" maxWidth="275" wrapText="true" minHeight="-Infinity"/>
-    </VBox>
+            <Font name="Fira Code Bold" size="75.0" />
+        </font>
+      <padding>
+         <Insets top="30.0" />
+      </padding></Label>
+   <VBox prefHeight="129.0" prefWidth="565.0">
+      <children>
+         <HBox prefHeight="40.0" prefWidth="558.0">
+            <children>
+                <VBox prefHeight="417.0" prefWidth="275.0" spacing="5">
+                    <Label prefHeight="9.0" prefWidth="210.0" text="First Name">
+                        <font>
+                            <Font name="Lucida Sans Unicode" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="firstName" prefHeight="0.0" prefWidth="275.0" promptText="First Name" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                    </TextField>
+                    <Label prefHeight="9.0" prefWidth="210.0" text="Last Name">
+                        <font>
+                            <Font name="Lucida Sans Unicode" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="lastName" prefHeight="0.0" prefWidth="275.0" promptText="Last Name" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                    </TextField>
+                    <Label prefHeight="9.0" prefWidth="210.0" text="Email">
+                        <font>
+                            <Font name="Lucida Sans Unicode" size="16.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="newEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                    </TextField>
+                    <Label fx:id="signupError" maxWidth="275" minHeight="-Infinity" textFill="red" visible="false" wrapText="true" />
+                </VBox>
+               <VBox prefHeight="427.0" prefWidth="26.0" spacing="5.0" />
+               <VBox prefHeight="200.0" prefWidth="275.0" spacing="5.0">
+                  <children>
+                       <Label prefHeight="0.0" prefWidth="210.0" text="Password">
+                           <font>
+                               <Font name="Lucida Sans Unicode" size="16.0" />
+                           </font>
+                       </Label>
+                       <PasswordField fx:id="newPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                           <font>
+                               <Font size="14.0" />
+                           </font>
+                       </PasswordField>
+                       <Label prefHeight="0.0" prefWidth="210.0" text="Confirm Password">
+                           <font>
+                               <Font name="Lucida Sans Unicode" size="16.0" />
+                           </font>
+                       </Label>
+                       <PasswordField fx:id="confirmPassword" prefHeight="0.0" prefWidth="275.0" promptText="Confirm Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                           <font>
+                               <Font size="14.0" />
+                           </font>
+                       </PasswordField>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+         <Pane prefHeight="88.0" prefWidth="356.0">
+            <children>
+               <Separator layoutX="165.0" layoutY="-3.0" prefHeight="4.0" prefWidth="248.0" />
+            </children>
+         </Pane>
+         <HBox prefHeight="45.0" prefWidth="565.0">
+            <children>
+               <VBox prefHeight="55.0" prefWidth="271.0" spacing="5.0">
+                  <children>
+                       <Label prefHeight="9.0" prefWidth="210.0" text="Security Question">
+                           <font>
+                               <Font name="Lucida Sans Unicode" size="16.0" />
+                           </font>
+                       </Label>
+                       <ComboBox fx:id="secureQuestionCombo" prefHeight="34.0" prefWidth="270.0" />
+                  </children>
+               </VBox>
+               <VBox prefHeight="55.0" prefWidth="22.0" />
+               <VBox prefHeight="60.0" prefWidth="274.0" spacing="5.0">
+                  <children>
+                       <Label prefHeight="9.0" prefWidth="210.0" text="Answer">
+                           <font>
+                               <Font name="Lucida Sans Unicode" size="16.0" />
+                           </font>
+                       </Label>
+                       <TextField fx:id="secureAnswer" prefHeight="32.0" prefWidth="275.0" promptText="Answer" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </TextField>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+      </children>
+   </VBox>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="213.0" spacing="10.0">
         <children>
-            <Button fx:id="confirmSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="CONFIRM" wrapText="true">
+            <Button fx:id="confirmSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onConfirmClick" prefHeight="16.0" prefWidth="103.0" text="CONFIRM" wrapText="true">
                 <font>
                     <Font name="System Bold" size="16.0" />
                 </font></Button>
-            <Button fx:id="toLogin" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="16.0" prefWidth="103.0" style="-fx-border-radius: 5; -fx-background-color: DDDDDD; -fx-border-color: grey; -fx-border-width: 2;" text="BACK" wrapText="true">
+            <Button fx:id="toLogin" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="16.0" prefWidth="103.0" text="BACK" wrapText="true">
                 <VBox.margin>
                     <Insets />
                 </VBox.margin>

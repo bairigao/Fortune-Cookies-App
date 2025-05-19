@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -18,7 +19,7 @@
                     <Font name="Lucida Sans Unicode" size="16.0" />
                 </font>
             </Label>
-            <TextField fx:id="loginEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+            <TextField fx:id="loginEmail" prefHeight="0.0" prefWidth="275.0" promptText="Email" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
                 <font>
                     <Font size="14.0" />
                 </font></TextField>
@@ -27,13 +28,13 @@
                     <Font name="Lucida Sans Unicode" size="16.0" />
                 </font>
             </Label>
-            <PasswordField fx:id="loginPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: black;">
+            <PasswordField fx:id="loginPassword" prefHeight="0.0" prefWidth="275.0" promptText="Password" style="-fx-border-width: 2; -fx-border-radius: 5; -fx-border-color: grey;">
                 <font>
                     <Font size="14.0" />
                 </font></PasswordField>
             <Label fx:id="loginError" maxWidth="300" textFill="red" visible="false" wrapText="true" />
             <HBox alignment="BOTTOM_RIGHT" prefWidth="275.0">
-                <Hyperlink fx:id="toLoginChangePassword" onAction="#onChangePasswordClick" text="Forgot your password?" wrapText="true" style="-fx-underline: true; -fx-text-fill: blue;" />
+                <Hyperlink fx:id="toLoginChangePassword" onAction="#onChangePasswordClick" style="-fx-underline: true; -fx-text-fill: blue;" text="Forgot your password?" wrapText="true" />
             </HBox>
 
         </children>
@@ -43,7 +44,10 @@
             <Button fx:id="checkLogin" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="16.0" prefWidth="103.0" text="LOGIN" wrapText="true">
                 <font>
                     <Font name="System Bold" size="16.0" />
-                </font></Button>
+                </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
             <Button fx:id="toSignup" graphicTextGap="2.0" mnemonicParsing="false" onAction="#onSignupClick" prefHeight="16.0" prefWidth="103.0" text="SIGN UP" wrapText="true">
                 <VBox.margin>
                     <Insets />

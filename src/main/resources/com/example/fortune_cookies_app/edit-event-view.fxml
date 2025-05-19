@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.fortune_cookies_app.controller.EditEventPaneController"
-      spacing="10" alignment="TOP_LEFT">
+<VBox alignment="TOP_LEFT" spacing="10" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.EditEventPaneController">
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
     <!-- Title -->
-    <Label text="Edit Event" style="-fx-font-size: 18;"/>
+    <Label style="-fx-font-size: 18;" text="Edit Event" />
 
     <!-- Importance selection -->
     <Label text="Importance (1-5):" />
-    <HBox spacing="10" alignment="CENTER_LEFT" fx:id="importanceCircles"/>
+    <HBox fx:id="importanceCircles" alignment="CENTER_LEFT" spacing="10" />
 
     <!-- Title Field -->
-    <Label text="Event Title:"/>
-    <TextField fx:id="titleField"/>
-    <Label fx:id="titleErrorLabel" text="Title cannot exceed 50 characters"
-           style="-fx-text-fill: red; fx-font-size: 11;" visible="false"/>
+    <Label text="Event Title:" />
+    <TextField fx:id="titleField" style="-fx-border-color: grey; -fx-border-radius: 5; -fx-border-width: 2;" />
+    <Label fx:id="titleErrorLabel" style="-fx-text-fill: red; fx-font-size: 11;" text="Title cannot exceed 50 characters" visible="false" />
 
     <!-- Description Field -->
-    <Label text="Description:"/>
-    <TextArea fx:id="descriptionArea" prefRowCount="4"/>
-    <Label fx:id="descriptionErrorLabel" text="Title cannot exceed 255 characters"
-           style="-fx-text-fill: red; fx-font-size: 11;" visible="false"/>
+    <Label text="Description:" />
+    <TextArea fx:id="descriptionArea" prefRowCount="4" style="-fx-border-color: grey; -fx-border-radius: 5; -fx-border-width: 2;" />
+    <Label fx:id="descriptionErrorLabel" style="-fx-text-fill: red; fx-font-size: 11;" text="Title cannot exceed 255 characters" visible="false" />
 
     <!-- Create button -->
-    <HBox alignment="CENTER_LEFT">
+    <HBox alignment="CENTER_LEFT" spacing="5.0">
         <Button fx:id="saveEditButton" text="Save" />
-        <Button fx:id="deleteButton" text="Delete"/>
+        <Button fx:id="deleteButton" text="Delete" />
     </HBox>
 
 </VBox>

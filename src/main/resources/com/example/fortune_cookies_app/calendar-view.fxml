@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -20,19 +21,19 @@
             <ColumnConstraints percentWidth="33.0" />
             </columnConstraints>
 
-            <Label fx:id="previousMonth" text="&lt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
+            <Label fx:id="previousMonth" text="&lt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Label>
             <Label fx:id="monthLabel" text="Month YYYY" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Label fx:id="nextMonth" text="&gt;" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
+            <Label fx:id="nextMonth" text="&gt;" GridPane.columnIndex="3" GridPane.halignment="LEFT">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Label>
             <Pane prefHeight="200.0" prefWidth="222.0" GridPane.columnIndex="4">
-                <Button fx:id="profileView" layoutX="211.0" layoutY="-3.0" mnemonicParsing="false"
-                        onAction="#onProfileClick" prefHeight="25.0" prefWidth="60.0" stylesheets="@GUI.css"
-                        text="Profile"/>
-                <Button fx:id="trophyView" layoutX="127.0" layoutY="-3.0" mnemonicParsing="false"
-                        onAction="#onTrophyClick" prefHeight="20.0" prefWidth="76.0" stylesheets="@GUI.css"
-                        text="Trophies"/>
-                <Button fx:id="savedMsgs" layoutX="20.0" layoutY="-3.0" mnemonicParsing="false"
-                        onAction="#onSavedMsgsClick" prefHeight="25.0" prefWidth="100.0" stylesheets="@GUI.css"
-                        text="Saved Msgs"/>
+                <Button fx:id="profileView" layoutX="211.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="25.0" prefWidth="60.0" stylesheets="@GUI.css" text="Profile" />
+                <Button fx:id="trophyView" layoutX="127.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onTrophyClick" prefHeight="20.0" prefWidth="76.0" stylesheets="@GUI.css" text="Trophies" />
+                <Button fx:id="savedMsgs" layoutX="20.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onSavedMsgsClick" prefHeight="25.0" prefWidth="100.0" stylesheets="@GUI.css" text="Saved Msgs" />
             </Pane>
          <Label text="logo" />
          <rowConstraints>
