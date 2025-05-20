@@ -95,7 +95,8 @@ public class UserDAO implements IUserDAO {
                         resultSet.getString("email"),
                         resultSet.getString("password"),
                         resultSet.getString("secureQuestion"),
-                        resultSet.getString("secureAnswer")
+                        resultSet.getString("secureAnswer"),
+                        resultSet.getInt("loginStreak")
                 );
                 user.setId(resultSet.getInt("id"));
                 String lastLoginStr = resultSet.getString("lastLogin");
@@ -205,7 +206,8 @@ public class UserDAO implements IUserDAO {
                             resultSet.getString("email"),
                             resultSet.getString("password"),
                             resultSet.getString("secureQuestion"),
-                            resultSet.getString("secureAnswer")
+                            resultSet.getString("secureAnswer"),
+                            resultSet.getInt("loginStreak")
                     );
                 }
             }

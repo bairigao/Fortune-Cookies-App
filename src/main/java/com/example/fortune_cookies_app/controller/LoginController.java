@@ -188,7 +188,7 @@ public class LoginController implements Initializable {
         }
 
 
-        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer);
+        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer, 1);
         userDAO.createUser(user);
         toLogin();
     }
