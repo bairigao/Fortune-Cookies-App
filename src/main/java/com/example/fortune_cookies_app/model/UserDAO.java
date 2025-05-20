@@ -148,7 +148,7 @@ public class UserDAO implements IUserDAO {
         String query = "UPDATE users SET loginStreak = ?, lastLogin = ? WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, user.getLoginStreak() + 1);
+            statement.setInt(1, user.getLoginStreak());
             statement.setString(2, user.getLastLogin().toString());
             statement.setInt(3, user.getId());
             statement.executeUpdate();

@@ -289,6 +289,8 @@ public class CalendarMainController {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/trophy-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 647, 472);
+        TrophyController trophyController = fxmlLoader.getController();
+        trophyController.setUser(this.user);
         stage.setTitle("Trophies");
         stage.setScene(scene);
         stage.show();
