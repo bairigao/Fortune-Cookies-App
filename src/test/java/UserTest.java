@@ -20,6 +20,7 @@ public class UserTest {
     private static final String PASSWORD_TWO = "password1234";
     private static final String SECURITY_QUESTION = "What is your pet's name?";
     private static final String SECURITY_ANSWER = "Mittens";
+    private static final int loginStreak = 3;
 
     private User user;
 
@@ -29,7 +30,7 @@ public class UserTest {
      */
     @BeforeEach
     public void setUp() {
-        user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, SECURITY_QUESTION, SECURITY_ANSWER);
+        user = new User(FIRST_NAME, LAST_NAME, EMAIL, PASSWORD, SECURITY_QUESTION, SECURITY_ANSWER, loginStreak);
     }
 
 
