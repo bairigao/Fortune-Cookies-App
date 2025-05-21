@@ -20,11 +20,11 @@ public class DefaultSidebarController {
     @FXML
     private VBox eventsList;
     @FXML
-    private Label loginStreakLabel;
-    @FXML
     private TextArea aiDailyMessage;
     @FXML
     private TextArea aiStudyTips;
+    @FXML
+    private Label streakLabel;
 
 
     private final EventDAO eventDAO = new EventDAO();
@@ -39,8 +39,15 @@ public class DefaultSidebarController {
     public void setUser(User user) {
         this.user = user;
         tryLoadEvents();
+        updateStreakText();
     }
 
+    private void updateStreakText() {
+        int streak = user.getLoginStreak();
+        if (streak == 1){
+            streakLabel.setText("LOGGED IN FOR:" + " " + streak + " " + "DAY!");
+        } else streakLabel.setText("LOGGED IN FOR:" + " " + streak + " " + "DAYS!");
+    }
 
     /**
      * Sets the current month of the sidebar data so correct events can be pulled

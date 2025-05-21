@@ -93,7 +93,6 @@ public class CalendarMainController {
         monthLabel.setText(monthName + " " + year);
     }
 
-
     /**
      * Fills the calendar with the relevant information. Dates, key dates,
      * importance colours, selected highlights ect.
@@ -211,6 +210,7 @@ public class CalendarMainController {
         }
     }
 
+
     //sidebar logic to handle the various different sidebars that will be available.
     private void onDateClicked(StackPane cell, LocalDate date){
         //turns off a previously selected cell
@@ -273,7 +273,7 @@ public class CalendarMainController {
 
         profileController.setUser(this.user);
 
-        Scene profileScene = new Scene(profileRoot, 400, 300);
+        Scene profileScene = new Scene(profileRoot, 400, 168);
 
         stage.setTitle("Profile");
         stage.setScene(profileScene);

@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <VBox alignment="TOP_LEFT" spacing="10" stylesheets="@GUI.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.EditEventPaneController">
     <padding>
@@ -10,7 +11,10 @@
     </padding>
 
     <!-- Title -->
-    <Label style="-fx-font-size: 18;" text="Edit Event" />
+    <Label style="-fx-font-size: 18;" text="Edit Event">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
 
     <!-- Importance selection -->
     <Label text="Importance (1-5):" />

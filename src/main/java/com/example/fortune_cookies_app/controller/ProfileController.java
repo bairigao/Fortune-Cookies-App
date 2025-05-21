@@ -61,7 +61,7 @@ public class ProfileController {
 
         profileController.setUser(this.user);
 
-        Scene profileScene = new Scene(profileRoot, 400, 300);
+        Scene profileScene = new Scene(profileRoot, 400, 168);
 
         stage.setTitle("Profile");
         stage.setScene(profileScene);

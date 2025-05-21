@@ -21,6 +21,7 @@
             <ColumnConstraints percentWidth="33.0" />
             <ColumnConstraints percentWidth="33.0" />
             </columnConstraints>
+         <Pane prefHeight="45.0" prefWidth="32.0" />
 
             <Label fx:id="previousMonth" text="&lt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
             <cursor>
@@ -32,14 +33,14 @@
                <Cursor fx:constant="HAND" />
             </cursor></Label>
             <Pane prefHeight="200.0" prefWidth="222.0" GridPane.columnIndex="4">
-                <Button stylesheets="@GUI_Button_Icon.css" layoutX="237.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="35.0" prefWidth="35.0" >
+                <Button layoutX="237.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onProfileClick" prefHeight="35.0" prefWidth="35.0" stylesheets="@GUI_Button_Icon.css">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/profileicon.png" />
                      </image></ImageView>
                </graphic></Button>
-                <Button stylesheets="@GUI_Button_Icon.css"  layoutX="195.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTrophyClick" prefHeight="35.0" prefWidth="35.0">
+                <Button layoutX="195.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onTrophyClick" prefHeight="35.0" prefWidth="35.0" stylesheets="@GUI_Button_Icon.css">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -47,7 +48,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-                <Button stylesheets="@GUI_Button_Icon.css" layoutX="152.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSavedMsgsClick" prefHeight="35.0" prefWidth="35.0">
+                <Button layoutX="152.0" layoutY="-8.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSavedMsgsClick" prefHeight="35.0" prefWidth="35.0" stylesheets="@GUI_Button_Icon.css">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -56,7 +57,6 @@
                   </ImageView>
                </graphic></Button>
             </Pane>
-         <Label text="logo" />
          <rowConstraints>
             <RowConstraints />
          </rowConstraints>
