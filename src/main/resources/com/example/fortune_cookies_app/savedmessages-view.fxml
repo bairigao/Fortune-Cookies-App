@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <Pane prefHeight="472.0" prefWidth="647.0" stylesheets="@GUI.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.SavedMessagesController">
-   <Label layoutX="181.0" layoutY="13.0" prefHeight="61.0" prefWidth="288.0" text="SAVED MESSAGES">
+   <Label style="-fx-font-weight: bold;" layoutX="181.0" layoutY="13.0" prefHeight="61.0" prefWidth="288.0" text="SAVED MESSAGES"  >
       <font>
          <Font name="Lucida Sans Unicode" size="33.0" />
       </font>
