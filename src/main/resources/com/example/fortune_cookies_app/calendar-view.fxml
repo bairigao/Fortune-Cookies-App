@@ -5,7 +5,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fortune_cookies_app.controller.CalendarMainController">
 
@@ -22,15 +21,7 @@
             <ColumnConstraints percentWidth="33.0" />
             <ColumnConstraints percentWidth="33.0" />
             </columnConstraints>
-         <Pane prefHeight="45.0" prefWidth="32.0">
-            <children>
-               <Label layoutX="10.0" layoutY="-1.0" text="COOKIECALENDAR">
-                  <font>
-                     <Font name="Fira Code Bold" size="14.0" />
-                  </font>
-               </Label>
-            </children>
-         </Pane>
+         <Pane prefHeight="45.0" prefWidth="32.0" />
 
             <Label fx:id="previousMonth" text="&lt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
             <cursor>
