@@ -11,24 +11,27 @@
         </padding>
 
     <Pane prefHeight="377.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
-        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="6.0" layoutY="350.0" pannable="true" prefHeight="150.0" prefWidth="277.0" VBox.vgrow="ALWAYS">
-            <VBox fx:id="eventsList" prefHeight="176.0" prefWidth="275.0" spacing="10" />
+        <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="6.0" layoutY="350.0" pannable="true" prefHeight="154.0" prefWidth="277.0" VBox.vgrow="ALWAYS">
+            <VBox fx:id="eventsList" prefHeight="119.0" prefWidth="275.0" spacing="10" />
         </ScrollPane>
         <Pane prefHeight="340.0" prefWidth="290.0" VBox.vgrow="ALWAYS">
-            <Label layoutX="101.0" layoutY="7.0" text="DAILY MESSAGE">
-                <font>
-                    <Font name="Lucida Sans Unicode" size="12.0" />
-                </font>
-            </Label>
+            <Label layoutX="101.0" layoutY="7.0" text="DAILY MESSAGE" />
             <TextArea fx:id="aiDailyMessage" editable="false" layoutX="6.0" layoutY="31.0" prefHeight="83.0" prefRowCount="6" prefWidth="277.0" promptText="Your daily event message will appear here." wrapText="true" />
-            <Button fx:id="saveMessage" layoutX="97.0" layoutY="127.0" mnemonicParsing="false" onAction="#onSaveMessageClick" prefHeight="29.0" prefWidth="100.0" stylesheets="@GUI.css" text="Save Message" />
+            <Button fx:id="saveMessage" layoutX="97.0" layoutY="120.0" mnemonicParsing="false" onAction="#onSaveMessageClick" prefHeight="29.0" prefWidth="100.0" stylesheets="@GUI.css" text="Save Message" />
             <Label layoutX="111.0" layoutY="176.0" text="STUDY TIPS">
                 <font>
                     <Font name="Lucida Sans Unicode" size="12.0" />
                 </font>
             </Label>
             <TextArea fx:id="aiStudyTips" editable="false" layoutX="5.0" layoutY="202.0" prefHeight="128.0" prefWidth="278.0" promptText="Your study tips will appear here." wrapText="true" />
-            <Separator layoutX="56.0" layoutY="339.0" prefWidth="200.0" />
+            <Separator layoutX="46.0" layoutY="339.0" prefWidth="200.0" />
         </Pane>
+      <Separator layoutX="46.0" layoutY="162.0" prefWidth="200.0" />
+        <Separator layoutX="46.0" layoutY="516.0" prefWidth="200.0" />
+      <Label fx:id="streakLabel" layoutX="65.0" layoutY="524.0" text="STREAK">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
     </Pane>
 </VBox>
