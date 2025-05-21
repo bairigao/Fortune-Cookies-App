@@ -34,6 +34,7 @@ public class CalendarMainController {
     @FXML private Label monthLabel;
     @FXML private Label previousMonth;
     @FXML private Label nextMonth;
+    @FXML private Label welcomeUserLabel;
     @FXML private GridPane calendarGrid;
     @FXML private VBox sidebarPane;
     private final EventDAO eventDAO = new EventDAO();
@@ -81,6 +82,7 @@ public class CalendarMainController {
     public void setUser(User user) {
         this.user = user;
         populateCalendar();
+        updateWelcomeLabel();
         if (sidebarPane != null) {
             defaultSidebar();
         }
@@ -91,6 +93,11 @@ public class CalendarMainController {
         String monthName = currentMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
         int year = currentMonth.getYear();
         monthLabel.setText(monthName + " " + year);
+    }
+
+    private void updateWelcomeLabel(){
+        String name = user.getFirstName();
+        welcomeUserLabel.setText("Welcome," + " " + name + "!");
     }
 
     /**
