@@ -95,7 +95,8 @@ public class User {
     }
 
     /**
-     *
+     * Updates the user's login streak based on the last login date.
+     * The lastLogin field is updated to the current date after the logic is applied.
      */
     public void trackLogin() {
         LocalDate today = LocalDate.now();

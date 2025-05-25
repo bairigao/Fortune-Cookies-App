@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class LoginController implements Initializable {
     @FXML
@@ -46,6 +48,8 @@ public class LoginController implements Initializable {
     private ComboBox<String> secureQuestionCombo;
     @FXML
     private TextField secureAnswer;
+    @FXML
+    private static final int[] TROPHY_DAYS = {1, 3, 7, 15, 30, 60, 90, 180, 365};
 
 
 
@@ -82,6 +86,7 @@ public class LoginController implements Initializable {
             System.out.println("Updating streak: " + user.getLoginStreak());
             System.out.println("Updating lastLogin: " + user.getLastLogin());
             userDAO.updateStreak(user);  // save changes to db
+            checkNewTrophies(user);
             toCalendar(user);
         } else {
             loginError.setText("Invalid email or password");
@@ -242,6 +247,44 @@ public class LoginController implements Initializable {
         primaryStage.setMinHeight(720);
         primaryStage.show();
 
+    }
+
+    /**
+     * Checks if the user has earned any new trophies and displays appropriate notifications.
+     * This method is called after successful login.
+     *
+     * @param user The user to check trophies for
+     */
+    private void checkNewTrophies(User user) {
+        if (user == null) return;
+
+        int streak = user.getLoginStreak();
+        int previousStreak = streak - 1; // Get the previous streak value
+
+        // Check if user just earned a new trophy by comparing with previous streak
+        for (int days : TROPHY_DAYS) {
+            if (streak == days && previousStreak < days) {
+                String title = days == 1 ? "First Login!" : days + " Day Streak!";
+                String content = days == 1 ?
+                        "Congratulations on your first login!" :
+                        "Amazing! You've logged in for " + days + " consecutive days!";
+                showTrophyAlert(title, content);
+            }
+        }
+    }
+
+    /**
+     * Displays a notification when a new trophy is earned.
+     *
+     * @param title The title of the trophy earned
+     * @param content The congratulatory message to display
+     */
+    private void showTrophyAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("New Trophy Earned!");
+        alert.setHeaderText(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @Override
