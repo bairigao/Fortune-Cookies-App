@@ -120,7 +120,6 @@ public class TrophyController implements Initializable {
     public void setUser(User user) {
         this.user = user;
         updateTrophies();
-        checkNewTrophies();
     }
 
     /**
@@ -145,39 +144,5 @@ public class TrophyController implements Initializable {
         }
     }
 
-    /**
-     * Checks if the user has earned any new trophies and displays appropriate notifications.
-     * This method is called whenever the user's login streak is updated.
-     */
-    private void checkNewTrophies() {
-        if (user == null) return;
 
-        int streak = user.getLoginStreak();
-        int previousStreak = streak - 1; // Get the previous streak value
-
-        // Check if user just earned a new trophy by comparing with previous streak
-        for (int days : TROPHY_DAYS) {
-            if (streak == days && previousStreak < days) {
-                String title = days == 1 ? "First Login!" : days + " Day Streak!";
-                String content = days == 1 ?
-                        "Congratulations on your first login!" :
-                        "Amazing! You've logged in for " + days + " consecutive days!";
-                showTrophyAlert(title, content);
-            }
-        }
-    }
-
-    /**
-     * Displays a notification when a new trophy is earned.
-     *
-     * @param title The title of the trophy earned
-     * @param content The congratulatory message to display
-     */
-    private void showTrophyAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("New Trophy Earned!");
-        alert.setHeaderText(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 }
