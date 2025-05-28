@@ -1,8 +1,5 @@
 package com.example.fortune_cookies_app.model;
 
-import com.example.fortune_cookies_app.model.OllamaResponse;
-import com.example.fortune_cookies_app.model.OllamaResponseFetcher;
-import com.example.fortune_cookies_app.model.ResponseListener;
 
 /**
  * Handles AI interaction with the Ollama HTTP server.

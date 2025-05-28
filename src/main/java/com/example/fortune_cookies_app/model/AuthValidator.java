@@ -3,8 +3,9 @@ package com.example.fortune_cookies_app.model;
 import java.util.regex.Pattern;
 
 /**
- * Utility class for validating user input for authentication and registration.
- * Provides static methods to check if inputs are non-empty and match expected patterns.
+ * Provides utility methods for validating user authentication fields such as
+ * names, email addresses, and passwords. Includes methods for checking
+ * field completeness, format validation, and password confirmation.
  */
 public class AuthValidator {
 
@@ -92,10 +93,24 @@ public class AuthValidator {
         return password != null && password.equals(confirmPassword);
     }
 
+    /**
+     * Checks whether the password has been changed by comparing the original
+     * password with the new password.
+     *
+     * @param password the original password
+     * @param newPassword the new password to compare
+     * @return true if the new password differs from the original password; false otherwise
+     */
     public static boolean isPasswordChanged(String password, String newPassword) {
         return !password.equals(newPassword);
     }
 
+    /**
+     * Checks if a given string is not null and not empty after trimming spaces.
+     *
+     * @param value the string to check
+     * @return true if the string is not null and not empty after trimming; false otherwise
+     */
     private static boolean isNotEmptyString(String value) {
         return value != null && !value.trim().isEmpty();
     }

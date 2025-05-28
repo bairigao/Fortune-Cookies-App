@@ -4,6 +4,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The AIMessageDAO class is responsible for managing the persistence of AIMessage objects in a database.
+ * It provides methods to save, delete, and retrieve AI messages. The class also ensures that the
+ * necessary database table is created if it does not already exist upon initialization.
+ */
 public class AIMessageDAO {
     private final Connection connection;
 
@@ -35,6 +40,15 @@ public class AIMessageDAO {
         }
     }
 
+    /**
+     * Saves the provided AIMessage to the database. The method first checks if the message
+     * already exists in the database using the checkMessage method. If the message is not
+     * already present, it inserts the message into the messages table and assigns a generated
+     * ID to the message.
+     *
+     * @param message The AIMessage object containing the user ID and message content
+     *                to be saved in the database.
+     */
     public void saveMessage(AIMessage message) {
         if (checkMessage(message)) {
             System.out.println("You've already saved that message.");
@@ -66,6 +80,14 @@ public class AIMessageDAO {
         }
     }
 
+    /**
+     * Fetches all messages associated with the specified user from the database.
+     *
+     * @param user The user whose messages are to be retrieved. The user's ID is used
+     *             to query the database for the messages.
+     * @return A list of {@code AIMessage} objects associated with the given user.
+     *         If no messages are found, an empty list is returned.
+     */
     public List<AIMessage> fetchMessages(User user) {
         List<AIMessage> messages = new ArrayList<>();
         String query = "SELECT * FROM messages WHERE user = ?";
@@ -86,6 +108,13 @@ public class AIMessageDAO {
         return messages;
     }
 
+    /**
+     * Checks if a given message exists in the database for a specific user.
+     *
+     * @param message The AIMessage object containing the user ID and message content
+     *                to be checked in the database.
+     * @return true if the message exists in the database, false otherwise.
+     */
     public boolean checkMessage(AIMessage message){
         String selectquery = "SELECT * FROM messages WHERE user = ? AND message = ?";
         try {

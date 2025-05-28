@@ -16,6 +16,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Controller for handling user profile interactions including logout, password changes,
+ * and navigation within the profile-related screens.
+ */
 public class ProfileController {
     public PasswordField newPassword;
     public PasswordField confirmNewPasswordText;
@@ -104,10 +108,20 @@ public class ProfileController {
         stage.show();
     }
 
+    /**
+     * Retrieves the user associated with the ProfileController.
+     *
+     * @return the User object representing the current user.
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Sets the user associated with the ProfileController.
+     *
+     * @param user the User object to be set
+     */
     public void setUser(User user) {
         this.user = user;
     }
