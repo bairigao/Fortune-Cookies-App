@@ -10,7 +10,10 @@ import javafx.scene.control.ListView;
 import java.util.List;
 
 /**
- * Responsible for populating the list view with the messages that the user has saved
+ * The SavedMessagesController is responsible for managing the display of saved messages
+ * in a ListView and interacting with the underlying data model by utilizing the AIMessageDAO.
+ * It provides functionality to fetch and display messages for a specific user and allows setting
+ * and getting the current user.
  */
 public class SavedMessagesController {
 
