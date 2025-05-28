@@ -42,7 +42,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 /**
- * Class is used to fetch responses from the Ollama API.
+ * The {@code OllamaResponseFetcher} class is responsible for interacting with the Ollama API.
+ * It provides methods to fetch responses synchronously and asynchronously, as well as utility
+ * methods for managing connections and parsing API responses.
  */
 public class OllamaResponseFetcher {
 
@@ -50,6 +52,11 @@ public class OllamaResponseFetcher {
     public static final Logger logger = Logger.getLogger(OllamaResponseFetcher.class.getName());
     private final String apiURL;
 
+    /**
+     * Constructs a new instance of OllamaResponseFetcher with the specified API URL.
+     *
+     * @param apiURL The base URL of the Ollama API to be used for connecting and sending requests.
+     */
     public OllamaResponseFetcher(String apiURL) {
         this.apiURL = apiURL;
     }

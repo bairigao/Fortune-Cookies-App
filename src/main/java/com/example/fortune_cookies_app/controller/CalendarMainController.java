@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.List;
 
@@ -88,6 +87,12 @@ public class CalendarMainController {
         }
     }
 
+    /**
+     * Updates the label displaying the current month and year.
+     * The label is set in the format "Month ####", where "Month" is the full name
+     * of the current month and "####" is the year. The displayed values are derived
+     * from the `currentMonth` field.
+     */
     private void updateMonthLabel(){
         // updates the Month Label in the format "'month' ####"
         String monthName = currentMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
@@ -95,6 +100,11 @@ public class CalendarMainController {
         monthLabel.setText(monthName + " " + year);
     }
 
+    /**
+     * Updates the welcome label to greet the current user.
+     * Retrieves the user's first name via the `getFirstName` method from the `user` object
+     * and sets the `welcomeUserLabel` text to display a personalized welcome message.
+     */
     private void updateWelcomeLabel(){
         String name = user.getFirstName();
         welcomeUserLabel.setText("Welcome," + " " + name + "!");
@@ -183,6 +193,16 @@ public class CalendarMainController {
         }
     }
 
+    /**
+     * Determines the color code corresponding to the specified importance level.
+     * Each importance level is mapped to a specific pastel color, while unknown levels default to light grey.
+     *
+     * @param level the importance level (1 to 5) indicating the severity or priority.
+     *              Levels correspond as follows:
+     *              1 - pastel blue, 2 - pastel green, 3 - soft yellow,
+     *              4 - soft purple, 5 - soft red. Any other level defaults to light grey.
+     * @return a string representing the hex color code associated with the given importance level.
+     */
     //get importance colours
     private String getImportanceColour(int level){
         return switch (level){
@@ -218,6 +238,15 @@ public class CalendarMainController {
     }
 
 
+    /**
+     * Handles the logic when a date cell in the calendar is clicked.
+     * Updates the sidebar view based on the selected date, loading either an "Add Event" pane
+     * if no events exist for the date, or a "Date With Events" pane to display existing events.
+     * Additionally, manages the visual state of the selected cell and the previously selected cell.
+     *
+     * @param cell The StackPane representing the clicked date cell.
+     * @param date The LocalDate representing the date associated with the clicked cell.
+     */
     //sidebar logic to handle the various different sidebars that will be available.
     private void onDateClicked(StackPane cell, LocalDate date){
         //turns off a previously selected cell

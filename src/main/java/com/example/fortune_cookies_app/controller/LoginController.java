@@ -24,6 +24,12 @@ import java.util.ResourceBundle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * The LoginController class manages the user interactions between the login, sign-up,
+ * and related scenes. It includes functionalities for user login, sign-up, password
+ * change, and view navigation, as well as user-specific operations like streak tracking
+ * and trophy checks.
+ */
 public class LoginController implements Initializable {
     @FXML
     public TextField loginEmail;
@@ -53,6 +59,10 @@ public class LoginController implements Initializable {
 
 
 
+    /**
+     * Default constructor for the LoginController class.
+     * Initializes the UserDAO instance to manage user data access operations.
+     */
     public LoginController() {
         userDAO = new UserDAO();
     }
@@ -287,6 +297,12 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Initializes the components and sets up event handlers for the login scene.
+     *
+     * @param location  The location used to resolve relative paths for the root object.
+     * @param resources The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (secureQuestionCombo != null) {

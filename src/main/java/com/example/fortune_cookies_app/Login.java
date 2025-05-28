@@ -10,7 +10,10 @@ import java.io.IOException;
 
 
 /**
- * Prepares the start of the Program
+ * The Login class serves as the main entry point of the application and extends
+ * the JavaFX Application class. This class is responsible for initializing the
+ * primary stage and providing functionality to switch between scenes within the
+ * application.
  */
 public class Login extends Application {
     public static final String TITLE = "Fortune Cookie App";
@@ -47,6 +50,12 @@ public class Login extends Application {
         setStage.getScene().setRoot(base);
     }
 
+    /**
+     * The main entry point for the JavaFX application.
+     * This method launches the JavaFX runtime which in turn calls the {@code start} method.
+     *
+     * @param args the command-line arguments passed to the application
+     */
     public static void main(String[] args) {
         launch();
     }

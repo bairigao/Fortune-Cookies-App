@@ -15,7 +15,13 @@ import java.time.YearMonth;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * DefaultSidebarController handles the logic for displaying information in a sidebar component.
+ * This includes user events, current login streak, AI-generated daily messages, and study tips.
+ * It interacts with the EventDAO and AIMessageDAO for fetching and storing necessary data.
+ */
 public class DefaultSidebarController {
+
     public Button saveMessage;
     @FXML
     private VBox eventsList;
@@ -42,6 +48,18 @@ public class DefaultSidebarController {
         updateStreakText();
     }
 
+    /**
+     * Updates the displayed login streak text based on the user's current login streak.
+     *
+     * The method retrieves the login streak value from the user object and updates the
+     * streakLabel with a corresponding message. The message displayed adjusts based on
+     * whether the streak represents a single day or multiple days.
+     *
+     * Behavior:
+     * - If the streak is equal to 1, the label text indicates "LOGGED IN FOR: 1 DAY!".
+     * - Otherwise, the label text indicates "LOGGED IN FOR: [streak] DAYS!" where
+     *   [streak] is the value of the user's login streak.
+     */
     private void updateStreakText() {
         int streak = user.getLoginStreak();
         if (streak == 1){
@@ -58,6 +76,20 @@ public class DefaultSidebarController {
         tryLoadEvents();
     }
 
+    /**
+     * Attempts to load events, AI daily messages, and AI study tips for the sidebar.
+     *
+     * This method checks whether all required components (user, the current month,
+     * and the events list) are available. If they are not null, it triggers the following actions:
+     *
+     * - Loads the user's events for the current month into the sidebar.
+     * - Generates and loads an AI-generated daily message based on the next upcoming event.
+     * - Generates and loads a list of AI-generated study tips for the user.
+     *
+     * Preconditions:
+     * - A valid user must be set in the class before this method is called.
+     * - The current month and events list must be properly initialized for the method to function.
+     */
     private void tryLoadEvents() {
         if (user != null && currentMonth != null && eventsList != null) {
             loadEvents();
@@ -197,6 +229,25 @@ public class DefaultSidebarController {
         });
     }
 
+    /**
+     * Handles the event when the user clicks to save a message.
+     *
+     * This method creates a new AIMessage object using the current user's ID and the
+     * current message. It then saves the generated message to the database using
+     * the MessageDAO class.
+     *
+     * Behavior:
+     * - A new AIMessage instance is constructed with the associated user ID and current message string.
+     * - The MessageDAO.saveMessage() method is called to persist the created message in the database.
+     * - If the message already exists (validated by the MessageDAO), the saving operation will not proceed.
+     *
+     * Preconditions:
+     * - The user must be properly set with a valid ID.
+     * - The current message string should be populated.
+     *
+     * Postconditions:
+     * - The new AIMessage is saved in the persistent storage if it doesn't already exist.
+     */
     public void onSaveMessageClick() {
         AIMessage newMessage = new AIMessage(user.getId(), currentMessage);
         MessageDAO.saveMessage(newMessage);
