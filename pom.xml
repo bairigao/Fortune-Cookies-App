@@ -74,6 +74,14 @@
                 <configuration>
                     <destDir>javadoc</destDir>
                     <reportOutputDirectory>${project.build.directory}/docs</reportOutputDirectory>
+
+                    <!-- Avoid crashing on module-info.java -->
+                    <source>21</source>
+                    <doclint>none</doclint>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                    <excludePackageNames>module-info</excludePackageNames>
                 </configuration>
             </plugin>
             <plugin>
