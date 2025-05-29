@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.example.fortune_cookies_app"}];updateSearchResults();

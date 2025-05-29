@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.fortune_cookies_app","l":"com.example.fortune_cookies_app"},{"m":"com.example.fortune_cookies_app","l":"com.example.fortune_cookies_app.controller"},{"m":"com.example.fortune_cookies_app","l":"com.example.fortune_cookies_app.model"}];updateSearchResults();
