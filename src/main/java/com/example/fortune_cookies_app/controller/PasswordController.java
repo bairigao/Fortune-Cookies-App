@@ -2,6 +2,7 @@ package com.example.fortune_cookies_app.controller;
 
 import com.example.fortune_cookies_app.Login;
 import com.example.fortune_cookies_app.model.AuthValidator;
+import com.example.fortune_cookies_app.model.PasswordHasher;
 import com.example.fortune_cookies_app.model.User;
 import com.example.fortune_cookies_app.model.UserDAO;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Controller for the Change Password view.
@@ -56,9 +58,10 @@ public class PasswordController {
      * Validates the user's answer and proceeds to the password change step if correct.
      */
     @FXML
-    private void onSecurityAnswerSubmit() {
-        String answer = securityAnswerField.getText().trim();
-        if (answer.equalsIgnoreCase(currentUser.getSecurityAnswer())) {
+    private void onSecurityAnswerSubmit() throws NoSuchAlgorithmException {
+        String rawAnswer = securityAnswerField.getText().trim();
+        String hashedAnswer = PasswordHasher.hashPassword(rawAnswer);
+        if (hashedAnswer.equalsIgnoreCase(currentUser.getSecurityAnswer())) {
             feedbackLabel.setVisible(false);
             step2Pane.setVisible(false); step2Pane.setManaged(false);
             step3Pane.setVisible(true);  step3Pane.setManaged(true);
