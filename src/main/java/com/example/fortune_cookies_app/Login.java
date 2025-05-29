@@ -10,10 +10,9 @@ import java.io.IOException;
 
 
 /**
- * The Login class serves as the main entry point of the application and extends
- * the JavaFX Application class. This class is responsible for initializing the
- * primary stage and providing functionality to switch between scenes within the
- * application.
+ * The Login class serves as the entry point for the JavaFX application.
+ * It initializes the primary stage, sets up the initial scene, and provides
+ * functionality to change scenes within the application.
  */
 public class Login extends Application {
     public static final String TITLE = "Fortune Cookie App";
@@ -22,12 +21,10 @@ public class Login extends Application {
     private static Stage setStage;
 
     /**
-     * Creates the stage when application is run
-     * @param loginStage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
-     * @throws IOException
+     * Initializes and displays the primary stage of the application.
+     *
+     * @param loginStage the primary stage provided by the JavaFX runtime
+     * @throws IOException if there is an error loading the FXML resource
      */
     @Override
     public void start(Stage loginStage) throws IOException {
@@ -40,10 +37,11 @@ public class Login extends Application {
     }
 
     /**
-     * Grabs the scene dimensions set in start and applies it to any given fxml file
-     * to change the scene to.
-     * @param fxml fxml file name to change the scene to
-     * @throws IOException
+     * Changes the current scene of the application by loading the specified FXML file
+     * and setting it as the root of the current scene.
+     *
+     * @param fxml the name of the FXML file to be loaded for the new scene
+     * @throws IOException if the FXML file cannot be loaded
      */
     public void changeScene(String fxml) throws IOException {
         Parent base = FXMLLoader.load(getClass().getResource(fxml));

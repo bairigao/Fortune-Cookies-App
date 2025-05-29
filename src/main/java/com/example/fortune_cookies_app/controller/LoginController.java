@@ -231,10 +231,12 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This method transitions the user to the calendar upon successful login
+     * Navigates to the calendar view scene.
+     * This method loads the calendar-view.fxml file, sets up the scene with a CalendarMainController,
+     * and transitions the primary stage to display the calendar.
      *
-     * @param user User that is passed to the calendar controller - used to populate the calendar & create new events
-     * @throws IOException if the FXML file cannot be loaded
+     * @param user The user object that needs to be passed to the calendar
+     * @throws IOException If the FXML file cannot be loaded
      */
     @FXML
     protected void toCalendar(User user) throws IOException {
