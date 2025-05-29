@@ -3,7 +3,7 @@ import java.security.*;
 import java.util.HexFormat;
 
 /**
- * Does what is says - hashes passwords. SHA-512 Encryption
+ * Does what it says - hashes passwords. SHA-512 Encryption
  */
 public class PasswordHasher {
     /**

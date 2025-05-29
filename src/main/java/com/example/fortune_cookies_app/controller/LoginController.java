@@ -233,7 +233,7 @@ public class LoginController implements Initializable {
     /**
      * This method transitions the user to the calendar upon successful login
      *
-     * @param user User that is passed to the calendar controller - used to populate the calendar & create new events
+     * @param user User that is passed to the calendar controller - used to populate the calendar &amp; create new events
      * @throws IOException if the FXML file cannot be loaded
      */
     @FXML
