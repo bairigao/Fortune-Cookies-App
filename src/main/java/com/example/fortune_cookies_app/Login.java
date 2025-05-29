@@ -15,9 +15,9 @@ import java.io.IOException;
  * functionality to change scenes within the application.
  */
 public class Login extends Application {
-    public static final String TITLE = "Fortune Cookie App";
-    public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    private static final String TITLE = "Fortune Cookie App";
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 720;
     private static Stage setStage;
 
     /**

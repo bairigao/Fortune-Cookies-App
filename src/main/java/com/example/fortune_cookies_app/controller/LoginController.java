@@ -237,6 +237,8 @@ public class LoginController implements Initializable {
      *
      * @param user The user object that needs to be passed to the calendar
      * @throws IOException If the FXML file cannot be loaded
+     * @param user User that is passed to the calendar controller - used to populate the calendar &amp; create new events
+     * @throws IOException if the FXML file cannot be loaded
      */
     @FXML
     protected void toCalendar(User user) throws IOException {
