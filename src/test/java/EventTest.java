@@ -25,19 +25,18 @@ public class EventTest{
 
     List<Event> matches;
 
-    @BeforeEach
+    @BeforeAll
     public void setUp(){
         eventDAO = new EventDAO();
         user = new User("John", "Doe", "johndoes@example.com", "password123", "What is your pet's name?", "niuyou", 1);
         user.setId(100);
-        events[0] = new Event(LocalDate.now(), "TestEvent", "EventDescription", 3, user.getId());
         matches = new ArrayList<>();
         for (Event event : events) {
             eventDAO.createEvent(event);
         }
     }
 
-    @AfterEach
+    @AfterAll
     public void tearDown() {
         matches.clear();
         eventDAO.clearEvents(user.getId());
@@ -52,6 +51,8 @@ public class EventTest{
 
     @Test
     public void testFetchSingleEvent() {
+        tearDown();
+        setUp();
         Event newEvent = eventDAO.fetchSingleEvent(events[0].getId());
         assertTrue(newEvent.getId() > 0);
     }
@@ -94,9 +95,8 @@ public class EventTest{
 
     @Test
     public void testDeleteEvent(){
-        for (Event event : events) {
-            eventDAO.deleteEvent(event);
-        }
+        tearDown();
+        setUp();
         List<Event> currentEvents = eventDAO.fetchEvents(user);
         assertTrue(currentEvents.isEmpty());
     }

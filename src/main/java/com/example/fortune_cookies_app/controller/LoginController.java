@@ -182,7 +182,6 @@ public class LoginController implements Initializable {
             return;
         }
 
-        String hashedPassword = PasswordHasher.hashPassword(rawPassword);
 
         if (userDAO.checkEmail(email)) {
             signupError.setText("An account with this email already exists.");
@@ -202,8 +201,10 @@ public class LoginController implements Initializable {
             return;
         }
 
+        String hashedPassword = PasswordHasher.hashPassword(rawPassword);
+        String hashedAnswer = PasswordHasher.hashPassword(answer);
 
-        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, answer, 1);
+        User user = new User(fName, lName, email, hashedPassword, selectedQuestion, hashedAnswer, 1);
         userDAO.createUser(user);
         toLogin();
     }
