@@ -11,8 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Label;
 
 /**
- * Controller for editing an existing event. mimics the addeventpane
- * but with data pre imported into the inputs.
+ * Controller class responsible for managing the Edit Event Pane interface in the application.
+ * This pane allows users to edit existing events by modifying the event details such as title,
+ * description, importance, and handling save or delete actions.
  */
 public class EditEventPaneController{
     @FXML private Button saveEditButton;

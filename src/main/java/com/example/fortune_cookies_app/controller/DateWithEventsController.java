@@ -18,6 +18,12 @@ import java.util.List;
  * existing event is selected.
  */
 public class DateWithEventsController {
+    /**
+     * Constructs an instance of DateWithEventsController.
+     * This controller manages the interactions and logic related to
+     * the DateWithEvents pane, including setting the selected date,
+     * initializing UI components, and handling event-related operations.
+     */
     public DateWithEventsController() {
         System.out.println("DateWithEventsController CONSTRUCTOR called");
     }

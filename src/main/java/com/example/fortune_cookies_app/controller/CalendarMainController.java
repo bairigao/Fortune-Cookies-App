@@ -23,10 +23,9 @@ import java.util.Locale;
 import java.util.List;
 
 /**
- * Controls and builds the main functionality of the program,
- * Builds the calandar using a grid system and laysout the top bar and sidepane.
- * Controls the sidebar import logic.
- * Controls all calendar navigation and populates it with important information.
+ * The CalendarMainController class is responsible for managing the main calendar interface of the application.
+ * It provides functionalities for displaying the calendar, navigating between months, updating the user interface
+ * with user-specific data, handling event highlights, and managing sidebar content.
  */
 public class CalendarMainController {
     //pulls from calendar-view.fxml
@@ -354,9 +353,10 @@ public class CalendarMainController {
     }
 
     /**
-     * the date with events controller does its own internal sidepane manipulation
-     * and needa a method to do it.
-     * @param pane
+     * Replaces the content of the sidebar with the specified VBox pane.
+     * This method sets the provided pane as the current view in the sidebar.
+     *
+     * @param pane the VBox pane to be displayed in the sidebar
      */
     public void sidebarAccess(VBox pane) {
         sidebarPane.getChildren().setAll(pane);

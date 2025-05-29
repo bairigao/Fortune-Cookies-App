@@ -15,7 +15,12 @@ import javafx.scene.control.Label;
 import java.time.LocalDate;
 
 /**
- * Controller for adding an event to the calendar
+ * Controller class responsible for managing the "Add Event" pane functionality.
+ *
+ * This class handles the user interface setup, including configuring importance selection,
+ * input validation for event details (title and description), and the logic for creating
+ * and saving new events to the database. It also integrates with the main calendar view
+ * via the `CalendarMainController`.
  */
 public class AddEventPaneController {
 
@@ -51,8 +56,8 @@ public class AddEventPaneController {
     @FXML private Label descriptionErrorLabel;
 
     /**
-     * sets up the sidebar ui and handles the importance circles, errors
-     * and the create event button
+     * sets up the sidebar ui and handles the importance circles, errors,
+     * and the creation event button
      */
     @FXML
     public void initialize() {
@@ -147,38 +152,31 @@ public class AddEventPaneController {
     }
 
     /**
-     * Sets the CalendarMainController used by the AddEventPaneController.
-     * The CalendarMainController is responsible for managing and updating
-     * the calendar view when events are created, updated, or deleted.
+     * Sets the calendar controller for managing the main calendar view and its interactions.
      *
-     * @param calendarController the CalendarMainController instance to be set
+     * @param calendarController the controller responsible for handling calendar-related operations
      */
     public void setCalendarController(CalendarMainController calendarController) {
         this.calendarController = calendarController;
     }
     /**
-     * Creates a new event based on user input. The method validates the
-     * necessary fields before proceeding to create an event.
+     * Creates a new event based on user input and adds it to the database.
      *
-     * The inputs include a selected date, user information, event title,
-     * description, and importance level. If any input is invalid or missing,
-     * the event creation will not proceed, and appropriate error messages
-     * will be output to the console.
+     * This method first validates the selected date, user, and event details before creating the event.
+     * If validation fails, appropriate error messages are printed to the console, and the method exits early.
+     * The event details include a title, description (optional), and importance level. The title is a required field.
      *
-     * Upon successful creation of an event, the new event is stored in the
-     * database via the eventDAO. The user interface is then updated, including
-     * repopulating the calendar and resetting the sidebar to its default state,
-     * if a CalendarMainController is present.
+     * If all validations pass, the method creates an instance of the Event object with the provided information,
+     * using the selected date, title, description, importance, and user ID. It then calls the `createEvent` method
+     * from the `eventDAO` to persist the event in the database.
      *
-     * Errors:
-     * - Outputs "Error-Date/User" if either the selected date or the current user
-     *   is not set.
-     * - Outputs "Title Required" if the event title is empty.
+     * The method also interacts with the `calendarController` to refresh the calendar view and reset the sidebar
+     * interface after a successful event creation. If the `calendarController` is not set, these steps are skipped.
      *
-     * Outputs:
-     * - Logs "Event Created" upon successful event creation.
+     * Error Messages:
+     * - "Error-Date/User" if either the selected date or the user is null.
+     * - "Title Required" if the title field is empty.
      */
-    //create event functionality tied to the create event button
     private void createEvent(){
         if (selectedDate == null || user == null){
             System.out.println("Error-Date/User");

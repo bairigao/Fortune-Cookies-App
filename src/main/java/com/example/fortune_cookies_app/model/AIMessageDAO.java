@@ -69,16 +69,6 @@ public class AIMessageDAO {
         }
     }
 
-    public void deleteMessage(AIMessage message) {
-        String query = "DELETE FROM messages WHERE id = ?";
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, message.getID());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Unexpected error occurred deleting message: " + e.getMessage()); // Should never happen with current implementation
-        }
-    }
 
     /**
      * Fetches all messages associated with the specified user from the database.

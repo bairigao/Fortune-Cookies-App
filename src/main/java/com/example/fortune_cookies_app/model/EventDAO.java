@@ -19,10 +19,21 @@ public class EventDAO {
     }
 
     /**
-     * Initialises the table within the database - only called within DAO constructor.
+     * Creates the 'events' table in the database if it does not already exist. The table includes
+     * columns for event details such as id, user, date, event name, description, and importance.
+     *
+     * Columns:
+     * - id: The primary key, auto-incremented for each event.
+     * - user: References the 'id' column in the 'users' table. A foreign key relationship is
+     *   established, with cascading deletion.
+     * - date: The date of the event, stored as text.
+     * - eventName: A non-null name of the event, stored as a variable-length string (VARCHAR).
+     * - eventDescription: A detailed, optional description of the event stored as text.
+     * - importance: Represents the priority or importance level of the event, stored as an integer.
+     *
+     * If the table creation fails due to a SQLException, an error message is printed to the standard error stream.
      */
     private void createTable() {
-        // Create table if not exists
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS events ("
@@ -100,7 +111,7 @@ public class EventDAO {
     }
 
     /**
-     * Fetches events to populate the calendar on login     *
+     * Fetches events to populate the calendar on login *
      * @param user The user for whom the events are being fetched
      * @return Returns a list of events
      */

@@ -160,9 +160,32 @@ public class AddEventPane extends VBox{
      * calendar components.
      */
     public static class EventData {
+        /**
+         * Represents the date of the event.
+         * This date indicates when the event is scheduled to occur.
+         * It is immutable and assigned during the instantiation of the EventData object.
+         */
         public final LocalDate date;
+        /**
+         * Represents the importance level of an event.
+         * The value indicates the relative significance or priority of the event.
+         * It can be used to sort, filter, or categorize events based on their importance.
+         */
         public final int importance;
+        /**
+         * Represents the title of an event.
+         * This field contains a brief and descriptive label or name for the event.
+         * It is intended to provide a quick reference or identifier for the event
+         * and is allocated during the instantiation of the EventData object.
+         */
         public final String title;
+        /**
+         * Represents a detailed description of an event.
+         * This field provides additional contextual or explanatory
+         * information about the event, complementing its title.
+         * It is typically used to store extended notes or remarks
+         * about the event.
+         */
         public final String description;
 
         /**

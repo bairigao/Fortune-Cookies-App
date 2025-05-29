@@ -3,9 +3,9 @@ package com.example.fortune_cookies_app.model;
 import java.util.regex.Pattern;
 
 /**
- * Provides utility methods for validating user authentication fields such as
- * names, email addresses, and passwords. Includes methods for checking
- * field completeness, format validation, and password confirmation.
+ * AuthValidator is a utility class for validating various authentication-related
+ * fields such as names, emails, and passwords. It provides static methods to
+ * ensure field validity, password strength, and consistency for authentication processes.
  */
 public class AuthValidator {
 

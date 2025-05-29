@@ -16,12 +16,37 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * DefaultSidebarController handles the logic for displaying information in a sidebar component.
- * This includes user events, current login streak, AI-generated daily messages, and study tips.
- * It interacts with the EventDAO and AIMessageDAO for fetching and storing necessary data.
+ * DefaultSidebarController class manages the sidebar functionality within the application.
+ *
+ * This class is responsible for controlling various UI components of the sidebar, interacting with
+ * user data, events, and AI-generated content such as daily motivational messages and study tips.
+ * The controller facilitates event loading, user interaction, and AI-based responses to enhance
+ * user experience.
+ *
+ * Key Features:
+ * - Displaying user-specific events within the sidebar.
+ * - Generating and displaying AI-generated motivational messages and study tips.
+ * - Handling user input and button interactions.
+ * - Managing application state pertaining to the sidebar.
  */
 public class DefaultSidebarController {
 
+    /**
+     * Represents a button in the sidebar interface used to save an AI-generated message.
+     *
+     * The button is associated with the functionality provided by the onSaveMessageClick()
+     * method of the containing class. When clicked, it triggers the saving of the current
+     * AI-generated message for the user to a persistent storage system using the MessageDAO.
+     *
+     * Purpose:
+     * - Provides a UI element that allows users to save important messages conveniently.
+     * - Interacts with other components of the sidebar to handle and store user-specific data.
+     *
+     * Integration Notes:
+     * - This button is expected to interact with user data, message content, and database operations
+     *   via the containing DefaultSidebarController class.
+     * - Proper initialization and event handling must be ensured for its functionality.
+     */
     public Button saveMessage;
     @FXML
     private VBox eventsList;
