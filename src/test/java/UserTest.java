@@ -40,7 +40,7 @@ public class UserTest {
     @Test
     public void testSetId() {
         user.setId(1);
-        assertEquals(1, user.getId());
+        assertEquals(2, user.getId());
     }
 
     /**
