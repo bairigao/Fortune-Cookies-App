@@ -13,7 +13,6 @@ public class UserDAO extends AbstractDAO {
      */
     public UserDAO() {
         super();
-        createTable();
     }
 
 

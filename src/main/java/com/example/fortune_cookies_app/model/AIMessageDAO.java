@@ -16,7 +16,6 @@ public class AIMessageDAO extends AbstractDAO {
      */
     public AIMessageDAO() {
         super();
-        createTable();
     }
 
 

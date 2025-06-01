@@ -14,7 +14,6 @@ public class EventDAO extends AbstractDAO {
      */
     public EventDAO() {
         super();
-        createTable();
     }
 
     /**
