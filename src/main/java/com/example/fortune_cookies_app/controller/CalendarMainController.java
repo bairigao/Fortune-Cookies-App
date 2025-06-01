@@ -49,7 +49,6 @@ public class CalendarMainController {
     //logic for the month header
     private YearMonth currentMonth = YearMonth.now();
     private StackPane selectedCell = null;
-    private LocalDate selectedDate = null;
 
     /**
      * Sets up the Calendar and deals with navigation
@@ -130,66 +129,97 @@ public class CalendarMainController {
             LocalDate currentDate = currentMonth.atDay(day);
 
             //position the number correctly in the center of the grid position
-            Label dayLabel = new Label(String.valueOf(day));
-            dayLabel.setFont(new Font("Lucida Sans Unicode", 14));
-            dayLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            dayLabel.setAlignment(Pos.CENTER);
+            Label dayLabel = createDayLabel(day);
 
             //style setup for calendar date highlight on click
-            String highlightColor = "#bbbbbb";
-            if (user != null) {
-                List<Event> eventsForDay = eventDAO.fetchEventsDay(user, currentDate);
-                if (!eventsForDay.isEmpty()) {
-                    int importance = eventsForDay.stream().mapToInt(Event::getImportance).max().orElse(1);
-                    highlightColor = switch (importance) {
-                        case 1 -> "#90caf9"; // darker blue
-                        case 2 -> "#81c784"; // darker green
-                        case 3 -> "#fff176"; // darker yellow
-                        case 4 -> "#ba68c8"; // darker purple
-                        case 5 -> "#ef9a9a"; // darker red
-                        default -> "#bbbbbb";
-                    };
-                }
-            }
+            Region highlight = createHighlightRegion(currentDate);
 
-            Region highlight = new Region();
-            highlight.setStyle("-fx-background-color: " + highlightColor + "; -fx-background-radius: 50%;");
-            highlight.setMinSize(46, 46);
-            highlight.setPrefSize(46, 46);
-            highlight.setMaxSize(46, 46);
-            highlight.setVisible(false);
+            Region eventHighlight = createEventHighlight(currentDate);
 
-            Region eventHighlight = new Region();
-            eventHighlight.setMinSize(46, 46);
-            eventHighlight.setPrefSize(46, 46);
-            eventHighlight.setMaxSize(46, 46);
-            eventHighlight.setVisible(false);
+            StackPane cell = createCell(day, eventHighlight, highlight, dayLabel);
 
-            //check dates for events
-            if (user != null) {
-                List<Event> eventsForDay = eventDAO.fetchEventsDay(user, currentDate);
-                if (!eventsForDay.isEmpty()) {
-                    int highestImportance = eventsForDay.stream()
-                            .mapToInt(Event::getImportance)
-                            .max()
-                            .orElse(1);
-                    System.out.println("Events found for: " + currentDate + " Highest importance: " + highestImportance);
-                    eventHighlight.setVisible(true);
-                    eventHighlight.setStyle("-fx-background-color:" + getImportanceColour(highestImportance) + "; -fx-background-radius: 50%;");
-                }
-            }
-
-            StackPane cell = new StackPane(eventHighlight, highlight, dayLabel);
-            cell.setAlignment(Pos.CENTER);
-            cell.setPrefSize(80, 60);
-            cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            GridPane.setHgrow(cell, Priority.ALWAYS);
-            GridPane.setVgrow(cell, Priority.ALWAYS);
-
-            final int currentDay = day;
-            cell.setOnMouseClicked(e -> onDateClicked(cell, currentMonth.atDay(currentDay)));
             calendarGrid.add(cell, column, row);
         }
+    }
+
+    /**
+     * @param day An integer representing the day of the month corresponding to the calendar cell
+     * @param eventHighlight The highlight region that will correspond to the highest importance event on that day of the month
+     * @param highlight The highlight region that will be displayed when this cell is clicked
+     * @param dayLabel The label for the day of the month
+     * @return A stackpane representing a single calendar day
+     */
+    private StackPane createCell(int day, Region eventHighlight, Region highlight, Label dayLabel){
+        StackPane cell = new StackPane(eventHighlight, highlight, dayLabel);
+        cell.setAlignment(Pos.CENTER);
+        cell.setPrefSize(80, 60);
+        cell.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        GridPane.setHgrow(cell, Priority.ALWAYS);
+        GridPane.setVgrow(cell, Priority.ALWAYS);
+
+        cell.setOnMouseClicked(e -> onDateClicked(cell, currentMonth.atDay(day)));
+        return cell;
+    }
+
+    /**
+     * @param day The int representation of the day of the month
+     * @return a label with a number corresponding to the day of the month
+     */
+    private Label createDayLabel(int day){
+        Label dayLabel = new Label(String.valueOf(day));
+        dayLabel.setFont(new Font("Lucida Sans Unicode", 14));
+        dayLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        dayLabel.setAlignment(Pos.CENTER);
+        return dayLabel;
+    }
+
+    /**
+     * @param date The date to check for events. An event on this date determines what colour it will be highlighted.
+     * @return  The appropriately coloured region
+     */
+    private Region createHighlightRegion(LocalDate date){
+        Region highlight = new Region();
+        String highlightColor = "#bbbbbb";
+        if (user != null) {
+            List<Event> eventsForDay = eventDAO.fetchEventsDay(user, date);
+            if (!eventsForDay.isEmpty()) {
+                int importance = eventsForDay.stream().mapToInt(Event::getImportance).max().orElse(1);
+                highlightColor = getImportanceColour(importance);
+            }
+        }
+        highlight.setStyle("-fx-background-color: " + highlightColor + "; -fx-background-radius: 50%;");
+        highlight.setMinSize(46, 46);
+        highlight.setPrefSize(46, 46);
+        highlight.setMaxSize(46, 46);
+        highlight.setVisible(false);
+
+        return highlight;
+    }
+
+    /**
+     * @param date The date to check for events. An event on this date determines what colour it will be highlighted.
+     * @return The appropriately coloured region
+     */
+    private Region createEventHighlight(LocalDate date){
+        Region eventHighlight = new Region();
+        eventHighlight.setMinSize(46, 46);
+        eventHighlight.setPrefSize(46, 46);
+        eventHighlight.setMaxSize(46, 46);
+        eventHighlight.setVisible(false);
+
+        //check dates for events
+        if (user != null) {
+            List<Event> eventsForDay = eventDAO.fetchEventsDay(user, date);
+            if (!eventsForDay.isEmpty()) {
+                int highestImportance = eventsForDay.stream()
+                        .mapToInt(Event::getImportance)
+                        .max()
+                        .orElse(1);
+                eventHighlight.setVisible(true);
+                eventHighlight.setStyle("-fx-background-color:" + getImportanceColour(highestImportance) + "; -fx-background-radius: 50%;");
+            }
+        }
+        return eventHighlight;
     }
 
     /**
@@ -215,24 +245,22 @@ public class CalendarMainController {
     }
 
     /**
-     * Loads the default sidebarcontroller on calendar launch and as
-     * a fallback for most other sidebarpanes.
+     * Loads the default sidebar controller on calendar launch and as
+     * a fallback for most other sidebar panes.
      */
     public void defaultSidebar() {
-        System.out.println("Running defaultSidebar");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fortune_cookies_app/default-sidebar-view.fxml"));
             VBox sidebar = loader.load();
             DefaultSidebarController controller = loader.getController();
             sidebarPane.getChildren().setAll(sidebar);
-            System.out.println("DefaultSidebarController loaded successfully");
 
             javafx.application.Platform.runLater(() ->{
                 controller.setUser(user);
                 controller.setCurrentMonth(currentMonth);
             });
         } catch (IOException e){
-            e.printStackTrace();
+            System.err.println("I/O Error occurred: " + e.getMessage());
         }
     }
 
@@ -252,7 +280,6 @@ public class CalendarMainController {
         if (selectedCell == cell){
             selectedCell.getChildren().get(1).setVisible(false);
             selectedCell = null;
-            selectedDate = null;
             defaultSidebar();
             return;
         }
@@ -260,7 +287,6 @@ public class CalendarMainController {
             selectedCell.getChildren().get(1).setVisible(false);
         }
         selectedCell = cell;
-        selectedDate = date;
         cell.getChildren().get(1).setVisible(true);
 
         sidebarPane.getChildren().clear();
@@ -274,8 +300,8 @@ public class CalendarMainController {
                 controller.setDate(date);
                 controller.setCalendarController(this);
                 sidebarPane.getChildren().setAll(addEventPane);
-            } catch (IOException e){
-                e.printStackTrace();
+            } catch (Exception e){
+                System.err.println("An error occurred: " + e.getMessage());
             }
         } else {
             try {
@@ -286,12 +312,10 @@ public class CalendarMainController {
                 controller.setDate(date);
                 controller.setCalendarController(this);
                 sidebarPane.getChildren().setAll(dateEventsPane);
-            } catch (IOException e){
-                e.printStackTrace();
+            } catch (Exception e){
+                System.err.println("An error occurred: " + e.getMessage());
             }
         }
-
-
     }
 
     /**

@@ -128,9 +128,6 @@ public class DefaultSidebarController {
      * as additional information including the importance colour.
      */
     public void loadEvents(){
-        System.out.println("Loading events into default sidebar...");
-        System.out.println("User = " + (user != null ? user.getId() : "null"));
-        System.out.println("Month = " + (currentMonth != null ? currentMonth.toString() : "null"));
         if (user == null || currentMonth ==null)
             return;
         eventsList.getChildren().clear();
@@ -139,13 +136,7 @@ public class DefaultSidebarController {
         for (Event event: events) {
             LocalDate eventDate = event.getDate();
             YearMonth eventMonth = YearMonth.from(eventDate);
-            System.out.println("Comparing eventMonth=" + eventMonth + " to currentMonth=" + currentMonth);
 
-            if (eventMonth.equals(currentMonth)) {
-                System.out.println("Matched! Adding: " + event.getEventName());
-            } else {
-                System.out.println("Skipped event: " + event.getEventName());
-            }
             if(eventMonth.equals(currentMonth)) {
                 HBox eventItem = new HBox(8);
                 eventItem.setPrefHeight(24);
@@ -185,16 +176,14 @@ public class DefaultSidebarController {
      * <p>
      * The prompt instructs the AI to generate a short, uplifting daily message for the next event
      * without any follow-up questions or multiple options.
-     * </p>>
+     * </p>
      */
     private void loadAIDailyMessage() {
         if (sessionDailyMessage != null) {
             aiDailyMessage.setText(sessionDailyMessage);
-            System.out.println("Using cached static message.");
             return;
         }
 
-        System.out.println("Generating new AI daily message...");
         LocalDate today = LocalDate.now();
 
         eventDAO.fetchEvents(user).stream()
@@ -214,10 +203,7 @@ public class DefaultSidebarController {
                                 ? response.getResponse()
                                 : "AI returned no message.";
 
-                        Platform.runLater(() -> {
-                            aiDailyMessage.setText(sessionDailyMessage);
-                            System.out.println("Generated and cached AI message.");
-                        });
+                        Platform.runLater(() -> aiDailyMessage.setText(sessionDailyMessage));
                     });
                 });
     }
@@ -234,11 +220,9 @@ public class DefaultSidebarController {
     private void loadAIStudyTips() {
         if (sessionStudyTips != null) {
             aiStudyTips.setText(sessionStudyTips);
-            System.out.println("Using cached study tips.");
             return;
         }
 
-        System.out.println("Generating new AI study tips...");
         String prompt = "Generate a list of 5 personal study tips for a student who is studying for exams. Don't ask questions, just give me the tips.";
         aiStudyTips.setText("Generating personal study tips...!");
 
@@ -247,10 +231,7 @@ public class DefaultSidebarController {
                     ? response.getResponse()
                     : "AI returned no message.";
 
-            Platform.runLater(() -> {
-                aiStudyTips.setText(sessionStudyTips);
-                System.out.println("Generated and cached study tips.");
-            });
+            Platform.runLater(() -> aiStudyTips.setText(sessionStudyTips));
         });
     }
 
@@ -274,7 +255,7 @@ public class DefaultSidebarController {
      * - The new AIMessage is saved in the persistent storage if it doesn't already exist.
      */
     public void onSaveMessageClick() {
-        AIMessage newMessage = new AIMessage(user.getId(), currentMessage);
+        AIMessage newMessage = new AIMessage(user.getId(), sessionDailyMessage);
         MessageDAO.saveMessage(newMessage);
     }
 }

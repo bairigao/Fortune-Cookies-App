@@ -10,5 +10,5 @@ public interface ResponseListener {
      *
      * @param response the response object containing information returned by the Ollama API
      */
-    public void onResponseReceived(OllamaResponse response);
+    void onResponseReceived(OllamaResponse response);
 }

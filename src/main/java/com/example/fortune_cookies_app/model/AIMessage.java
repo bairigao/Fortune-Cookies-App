@@ -7,8 +7,8 @@ package com.example.fortune_cookies_app.model;
  */
 public class AIMessage {
     private int ID;
-    private int userID;
-    private String message;
+    private final int userID;
+    private final String message;
 
     /**
      * Constructs an AIMessage instance with the specified user ID and message content.

@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,9 +23,6 @@ public class DateWithEventsController {
      * the DateWithEvents pane, including setting the selected date,
      * initializing UI components, and handling event-related operations.
      */
-    public DateWithEventsController() {
-        System.out.println("DateWithEventsController CONSTRUCTOR called");
-    }
     @FXML private VBox eventEntries;
     @FXML private Button addEventButton;
 
@@ -70,7 +66,6 @@ public class DateWithEventsController {
     @FXML
     public void initialize() {
         addEventButton.setOnAction(e -> loadAddEventPane());
-        System.out.println("DateWithEventsController INITIALIZED");
     }
 
     /**
@@ -104,24 +99,14 @@ public class DateWithEventsController {
             Button deleteButton = new Button("Delete");
             editButton.setOnAction(e -> loadEditEventPane(event));
             deleteButton.setOnAction(e -> {
-                 boolean confirm = true;
-                if (confirm){
-                    eventDAO.deleteEvent(event);
-                    calendarController.populateCalendar();
-                    calendarController.defaultSidebar();
-                }
+                eventDAO.deleteEvent(event);
+                calendarController.populateCalendar();
+                calendarController.defaultSidebar();
             });
-
             buttonRow.getChildren().addAll(editButton, deleteButton);
             eventBox.getChildren().addAll(titleRow, descriptionLabel,buttonRow);
             eventEntries.getChildren().add(eventBox);
-
-            //debugging info
-            System.out.println("Event found: " + event.getEventName());
-
         }
-        System.out.println("Loading events for date: " + selectedDate);
-        System.out.println("User ID: " + (user != null ? user.getId() : "null"));
     }
 
     /**
@@ -137,8 +122,8 @@ public class DateWithEventsController {
             controller.setUser(user);
             controller.setCalendarController(calendarController);
             calendarController.sidebarAccess(addEventPane);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 
@@ -155,8 +140,8 @@ public class DateWithEventsController {
             controller.setCalendarController(calendarController);
             calendarController.sidebarAccess(editEventPane);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 

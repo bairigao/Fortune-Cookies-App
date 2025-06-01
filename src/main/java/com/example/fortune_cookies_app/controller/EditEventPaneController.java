@@ -130,7 +130,6 @@ public class EditEventPaneController{
         event.setEventDescription(description);
         event.setImportance(selectedImportance);
         eventDAO.updateEvent(event);
-        System.out.println("Event Updated");
 
         if (calendarController != null) {
             calendarController.populateCalendar();
@@ -143,7 +142,6 @@ public class EditEventPaneController{
             return;
         }
         eventDAO.deleteEvent(event);
-        System.out.println("Event deleted");
 
         if (calendarController != null) {
             calendarController.populateCalendar();

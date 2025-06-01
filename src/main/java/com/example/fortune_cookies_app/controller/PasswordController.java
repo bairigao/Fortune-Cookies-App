@@ -96,7 +96,7 @@ public class PasswordController {
 
         userDAO.resetPassword(currentUser, newPwd);
         currentUser.setPassword(newPwd);
-        showSuccess("Password successfully changed!");
+        showSuccess();
     }
 
     /**
@@ -112,12 +112,10 @@ public class PasswordController {
 
     /**
      * Displays a success message in green on the feedback label.
-     *
-     * @param message the success message to display
      */
-    private void showSuccess(String message) {
+    private void showSuccess() {
         feedbackLabel.setTextFill(Color.GREEN);
-        feedbackLabel.setText(message);
+        feedbackLabel.setText("Password successfully changed!");
         feedbackLabel.setVisible(true);
     }
 

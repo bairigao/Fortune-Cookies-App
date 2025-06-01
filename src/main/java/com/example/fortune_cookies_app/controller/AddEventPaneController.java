@@ -179,19 +179,18 @@ public class AddEventPaneController {
      */
     private void createEvent(){
         if (selectedDate == null || user == null){
-            System.out.println("Error-Date/User");
+            System.err.println("Error-Date/User");
             return;
         }
         String title = titleField.getText();
         String description = descriptionArea.getText();
         int importance = selectedImportance;
         if (title.isEmpty()){
-            System.out.println("Title Required");
+            System.err.println("Title Required");
             return;
         }
         Event newEvent = new Event(selectedDate, title, description, importance, user.getId());
         eventDAO.createEvent(newEvent);
-        System.out.println("Event Created");
         if (calendarController !=null) {
             calendarController.populateCalendar();
             calendarController.defaultSidebar();

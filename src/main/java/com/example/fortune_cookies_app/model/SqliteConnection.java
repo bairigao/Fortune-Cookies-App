@@ -15,7 +15,7 @@ public class SqliteConnection {
         try {
             instance = DriverManager.getConnection(url);
         } catch (SQLException sqlEx) {
-            System.err.println(sqlEx);
+            System.err.println(sqlEx.getMessage());
         }
     }
 
