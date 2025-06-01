@@ -20,7 +20,7 @@ public class SqliteConnection {
     }
 
     /**
-     * @return A connection instance with the databse
+     * @return A connection instance with the database
      */
     public static Connection getInstance() {
         if (instance == null) {
