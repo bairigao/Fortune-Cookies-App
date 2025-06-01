@@ -9,14 +9,13 @@ import java.util.List;
  * It provides methods to save, delete, and retrieve AI messages. The class also ensures that the
  * necessary database table is created if it does not already exist upon initialization.
  */
-public class AIMessageDAO {
-    private final Connection connection;
+public class AIMessageDAO extends AbstractDAO {
 
     /**
      * Creates a connection with the database and initialises the users table if it does not exist
      */
     public AIMessageDAO() {
-        this.connection = SqliteConnection.getInstance();
+        super();
         createTable();
     }
 
@@ -24,7 +23,8 @@ public class AIMessageDAO {
     /**
      * Initialises table within the database - only called within constructor.
      */
-    private void createTable() {
+    @Override
+    protected void createTable() {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS messages ("
@@ -36,7 +36,7 @@ public class AIMessageDAO {
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred creating table: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred creating AIMessage table: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 

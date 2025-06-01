@@ -6,14 +6,13 @@ import java.time.LocalDate;
 /**
  * A class for interacting with the User table in the database
  */
-public class UserDAO implements IUserDAO {
-    private final Connection connection;
+public class UserDAO extends AbstractDAO {
 
     /**
      * Creates a connection with the database and initialises the users table if it does not exist
      */
     public UserDAO() {
-        this.connection = SqliteConnection.getInstance();
+        super();
         createTable();
     }
 
@@ -21,7 +20,8 @@ public class UserDAO implements IUserDAO {
     /**
      * Initialises table within the database - only called within constructor.
      */
-    private void createTable() {
+    @Override
+    protected void createTable() {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS users ("
@@ -37,7 +37,7 @@ public class UserDAO implements IUserDAO {
                     + ")";
             statement.execute(query);
         } catch (Exception e) {
-            System.err.println("Unexpected error occurred creating table: " + e.getMessage());
+            System.err.println("Unexpected error occurred creating user table: " + e.getMessage());
         }
     }
 
@@ -47,7 +47,6 @@ public class UserDAO implements IUserDAO {
      *
      * @param user User object containing all required user information to be stored
      */
-    @Override
     public void createUser(User user) {
         String query = "INSERT INTO users (firstName, lastName, email, password, lastLogin, loginStreak, secureQuestion, secureAnswer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -79,7 +78,6 @@ public class UserDAO implements IUserDAO {
      * @param password Password to verify user's identity
      * @return User object if authentication is successful, null otherwise
      */
-    @Override
     public User login(String email, String password) {
         String query = "SELECT * FROM users WHERE email = ? AND password = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -117,7 +115,6 @@ public class UserDAO implements IUserDAO {
      * @param currentPassword User's current password - must match password in database
      * @param newPassword     The user's new password
      */
-    @Override
     public void updatePassword(User user, String currentPassword, String newPassword) {
         String query = "UPDATE users SET password = ? WHERE id = ?";
         if (currentPassword.equals(newPassword))
@@ -141,7 +138,6 @@ public class UserDAO implements IUserDAO {
      *
      * @param user The user whose login streak and last login date need to be updated
      */
-    @Override
     public void updateStreak(User user) {
         String query = "UPDATE users SET loginStreak = ?, lastLogin = ? WHERE id = ?";
         try {
@@ -155,7 +151,6 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    @Override
     public void resetPassword(User user, String newPassword) {
         String query = "UPDATE users SET password = ? WHERE email = ?";
         try {
@@ -176,7 +171,6 @@ public class UserDAO implements IUserDAO {
      * @param email The email address to check
      * @return true if the email already exists in the database, false otherwise
      */
-    @Override
     public boolean checkEmail(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         try {
@@ -191,7 +185,6 @@ public class UserDAO implements IUserDAO {
         return false;
     }
 
-    @Override
     public User findByEmail(String email) {
         String query = "SELECT * FROM users WHERE email = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
