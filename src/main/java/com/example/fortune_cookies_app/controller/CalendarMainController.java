@@ -184,7 +184,7 @@ public class CalendarMainController {
             List<Event> eventsForDay = eventDAO.fetchEventsDay(user, date);
             if (!eventsForDay.isEmpty()) {
                 int importance = eventsForDay.stream().mapToInt(Event::getImportance).max().orElse(1);
-                highlightColor = getImportanceColour(importance);
+                highlightColor = getClickedImportanceColour(importance);
             }
         }
         highlight.setStyle("-fx-background-color: " + highlightColor + "; -fx-background-radius: 50%;");
@@ -232,6 +232,7 @@ public class CalendarMainController {
      *              4 - soft purple, 5 - soft red. Any other level defaults to light grey.
      * @return a string representing the hex color code associated with the given importance level.
      */
+
     //get importance colours
     private String getImportanceColour(int level){
         return switch (level){
@@ -240,6 +241,17 @@ public class CalendarMainController {
             case 3 -> "#fff9c4"; // soft yellow
             case 4 -> "#e1bee7"; // soft purple
             case 5 -> "#ffcdd2"; // soft red
+            default -> "lightgrey";
+        };
+    }
+    //get importance colours
+    private String getClickedImportanceColour(int level){
+        return switch (level){
+            case 1 -> "#90caf9"; // pastel blue
+            case 2 -> "#81c784"; // pastel green
+            case 3 -> "#fff176"; // soft yellow
+            case 4 -> "#ba68c8"; // soft purple
+            case 5 -> "#ef9a9a"; // soft red
             default -> "lightgrey";
         };
     }
