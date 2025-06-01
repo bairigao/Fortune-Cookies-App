@@ -65,7 +65,6 @@ public class TrophyController implements Initializable {
             }
         } catch (Exception e) {
             System.err.println("Error loading trophy images: " + e.getMessage());
-            e.printStackTrace();
         }
 
         // Initialize trophy arrays

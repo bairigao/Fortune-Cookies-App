@@ -18,47 +18,20 @@ import javafx.scene.control.TextArea;
  */
 public class AddEventPane extends VBox{
     /**
-     * Interface to facilitate communication between the AddEventPane and its parent component.
-     *
-     * The AddEventCommunication interface defines methods to handle the creation of events
-     * and navigating back from the AddEventPane. It is implemented by parent components
-     * to enable a two-way interaction for managing the addition of events and user navigation.
-     */
-    public interface AddEventCommunication {
-        /**
-         * Handles the event creation process when a new event is created within the system.
-         *
-         * @param eventData The details of the event to be created, encapsulated in an EventData object.
-         *                  Includes attributes such as the event's date, importance level, title, and description.
-         */
-        void onEventCreated(EventData eventData);
-        /**
-         * Handles the behavior when the user navigates back from the current pane.
-         *
-         * This method is typically invoked to transition the user to a previous
-         * state or pane in the application, such as closing the current form or
-         * returning to the parent view container. Implementations of this method
-         * define the specific back navigation logic, such as clearing temporary data
-         * or updating the UI upon returning.
-         */
-        void onBack();
-    }
-
-    /**
      * Constructs the AddEventPane UI component for creating an event.
      * The pane includes fields for event details, a selection for event importance,
      * and buttons for creating or canceling the event.
      *
      * @param selectedDate The date selected in the calendar for the event to be created.
-     * @param communication The communication interface for handling event creation
+//     * @param communication The communication interface for handling event creation
      *                       and navigation back to the previous UI.
      */
-    public AddEventPane(LocalDate selectedDate, AddEventCommunication communication){
+    public AddEventPane(LocalDate selectedDate){
         setPadding(new Insets(20));
         setSpacing(15);
         setAlignment(Pos.TOP_LEFT);
 
-        //addevent and date selected on the calendar
+        //add event and date selected on the calendar
         Label title =  new Label("Add Event - "+ selectedDate);
         title.setFont(new Font("Lucida Sans Unicode", 16));
 
@@ -72,25 +45,7 @@ public class AddEventPane extends VBox{
         // set a default level (always has to have a selection
         final int[] selectedImportance = {3};
         for(int i = 1; i <= 5; i++) {
-            int level = i;
-            Region circle = new Region();
-            circle.setMinSize(20, 20);
-            circle.setPrefSize(24, 24);
-            circle.setMaxSize(24, 24);
-            circle.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%; -fx-cursor: hand;");
-
-            //click implementation, change colour update int, revert colour
-            circle.setOnMouseClicked(e -> {
-                selectedImportance[0]= level;
-                for (int j = 0; j < importanceCircles.getChildren().size(); j++){
-                    Region c = (Region) importanceCircles.getChildren().get(j);
-                    if (j == level - 1) {
-                        c.setStyle("-fx-background-color: " + getImportanceColor(level) + "; -fx-background-radius: 50%;");
-                    } else {
-                        c.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%;");
-                    }
-                }
-            });
+            Region circle = getRegion(i, selectedImportance, importanceCircles);
             importanceCircles.getChildren().add(circle);
         }
         //Title creation
@@ -114,21 +69,6 @@ public class AddEventPane extends VBox{
         HBox bottomBar = new HBox(createEventButton);
         bottomBar.setAlignment(Pos.CENTER_LEFT);
 
-        // this is a temporary internal data hold for creating an event.
-        //this will later be changed to a push pull request from the database. or some such
-        createEventButton.setOnAction(e -> {
-            EventData event = new EventData(
-                    selectedDate,
-                    selectedImportance[0],
-                    titleField.getText(),
-                    descriptionArea.getText()
-            );
-            communication.onEventCreated(event);
-        });
-
-        //functionality for the back button
-        returnButton.setOnAction(e -> communication.onBack());
-
         // Add all UI components to the layout
         getChildren().addAll(
                 topBar,
@@ -140,6 +80,28 @@ public class AddEventPane extends VBox{
         );
     }
 
+    private Region getRegion(int i, int[] selectedImportance, HBox importanceCircles) {
+        Region circle = new Region();
+        circle.setMinSize(20, 20);
+        circle.setPrefSize(24, 24);
+        circle.setMaxSize(24, 24);
+        circle.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%; -fx-cursor: hand;");
+
+        //click implementation, change colour update int, revert colour
+        circle.setOnMouseClicked(e -> {
+            selectedImportance[0]= i;
+            for (int j = 0; j < importanceCircles.getChildren().size(); j++){
+                Region c = (Region) importanceCircles.getChildren().get(j);
+                if (j == i - 1) {
+                    c.setStyle("-fx-background-color: " + getImportanceColor(i) + "; -fx-background-radius: 50%;");
+                } else {
+                    c.setStyle("-fx-background-color: lightgrey; -fx-background-radius: 50%;");
+                }
+            }
+        });
+        return circle;
+    }
+
     private String getImportanceColor(int level) {
         return switch (level) {
             case 1 -> "#bbdefb"; // pastel blue
@@ -149,58 +111,5 @@ public class AddEventPane extends VBox{
             case 5 -> "#ffcdd2"; // soft red
             default -> "lightgrey";
         };
-    }
-
-    /**
-     * A static nested class to represent the details of an event.
-     * This class is utilized to store and manage information about events,
-     * including their date, importance level, title, and description.
-     * It is designed to work in tandem with a database for persistent storage
-     * and retrieval of event-related data, which will be accessible by UI or
-     * calendar components.
-     */
-    public static class EventData {
-        /**
-         * Represents the date of the event.
-         * This date indicates when the event is scheduled to occur.
-         * It is immutable and assigned during the instantiation of the EventData object.
-         */
-        public final LocalDate date;
-        /**
-         * Represents the importance level of an event.
-         * The value indicates the relative significance or priority of the event.
-         * It can be used to sort, filter, or categorize events based on their importance.
-         */
-        public final int importance;
-        /**
-         * Represents the title of an event.
-         * This field contains a brief and descriptive label or name for the event.
-         * It is intended to provide a quick reference or identifier for the event
-         * and is allocated during the instantiation of the EventData object.
-         */
-        public final String title;
-        /**
-         * Represents a detailed description of an event.
-         * This field provides additional contextual or explanatory
-         * information about the event, complementing its title.
-         * It is typically used to store extended notes or remarks
-         * about the event.
-         */
-        public final String description;
-
-        /**
-         * Constructs an EventData instance to store the details of an event.
-         *
-         * @param date The date of the event.
-         * @param importance The importance level of the event.
-         * @param title The title of the event.
-         * @param description A description providing additional details about the event.
-         */
-        public EventData(LocalDate date, int importance, String title, String description) {
-            this.date = date;
-            this.importance = importance;
-            this.title = title;
-            this.description = description;
-        }
     }
 }

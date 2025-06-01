@@ -93,8 +93,6 @@ public class LoginController implements Initializable {
         User user = userDAO.login(email, password);
         if (user != null) {
             user.trackLogin(); //update streak and lastLogin
-            System.out.println("Updating streak: " + user.getLoginStreak());
-            System.out.println("Updating lastLogin: " + user.getLastLogin());
             userDAO.updateStreak(user);  // save changes to db
             checkNewTrophies(user);
             toCalendar(user);
@@ -235,9 +233,6 @@ public class LoginController implements Initializable {
      * Navigates to the calendar view scene.
      * This method loads the calendar-view.fxml file, sets up the scene with a CalendarMainController,
      * and transitions the primary stage to display the calendar.
-     *
-     * @param user The user object that needs to be passed to the calendar
-     * @throws IOException If the FXML file cannot be loaded
      * @param user User that is passed to the calendar controller - used to populate the calendar &amp; create new events
      * @throws IOException if the FXML file cannot be loaded
      */
@@ -330,7 +325,7 @@ public class LoginController implements Initializable {
             try {
                 onLoginClick();
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("An error occurred: " + e.getMessage());
             }
         }
     }

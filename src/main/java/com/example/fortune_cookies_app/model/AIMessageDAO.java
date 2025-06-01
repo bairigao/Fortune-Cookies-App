@@ -51,7 +51,7 @@ public class AIMessageDAO {
      */
     public void saveMessage(AIMessage message) {
         if (checkMessage(message)) {
-            System.out.println("You've already saved that message.");
+            System.err.println("You've already saved that message.");
             return;
         }
         String query = "INSERT INTO messages (user, message) VALUES (?, ?)";

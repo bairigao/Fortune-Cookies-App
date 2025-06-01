@@ -83,8 +83,8 @@ public class OllamaResponseFetcher {
      * @return OllamaResponse
      */
     private OllamaResponse fetchOllamaResponse(String simpleJsonObj) {
-        HttpURLConnection conn = null;
-        String output = null;
+        HttpURLConnection conn;
+        String output;
         OutputStream os = null;
         OllamaResponse response = null;
 
@@ -116,7 +116,9 @@ public class OllamaResponseFetcher {
             if(os != null) {
                 try {
                     os.close();
-                } catch(Exception ex) {}
+                } catch(Exception ex) {
+                    System.err.println("An error occurred: " + ex.getMessage());
+                }
             }
         }
         return response;
@@ -148,12 +150,10 @@ public class OllamaResponseFetcher {
      * @param responseListener Listener to handle the response
      */
     public void fetchAsynchronousOllamaResponse(String model, String prompt, ResponseListener responseListener) {
-        Thread thread = new Thread(){
-            public void run(){
-                OllamaResponse response = fetchOllamaResponse(model, prompt);
-                responseListener.onResponseReceived(response);
-            }
-        };
+        Thread thread = new Thread(() -> {
+            OllamaResponse response = fetchOllamaResponse(model, prompt);
+            responseListener.onResponseReceived(response);
+        });
         thread.start();
     }
 
@@ -183,9 +183,15 @@ public class OllamaResponseFetcher {
         catch(Exception ex) {
             logger.log(Level.WARNING,"Error reading response",ex);
         } finally {
-            if(is != null)try {is.close();}catch(Exception ex) {}
-            if(isr != null)try {isr.close();}catch(Exception ex) {}
-            if(br != null)try {br.close();}catch(Exception ex) {}
+            if(is != null)try {is.close();}catch(Exception ex) {
+                System.err.println("An error occurred: " + ex.getMessage());
+            }
+            if(isr != null)try {isr.close();}catch(Exception ex) {
+                System.err.println("An error occurred: " + ex.getMessage());
+            }
+            if(br != null)try {br.close();}catch(Exception ex) {
+                System.err.println("An error occurred: " + ex.getMessage());
+            }
         }
 
         return sb.toString();
@@ -207,7 +213,7 @@ public class OllamaResponseFetcher {
                 Gson gson = new Gson();
                 JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
                 JsonArray models = jsonObject.getAsJsonArray("models");
-                if (models != null && models.size() > 0) {
+                if (models != null && !models.isEmpty()) {
                     return models.get(0).getAsJsonObject().get("name").getAsString();
                 }
             }

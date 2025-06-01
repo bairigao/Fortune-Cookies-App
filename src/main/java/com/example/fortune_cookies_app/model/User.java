@@ -13,8 +13,8 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private String securityQuestion;
-    private String securityAnswer;
+    private final String securityQuestion;
+    private final String securityAnswer;
     private LocalDate lastLogin;
     private int id;
     private int loginStreak;

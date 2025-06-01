@@ -8,7 +8,7 @@ import java.util.List;
  * A class for interacting with the Event table in the database
  */
 public class EventDAO {
-    private Connection connection = null;
+    private final Connection connection;
 
     /**
      * Creates a connection with the database and initialises the events table if it does not exist
