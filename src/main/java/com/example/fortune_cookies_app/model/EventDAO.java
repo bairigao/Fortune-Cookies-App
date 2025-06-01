@@ -7,14 +7,13 @@ import java.util.List;
 /**
  * A class for interacting with the Event table in the database
  */
-public class EventDAO {
-    private final Connection connection;
+public class EventDAO extends AbstractDAO {
 
     /**
      * Creates a connection with the database and initialises the events table if it does not exist
      */
     public EventDAO() {
-        this.connection = SqliteConnection.getInstance();
+        super();
         createTable();
     }
 
@@ -33,7 +32,8 @@ public class EventDAO {
      *
      * If the table creation fails due to a SQLException, an error message is printed to the standard error stream.
      */
-    private void createTable() {
+    @Override
+    protected void createTable() {
         try {
             Statement statement = connection.createStatement();
             String query = "CREATE TABLE IF NOT EXISTS events ("
@@ -47,7 +47,7 @@ public class EventDAO {
                     + ")";
             statement.execute(query);
         } catch (SQLException e) {
-            System.err.println("Unexpected error occurred creating table: " + e.getMessage()); // Should never happen with current implementation
+            System.err.println("Unexpected error occurred creating event table: " + e.getMessage()); // Should never happen with current implementation
         }
     }
 
