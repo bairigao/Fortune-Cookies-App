@@ -96,13 +96,14 @@ public class EventDAO extends AbstractDAO {
      * @param event Event to be updated
      */
     public void updateEvent(Event event) {
-        String query = "UPDATE events SET date = ?, eventName = ?, eventDescription = ? WHERE id = ?";
+        String query = "UPDATE events SET date = ?, eventName = ?, eventDescription = ?, importance = ? WHERE id = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, event.getDate().toString());
             statement.setString(2, event.getEventName());
             statement.setString(3, event.getEventDescription());
-            statement.setInt(4, event.getId());
+            statement.setInt(4, event.getImportance());
+            statement.setInt(5, event.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Unexpected error occurred updating event: " + e.getMessage()); // Should never happen with current implementation
